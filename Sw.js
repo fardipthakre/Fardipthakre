@@ -3,7 +3,6 @@ const CACHE_NAME = 'fardip-cache-v2';
 const urlsToCache = [
   './',
   './index.html',
-  './icon-192.png',
   'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap',
   'https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.12.0/math.min.js',
   'https://cdn.simpleicons.org/facebook',
@@ -11,8 +10,9 @@ const urlsToCache = [
   'https://cdn.simpleicons.org/youtube'
 ];
 
-// Install event – cache all essential files
+// Install event – cache all essential files and skip waiting
 self.addEventListener('install', event => {
+  self.skipWaiting(); // Activate immediately
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(urlsToCache))
@@ -27,18 +27,20 @@ self.addEventListener('fetch', event => {
   );
 });
 
-// Activate event – clean up old caches
+// Activate event – clean up old caches and claim clients
 self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (!cacheWhitelist.includes(cacheName)) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
+    Promise.all([
+      caches.keys().then(cacheNames => {
+        return Promise.all(
+          cacheNames.map(cacheName => {
+            if (!cacheName.includes(CACHE_NAME)) {
+              return caches.delete(cacheName);
+            }
+          })
+        );
+      }),
+      self.clients.claim() // Take control of all clients immediately
+    ])
   );
 });
