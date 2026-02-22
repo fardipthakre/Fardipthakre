@@ -17,16 +17,32 @@
     <style>
         *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
         :root{
-            --bg:#0a0e1a;--surface:#111827;--card:#151d2e;--card-alt:#1a2540;
-            --input:#0c1220;--border:#253352;--border-light:#2e4068;
-            --accent:#3b82f6;--accent-glow:rgba(59,130,246,.35);--accent-dim:#1e3a8a;
-            --gold:#f59e0b;--gold-dim:#92400e;
-            --teal:#14b8a6;--teal-dim:#0f766e;
-            --rose:#f43f5e;--rose-dim:#9f1239;
-            --text:#e2e8f0;--text-sec:#94a3b8;--text-dim:#64748b;
-            --white:#ffffff;--shadow:rgba(0,0,0,.5);
-            --success:#22c55e;--error:#ef4444;
-            --radius:18px;--radius-sm:12px;--radius-btn:14px;
+            --bg:#0a0e1a;
+            --surface:#111827;
+            --card:#151d2e;
+            --card-alt:#1a2540;
+            --input:#0c1220;
+            --border:#253352;
+            --border-light:#2e4068;
+            --accent:#3b82f6;
+            --accent-glow:rgba(59,130,246,.35);
+            --accent-dim:#1e3a8a;
+            --gold:#f59e0b;
+            --gold-dim:#92400e;
+            --teal:#14b8a6;
+            --teal-dim:#0f766e;
+            --rose:#f43f5e;
+            --rose-dim:#9f1239;
+            --text:#e2e8f0;
+            --text-sec:#94a3b8;
+            --text-dim:#64748b;
+            --white:#ffffff;
+            --shadow:rgba(0,0,0,.5);
+            --success:#22c55e;
+            --error:#ef4444;
+            --radius:18px;
+            --radius-sm:12px;
+            --radius-btn:14px;
         }
         html{font-size:16px}
         body{
@@ -52,7 +68,7 @@
             font-weight:800;
             letter-spacing:2px;
             color:var(--gold);
-            white-space: nowrap; /* force single line */
+            white-space: nowrap;
         }
         .brand span{
             color:var(--text);
@@ -148,7 +164,7 @@
         .calc-btn{ background:var(--card);border:1px solid var(--border); color:var(--text);font-size:1.25rem;font-weight:600; padding:16px 0;border-radius:var(--radius-btn);cursor:pointer; transition:.1s;text-align:center;user-select:none; font-family:'Inter',sans-serif; box-shadow:0 4px 0 rgba(0,0,0,.3); position:relative;overflow:hidden; }
         .calc-btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.3)}
         .calc-btn.fn{background:var(--card-alt);color:var(--gold);font-size:1rem}
-        .calc-btn.op{background:#1e3050;color:#fb923c}
+        .calc-btn.op{background:var(--accent-dim);color:var(--gold)}
         .calc-btn.eq{background:var(--accent);color:var(--white);font-weight:700}
         .calc-btn.ac{background:var(--rose-dim);color:var(--white)}
         .calc-btn.span2{grid-column:span 2}
@@ -237,6 +253,31 @@
             display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
         }
 
+        /* Install Banner */
+        .install-banner {
+            position: fixed; bottom: 80px; left: 16px; right: 16px;
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 16px;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 12px; box-shadow: 0 4px 12px var(--shadow);
+            z-index: 250; max-width: 400px; margin: 0 auto;
+            transform: translateY(200%); transition: transform 0.3s ease;
+        }
+        .install-banner.show { transform: translateY(0); }
+        .install-banner .logo { width: 40px; height: 40px; border-radius: 8px; }
+        .install-banner .text { flex: 1; }
+        .install-banner .title { font-weight: 700; color: var(--text); }
+        .install-banner .desc { font-size: 0.75rem; color: var(--text-sec); }
+        .install-banner .close {
+            background: none; border: none; color: var(--text-dim);
+            font-size: 1.2rem; cursor: pointer; padding: 4px;
+        }
+        .install-banner .install-btn {
+            background: var(--accent); color: white; border: none;
+            padding: 8px 16px; border-radius: 20px; font-weight: 600;
+            font-size: 0.8rem; cursor: pointer;
+        }
+
         /* Responsive */
         @media(max-width:380px){
             .calc-btn{padding:13px 0;font-size:1.1rem}
@@ -246,7 +287,7 @@
 </head>
 <body>
 
-<!-- HEADER with Hamburger (Brand: FARDIP THAKRE single line) -->
+<!-- HEADER -->
 <header class="header">
     <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
         <div class="brand">
@@ -258,7 +299,18 @@
     <div class="tagline">Smart Business Calculator & Utilities</div>
 </header>
 
-<!-- SIDE MENU (with History option) -->
+<!-- INSTALL BANNER (Popup) -->
+<div class="install-banner" id="installBanner">
+    <img src="icon-192.png" class="logo" alt="logo">
+    <div class="text">
+        <div class="title">FARDIP THAKRE Tools</div>
+        <div class="desc">Install app for quick access</div>
+    </div>
+    <button class="close" id="closeBanner">&times;</button>
+    <button class="install-btn" id="installBtn">Install</button>
+</div>
+
+<!-- SIDE MENU (with Install button) -->
 <div class="side-menu" id="sideMenu">
     <div class="side-menu-header">
         <span>MENU</span>
@@ -289,6 +341,7 @@
             </select>
         </div>
         <div class="menu-divider"></div>
+        <button class="menu-item" id="installMenuItem">📲 Install App</button>
         <button class="menu-item" id="contactBtn">📞 Contact Us</button>
         <button class="menu-item" id="rateBtn">⭐ Rate this App</button>
         <button class="menu-item" id="shareBtn">📤 Share App</button>
@@ -298,7 +351,7 @@
 <!-- MAIN CONTENT -->
 <div class="main">
 
-    <!-- ========== CALCULATOR PAGE ========== -->
+    <!-- CALCULATOR PAGE -->
     <div class="page active" id="page-calc">
         <div class="calc-display">
             <div class="calc-expr" id="calcExpr">0</div>
@@ -314,11 +367,11 @@
             <button class="calc-btn sci" data-v="tan(">tan</button>
             <button class="calc-btn sci" data-v="log(">log</button>
             <button class="calc-btn sci" data-v="ln(">ln</button>
-            <button class="calc-btn sci" data-v="sqrt(">&#8730;</button>
-            <button class="calc-btn sci" data-v="cbrt(">&#8731;</button>
+            <button class="calc-btn sci" data-v="sqrt(">√</button>
+            <button class="calc-btn sci" data-v="cbrt(">∛</button>
             <button class="calc-btn sci" data-v="^">x^y</button>
             <button class="calc-btn sci" data-v="!">n!</button>
-            <button class="calc-btn sci" data-v="pi">&#960;</button>
+            <button class="calc-btn sci" data-v="pi">π</button>
             <button class="calc-btn sci" data-v="e">e</button>
             <button class="calc-btn sci" data-v="abs(">|x|</button>
             <button class="calc-btn sci" data-v="(">(</button>
@@ -327,17 +380,17 @@
         </div>
         <div class="calc-grid" id="calcGrid">
             <button class="calc-btn ac" data-v="AC">AC</button>
-            <button class="calc-btn fn" data-v="⌫">&#9003;</button>
+            <button class="calc-btn fn" data-v="⌫">⌫</button>
             <button class="calc-btn fn" data-v="%">%</button>
-            <button class="calc-btn op" data-v="/">&#247;</button>
+            <button class="calc-btn op" data-v="/">÷</button>
             <button class="calc-btn" data-v="7">7</button>
             <button class="calc-btn" data-v="8">8</button>
             <button class="calc-btn" data-v="9">9</button>
-            <button class="calc-btn op" data-v="*">&#215;</button>
+            <button class="calc-btn op" data-v="*">×</button>
             <button class="calc-btn" data-v="4">4</button>
             <button class="calc-btn" data-v="5">5</button>
             <button class="calc-btn" data-v="6">6</button>
-            <button class="calc-btn op" data-v="-">&#8722;</button>
+            <button class="calc-btn op" data-v="-">−</button>
             <button class="calc-btn" data-v="1">1</button>
             <button class="calc-btn" data-v="2">2</button>
             <button class="calc-btn" data-v="3">3</button>
@@ -349,11 +402,11 @@
         </div>
     </div>
 
-    <!-- ========== UNIT CONVERTER PAGE ========== -->
+    <!-- UNIT CONVERTER PAGE -->
     <div class="page" id="page-convert">
         <div class="form-card">
             <div class="form-title">
-                <div class="icon" style="background:var(--accent-glow);color:var(--accent)">&#8644;</div>
+                <div class="icon" style="background:var(--accent-glow);color:var(--accent)">⇄</div>
                 Unit Converter
             </div>
             <div class="unit-pills" id="unitCatPills">
@@ -370,7 +423,7 @@
                     <div class="form-label">From</div>
                     <select class="form-select" id="convFrom"></select>
                 </div>
-                <div style="flex:0;padding-bottom:6px;color:var(--accent);font-size:1.2rem;align-self:flex-end">&#10132;</div>
+                <div style="flex:0;padding-bottom:6px;color:var(--accent);font-size:1.2rem;align-self:flex-end">→</div>
                 <div>
                     <div class="form-label">To</div>
                     <select class="form-select" id="convTo"></select>
@@ -385,11 +438,11 @@
         </div>
     </div>
 
-    <!-- ========== FOAM DENSITY PAGE ========== -->
+    <!-- FOAM DENSITY PAGE -->
     <div class="page" id="page-foam">
         <div class="form-card">
             <div class="form-title">
-                <div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">&#9679;</div>
+                <div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">●</div>
                 Foam Density Calculator
             </div>
             <div class="form-label">Foam Weight (grams)</div>
@@ -409,20 +462,20 @@
         </div>
         <div class="form-card">
             <div class="form-title">
-                <div class="icon" style="background:rgba(20,184,166,.2);color:var(--teal)">&#9670;</div>
+                <div class="icon" style="background:rgba(20,184,166,.2);color:var(--teal)">◆</div>
                 Quick Density Reference
             </div>
             <div style="font-size:.85rem;color:var(--text-sec);line-height:1.8">
-                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(37,51,82,.4)"><span>Soft Foam (Mattress)</span><span style="color:var(--teal)">16 - 24 kg/m&#179;</span></div>
-                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(37,51,82,.4)"><span>Medium Foam (Cushion)</span><span style="color:var(--gold)">24 - 35 kg/m&#179;</span></div>
-                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(37,51,82,.4)"><span>Firm Foam (Sofa)</span><span style="color:var(--accent)">35 - 50 kg/m&#179;</span></div>
-                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(37,51,82,.4)"><span>High Density (Auto)</span><span style="color:var(--rose)">50 - 80 kg/m&#179;</span></div>
-                <div style="display:flex;justify-content:space-between;padding:6px 0"><span>Rebonded Foam</span><span style="color:var(--success)">80 - 150 kg/m&#179;</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(37,51,82,.4)"><span>Soft Foam (Mattress)</span><span style="color:var(--teal)">16 - 24 kg/m³</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(37,51,82,.4)"><span>Medium Foam (Cushion)</span><span style="color:var(--gold)">24 - 35 kg/m³</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(37,51,82,.4)"><span>Firm Foam (Sofa)</span><span style="color:var(--accent)">35 - 50 kg/m³</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(37,51,82,.4)"><span>High Density (Auto)</span><span style="color:var(--rose)">50 - 80 kg/m³</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0"><span>Rebonded Foam</span><span style="color:var(--success)">80 - 150 kg/m³</span></div>
             </div>
         </div>
     </div>
 
-    <!-- ========== FOAM COMPARE PAGE ========== -->
+    <!-- FOAM COMPARE PAGE -->
     <div class="page" id="page-foam_compare">
         <div class="form-card">
             <div class="form-title">Foam Rate Comparison</div>
@@ -449,16 +502,16 @@
         </div>
     </div>
 
-    <!-- ========== FABRIC MASTER PAGE (with 3 calculators) ========== -->
+    <!-- FABRIC MASTER PAGE -->
     <div class="page" id="page-fabric">
         <!-- Fabric Table -->
         <div class="form-card">
             <div class="form-title">
-                <div class="icon" style="background:rgba(244,63,94,.2);color:var(--rose)">&#9733;</div>
+                <div class="icon" style="background:rgba(244,63,94,.2);color:var(--rose)">★</div>
                 Fabric Master
             </div>
             <div class="search-box">
-                <span class="search-icon">&#128269;</span>
+                <span class="search-icon">🔍</span>
                 <input type="text" id="fabricSearch" placeholder="Search fabric..." oninput="filterFabrics()">
             </div>
             <div style="overflow-x:auto;border-radius:var(--radius-sm);border:1px solid var(--border)">
@@ -469,7 +522,7 @@
             </div>
         </div>
 
-        <!-- GSM Calculator (Original) -->
+        <!-- GSM Calculator -->
         <div class="form-card">
             <div class="form-title">
                 <div class="icon" style="background:var(--accent-glow);color:var(--accent)">📏</div>
@@ -489,7 +542,7 @@
             </div>
         </div>
 
-        <!-- Meter Calculator (GSM + Width + Weight → Length in meters) -->
+        <!-- Meter Calculator -->
         <div class="form-card">
             <div class="form-title">
                 <div class="icon" style="background:rgba(34,197,94,.2);color:var(--success)">📏</div>
@@ -509,7 +562,7 @@
             </div>
         </div>
 
-        <!-- Weight Calculator (GSM + Length + Width → Weight in grams) -->
+        <!-- Weight Calculator -->
         <div class="form-card">
             <div class="form-title">
                 <div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">⚖️</div>
@@ -529,10 +582,10 @@
             </div>
         </div>
 
-        <!-- Fabric Requirement (existing) -->
+        <!-- Fabric Requirement -->
         <div class="form-card">
             <div class="form-title">
-                <div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">&#9878;</div>
+                <div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">⚒️</div>
                 Fabric Requirement
             </div>
             <div class="form-label">Item to make</div>
@@ -563,7 +616,7 @@
         </div>
     </div>
 
-    <!-- ========== HISTORY PAGE ========== -->
+    <!-- HISTORY PAGE -->
     <div class="page" id="page-history">
         <div class="form-card">
             <div class="form-title">
@@ -581,7 +634,7 @@
         </div>
     </div>
 
-    <!-- ========== SIP CALCULATOR PAGE ========== -->
+    <!-- SIP PAGE -->
     <div class="page" id="page-sip">
         <div class="form-card">
             <div class="form-title"><div class="icon" style="background:rgba(59,130,246,.2);color:var(--accent)">📈</div>SIP Calculator</div>
@@ -596,7 +649,7 @@
         </div>
     </div>
 
-    <!-- ========== STEP-UP SIP PAGE ========== -->
+    <!-- STEP-UP SIP PAGE -->
     <div class="page" id="page-stepup-sip">
         <div class="form-card">
             <div class="form-title"><div class="icon" style="background:rgba(139,92,246,.2);color:#8b5cf6">📊</div>Step-up SIP Calculator</div>
@@ -612,7 +665,7 @@
         </div>
     </div>
 
-    <!-- ========== EMI CALCULATOR PAGE ========== -->
+    <!-- EMI PAGE -->
     <div class="page" id="page-emi">
         <div class="form-card">
             <div class="form-title"><div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">💰</div>EMI Calculator</div>
@@ -627,7 +680,7 @@
         </div>
     </div>
 
-    <!-- ========== BMI CALCULATOR PAGE ========== -->
+    <!-- BMI PAGE -->
     <div class="page" id="page-bmi">
         <div class="form-card">
             <div class="form-title"><div class="icon" style="background:rgba(236,72,153,.2);color:#ec4899">⚖️</div>BMI Calculator</div>
@@ -641,7 +694,7 @@
         </div>
     </div>
 
-    <!-- ========== AGE CALCULATOR PAGE ========== -->
+    <!-- AGE PAGE -->
     <div class="page" id="page-age">
         <div class="form-card">
             <div class="form-title"><div class="icon" style="background:rgba(20,184,166,.2);color:var(--teal)">📅</div>Age Calculator</div>
@@ -657,7 +710,7 @@
 
 </div> <!-- main close -->
 
-<!-- Social Footer (Robust Icons from Simple Icons CDN) -->
+<!-- Social Footer -->
 <div style="display: flex; flex-direction: column; align-items: center; background: transparent; padding: 10px 0; gap: 8px; margin-bottom: 5px;">
     <div style="display: flex; gap: 20px; align-items: center;">
         <a href="https://facebook.com/fardip.thakre" target="_blank"><img src="https://cdn.simpleicons.org/facebook" width="24" height="24" style="filter: none !important;" alt="Facebook"></a>
@@ -669,14 +722,14 @@
 
 <!-- BOTTOM TAB BAR -->
 <nav class="tab-bar">
-    <button class="tab-item active" data-page="calc"><div class="tab-icon">&#127386;</div><div class="tab-label">Calculator</div></button>
-    <button class="tab-item" data-page="convert"><div class="tab-icon">&#8644;</div><div class="tab-label">Convert</div></button>
-    <button class="tab-item" data-page="foam"><div class="tab-icon">&#9679;</div><div class="tab-label">Foam</div></button>
-    <button class="tab-item" data-page="foam_compare"><div class="tab-icon">⚖️</div><div class="tab-label">Foam Compare</div></button>
-    <button class="tab-item" data-page="fabric"><div class="tab-icon">&#9733;</div><div class="tab-label">Fabric</div></button>
+    <button class="tab-item active" data-page="calc"><div class="tab-icon">🧮</div><div class="tab-label">Calculator</div></button>
+    <button class="tab-item" data-page="convert"><div class="tab-icon">⇄</div><div class="tab-label">Convert</div></button>
+    <button class="tab-item" data-page="foam"><div class="tab-icon">●</div><div class="tab-label">Foam</div></button>
+    <button class="tab-item" data-page="foam_compare"><div class="tab-icon">⚖️</div><div class="tab-label">Compare</div></button>
+    <button class="tab-item" data-page="fabric"><div class="tab-icon">★</div><div class="tab-label">Fabric</div></button>
 </nav>
 
-<!-- CONTACT MODAL (with Simple Icons) -->
+<!-- CONTACT MODAL -->
 <div class="modal" id="contactModal">
     <div class="modal-content">
         <span class="close-modal" id="closeModal">&times;</span>
@@ -693,7 +746,7 @@
     </div>
 </div>
 
-<!-- SCRIPTS (unchanged, same as previous working version) -->
+<!-- SCRIPTS -->
 <script>
 // ========== ORIGINAL SCRIPT (IIFE) with modifications ==========
 (function(){
@@ -894,9 +947,9 @@
         else if(densityKg < 50) grade = 'Firm - Sofa Grade';
         else if(densityKg < 80) grade = 'High Density - Auto Grade';
         else grade = 'Rebonded / Extra High Density';
-        document.getElementById('foamResVal').textContent = fmt + ' kg/m\u00B3';
+        document.getElementById('foamResVal').textContent = fmt + ' kg/m³';
         document.getElementById('foamResDetail').innerHTML =
-            'Volume: ' + volCm3.toFixed(1) + ' cm\u00B3 (' + volM3.toFixed(6) + ' m\u00B3)<br>' +
+            'Volume: ' + volCm3.toFixed(1) + ' cm³ (' + volM3.toFixed(6) + ' m³)<br>' +
             'Weight: ' + w + ' g (' + (w/1000).toFixed(3) + ' kg)<br>' +
             '<strong style="color:var(--gold)">' + grade + '</strong>';
         document.getElementById('foamResult').style.display = 'block';
@@ -963,7 +1016,7 @@
         else cat = 'Extra Heavy (Upholstery)';
         document.getElementById('gsmResVal').textContent = fmt + ' GSM';
         document.getElementById('gsmResDetail').innerHTML =
-            'Sample Area: ' + (l*wd).toFixed(1) + ' cm\u00B2 (' + areaM2.toFixed(6) + ' m\u00B2)<br>' +
+            'Sample Area: ' + (l*wd).toFixed(1) + ' cm² (' + areaM2.toFixed(6) + ' m²)<br>' +
             '<strong style="color:var(--teal)">' + cat + '</strong>';
         document.getElementById('gsmResult').style.display = 'block';
     };
@@ -1082,7 +1135,7 @@
 })();
 </script>
 
-<!-- SECOND SCRIPT: HAMBURGER MENU, THEME, SOUND, NEW CALCULATORS, CONTACT -->
+<!-- SECOND SCRIPT: HAMBURGER MENU, THEME (FULLY FIXED), SOUND, INSTALL, ETC. -->
 <script>
 // ========== SIDE MENU TOGGLE ==========
 const menuToggle = document.getElementById('menuToggle');
@@ -1100,7 +1153,7 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// ========== THEME SWITCHING ==========
+// ========== THEME SWITCHING (FULLY FIXED) ==========
 let currentTheme = localStorage.getItem('theme') || 'dark';
 setTheme(currentTheme);
 
@@ -1119,24 +1172,74 @@ function setTheme(theme) {
         root.style.setProperty('--bg', '#0a0e1a');
         root.style.setProperty('--surface', '#111827');
         root.style.setProperty('--card', '#151d2e');
+        root.style.setProperty('--card-alt', '#1a2540');
+        root.style.setProperty('--input', '#0c1220');
+        root.style.setProperty('--border', '#253352');
+        root.style.setProperty('--border-light', '#2e4068');
+        root.style.setProperty('--accent', '#3b82f6');
+        root.style.setProperty('--accent-glow', 'rgba(59,130,246,.35)');
+        root.style.setProperty('--accent-dim', '#1e3a8a');
+        root.style.setProperty('--gold', '#f59e0b');
+        root.style.setProperty('--gold-dim', '#92400e');
+        root.style.setProperty('--teal', '#14b8a6');
+        root.style.setProperty('--teal-dim', '#0f766e');
+        root.style.setProperty('--rose', '#f43f5e');
+        root.style.setProperty('--rose-dim', '#9f1239');
         root.style.setProperty('--text', '#e2e8f0');
         root.style.setProperty('--text-sec', '#94a3b8');
-        root.style.setProperty('--border', '#253352');
+        root.style.setProperty('--text-dim', '#64748b');
+        root.style.setProperty('--white', '#ffffff');
+        root.style.setProperty('--shadow', 'rgba(0,0,0,.5)');
+        root.style.setProperty('--success', '#22c55e');
+        root.style.setProperty('--error', '#ef4444');
     } else if (theme === 'light') {
         root.style.setProperty('--bg', '#f1f5f9');
         root.style.setProperty('--surface', '#ffffff');
         root.style.setProperty('--card', '#e2e8f0');
+        root.style.setProperty('--card-alt', '#d1d5db');
+        root.style.setProperty('--input', '#ffffff');
+        root.style.setProperty('--border', '#cbd5e1');
+        root.style.setProperty('--border-light', '#94a3b8');
+        root.style.setProperty('--accent', '#2563eb');
+        root.style.setProperty('--accent-glow', 'rgba(37,99,235,0.2)');
+        root.style.setProperty('--accent-dim', '#3b82f6');
+        root.style.setProperty('--gold', '#b45309');
+        root.style.setProperty('--gold-dim', '#92400e');
+        root.style.setProperty('--teal', '#0d9488');
+        root.style.setProperty('--teal-dim', '#14b8a6');
+        root.style.setProperty('--rose', '#e11d48');
+        root.style.setProperty('--rose-dim', '#f43f5e');
         root.style.setProperty('--text', '#0f172a');
         root.style.setProperty('--text-sec', '#334155');
-        root.style.setProperty('--border', '#cbd5e1');
+        root.style.setProperty('--text-dim', '#64748b');
+        root.style.setProperty('--white', '#000000');
+        root.style.setProperty('--shadow', 'rgba(0,0,0,0.1)');
+        root.style.setProperty('--success', '#16a34a');
+        root.style.setProperty('--error', '#dc2626');
     } else if (theme === 'original') {
         root.style.setProperty('--bg', '#0b1a2e');
         root.style.setProperty('--surface', '#0f2a40');
         root.style.setProperty('--card', '#123b54');
+        root.style.setProperty('--card-alt', '#1e4b6e');
+        root.style.setProperty('--input', '#0c1a2e');
+        root.style.setProperty('--border', '#1e4b6e');
+        root.style.setProperty('--border-light', '#2e5f82');
+        root.style.setProperty('--accent', '#0284c7');
+        root.style.setProperty('--accent-glow', 'rgba(2,132,199,0.35)');
+        root.style.setProperty('--accent-dim', '#0369a1');
+        root.style.setProperty('--gold', '#f59e0b');
+        root.style.setProperty('--gold-dim', '#b45309');
+        root.style.setProperty('--teal', '#14b8a6');
+        root.style.setProperty('--teal-dim', '#0f766e');
+        root.style.setProperty('--rose', '#f43f5e');
+        root.style.setProperty('--rose-dim', '#9f1239');
         root.style.setProperty('--text', '#e0f2fe');
         root.style.setProperty('--text-sec', '#b0c4de');
-        root.style.setProperty('--border', '#1e4b6e');
-        root.style.setProperty('--accent', '#0284c7');
+        root.style.setProperty('--text-dim', '#7e9bb5');
+        root.style.setProperty('--white', '#ffffff');
+        root.style.setProperty('--shadow', 'rgba(0,0,0,0.5)');
+        root.style.setProperty('--success', '#22c55e');
+        root.style.setProperty('--error', '#ef4444');
     }
     updateActiveThemeBtn(theme);
 }
@@ -1346,6 +1449,54 @@ document.getElementById('shareBtn').addEventListener('click', () => {
     closeMenuFn();
 });
 
+// ========== PWA INSTALL FEATURE ==========
+let deferredPrompt;
+const installBtn = document.getElementById('installBtn');
+const installMenuItem = document.getElementById('installMenuItem');
+const installBanner = document.getElementById('installBanner');
+const closeBanner = document.getElementById('closeBanner');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    // Show banner after 2 seconds
+    setTimeout(() => {
+        installBanner.classList.add('show');
+    }, 2000);
+});
+
+function installApp() {
+    if (!deferredPrompt) {
+        alert('App already installed or not installable');
+        return;
+    }
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted install');
+        }
+        deferredPrompt = null;
+        installBanner.classList.remove('show');
+    });
+}
+
+installBtn.addEventListener('click', installApp);
+installMenuItem.addEventListener('click', () => {
+    closeMenuFn();
+    installApp();
+});
+
+closeBanner.addEventListener('click', () => {
+    installBanner.classList.remove('show');
+});
+
+// Hide banner if app already installed
+window.addEventListener('appinstalled', () => {
+    deferredPrompt = null;
+    installBanner.classList.remove('show');
+});
+
+// ========== TAB CLICK HANDLING ==========
 document.querySelectorAll('.tab-item').forEach(tab => {
     tab.addEventListener('click', () => {
         const pageId = tab.dataset.page;
@@ -1357,7 +1508,7 @@ document.querySelectorAll('.tab-item').forEach(tab => {
 
 updateActiveThemeBtn(currentTheme);
 
-// ========== SERVICE WORKER REGISTRATION (FIXED) ==========
+// ========== SERVICE WORKER REGISTRATION (EXACTLY AS BEFORE) ==========
 if('serviceWorker' in navigator){
     window.addEventListener('load', function(){
         navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed:', err));
