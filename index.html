@@ -10,11 +10,14 @@
     <link rel="canonical" href="https://fardipthakre.github.io/Key-fabrics-smart-calculator/">
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-title" content="FARDIP THAKRE">
-    <link rel="apple-touch-icon" href="icon-192.png">
-    <link rel="icon" type="image/png" href="icon-192.png">
+    <!-- Apple touch icon using same data URI -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiB2aWV3Qm94PSIwIDAgMTkyIDE5MiI+PHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIHJ4PSIzMiIgZmlsbD0iIzNiODJmNiIvPjx0ZXh0IHg9Ijk2IiB5PSIxMjAiIGZvbnQtc2l6ZT0iODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkZUPC90ZXh0Pjwvc3ZnPg==">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiB2aWV3Qm94PSIwIDAgMTkyIDE5MiI+PHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIHJ4PSIzMiIgZmlsbD0iIzNiODJmNiIvPjx0ZXh0IHg9Ijk2IiB5PSIxMjAiIGZvbnQtc2l6ZT0iODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkZUPC90ZXh0Pjwvc3ZnPg==">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.12.0/math.min.js"></script>
     <style>
+        /* ... (your existing CSS, unchanged) ... */
         *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
         :root{
             --bg:#0a0e1a;
@@ -291,7 +294,8 @@
 <header class="header">
     <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
         <div class="brand">
-            <img src="icon-192.png" alt="logo" style="height: 40px; width: 40px; border-radius: 6px; vertical-align: middle;">
+            <!-- Logo using data URI (SVG icon) -->
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiB2aWV3Qm94PSIwIDAgMTkyIDE5MiI+PHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIHJ4PSIzMiIgZmlsbD0iIzNiODJmNiIvPjx0ZXh0IHg9Ijk2IiB5PSIxMjAiIGZvbnQtc2l6ZT0iODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkZUPC90ZXh0Pjwvc3ZnPg==" alt="logo" style="height: 40px; width: 40px; border-radius: 6px; vertical-align: middle;">
             FARDIP THAKRE<span>Tools</span>
         </div>
         <button class="menu-btn" id="menuToggle" aria-label="Menu">☰</button>
@@ -301,7 +305,8 @@
 
 <!-- INSTALL BANNER (Popup) -->
 <div class="install-banner" id="installBanner">
-    <img src="icon-192.png" class="logo" alt="logo">
+    <!-- Logo using same data URI -->
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiB2aWV3Qm94PSIwIDAgMTkyIDE5MiI+PHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIHJ4PSIzMiIgZmlsbD0iIzNiODJmNiIvPjx0ZXh0IHg9Ijk2IiB5PSIxMjAiIGZvbnQtc2l6ZT0iODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkZUPC90ZXh0Pjwvc3ZnPg==" class="logo" alt="logo">
     <div class="text">
         <div class="title">FARDIP THAKRE Tools</div>
         <div class="desc">Install app for quick access</div>
@@ -1508,7 +1513,7 @@ document.querySelectorAll('.tab-item').forEach(tab => {
 
 updateActiveThemeBtn(currentTheme);
 
-// ========== SERVICE WORKER REGISTRATION (EXACTLY AS BEFORE) ==========
+// ========== SERVICE WORKER REGISTRATION ==========
 if('serviceWorker' in navigator){
     window.addEventListener('load', function(){
         navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed:', err));
