@@ -10,42 +10,35 @@
     <link rel="canonical" href="https://fardipthakre.github.io/Key-fabrics-smart-calculator/">
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-title" content="FARDIP THAKRE">
-    <!-- Apple touch icon using same data URI -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiB2aWV3Qm94PSIwIDAgMTkyIDE5MiI+PHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIHJ4PSIzMiIgZmlsbD0iIzNiODJmNiIvPjx0ZXh0IHg9Ijk2IiB5PSIxMjAiIGZvbnQtc2l6ZT0iODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkZUPC90ZXh0Pjwvc3ZnPg==">
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiB2aWV3Qm94PSIwIDAgMTkyIDE5MiI+PHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIHJ4PSIzMiIgZmlsbD0iIzNiODJmNiIvPjx0ZXh0IHg9Ijk2IiB5PSIxMjAiIGZvbnQtc2l6ZT0iODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkZUPC90ZXh0Pjwvc3ZnPg==">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="icon" type="image/png" href="icon-192.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.12.0/math.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* ... (your existing CSS, unchanged) ... */
+        /* ===== SAME STYLES AS YOUR EXISTING FILE ===== */
         *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
         :root{
-            --bg:#0a0e1a;
-            --surface:#111827;
-            --card:#151d2e;
-            --card-alt:#1a2540;
-            --input:#0c1220;
-            --border:#253352;
-            --border-light:#2e4068;
-            --accent:#3b82f6;
-            --accent-glow:rgba(59,130,246,.35);
-            --accent-dim:#1e3a8a;
-            --gold:#f59e0b;
-            --gold-dim:#92400e;
-            --teal:#14b8a6;
-            --teal-dim:#0f766e;
-            --rose:#f43f5e;
-            --rose-dim:#9f1239;
-            --text:#e2e8f0;
-            --text-sec:#94a3b8;
-            --text-dim:#64748b;
-            --white:#ffffff;
-            --shadow:rgba(0,0,0,.5);
-            --success:#22c55e;
-            --error:#ef4444;
-            --radius:18px;
-            --radius-sm:12px;
-            --radius-btn:14px;
+            --bg:#0a0e1a;--surface:#111827;--card:#151d2e;--card-alt:#1a2540;
+            --input:#0c1220;--border:#253352;--border-light:#2e4068;
+            --accent:#3b82f6;--accent-glow:rgba(59,130,246,.35);--accent-dim:#1e3a8a;
+            --gold:#f59e0b;--gold-dim:#92400e;
+            --teal:#14b8a6;--teal-dim:#0f766e;
+            --rose:#f43f5e;--rose-dim:#9f1239;
+            --text:#e2e8f0;--text-sec:#94a3b8;--text-dim:#64748b;
+            --white:#ffffff;--shadow:rgba(0,0,0,.5);
+            --success:#22c55e;--error:#ef4444;
+            --radius:18px;--radius-sm:12px;--radius-btn:14px;
+        }
+        /* Ocean theme */
+        [data-theme="ocean"] {
+            --bg:#0a1a2b;--surface:#0d2b3e;--card:#123b4f;--card-alt:#1a4b63;
+            --input:#0a1f2c;--border:#1d5a7a;--border-light:#2a6f94;
+            --accent:#00b4d8;--accent-glow:rgba(0,180,216,.3);--accent-dim:#0077b6;
+            --gold:#ffb703;--gold-dim:#fb8500;
+            --teal:#2ec4b6;--teal-dim:#1f8a7a;
+            --rose:#e63946;--rose-dim:#b23b3b;
+            --text:#e2f0fa;--text-sec:#aac7db;--text-dim:#6b8fa0;
         }
         html{font-size:16px}
         body{
@@ -167,7 +160,7 @@
         .calc-btn{ background:var(--card);border:1px solid var(--border); color:var(--text);font-size:1.25rem;font-weight:600; padding:16px 0;border-radius:var(--radius-btn);cursor:pointer; transition:.1s;text-align:center;user-select:none; font-family:'Inter',sans-serif; box-shadow:0 4px 0 rgba(0,0,0,.3); position:relative;overflow:hidden; }
         .calc-btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.3)}
         .calc-btn.fn{background:var(--card-alt);color:var(--gold);font-size:1rem}
-        .calc-btn.op{background:var(--accent-dim);color:var(--gold)}
+        .calc-btn.op{background:#1e3050;color:#fb923c}
         .calc-btn.eq{background:var(--accent);color:var(--white);font-weight:700}
         .calc-btn.ac{background:var(--rose-dim);color:var(--white)}
         .calc-btn.span2{grid-column:span 2}
@@ -198,13 +191,30 @@
         .form-row > *{flex:1}
 
         /* Result Box */
-        .result-box{ background:var(--input);border-radius:var(--radius-sm); padding:16px;margin-top:14px; border-left:4px solid var(--accent); min-height:50px; }
+        .result-box{ background:var(--input);border-radius:var(--radius-sm); padding:16px;margin-top:14px; border-left:4px solid var(--accent); min-height:50px; position:relative; }
         .result-box .result-label{font-size:.78rem;color:var(--text-dim);margin-bottom:6px;font-weight:500}
         .result-box .result-val{font-size:1.5rem;font-weight:700;color:var(--success);line-height:1.3}
         .result-box .result-detail{font-size:.9rem;color:var(--text-sec);margin-top:6px;line-height:1.5}
         .result-box.gold-border{border-left-color:var(--gold)}
         .result-box.teal-border{border-left-color:var(--teal)}
         .result-box.rose-border{border-left-color:var(--rose)}
+        .share-icon{
+            position:absolute; top:10px; right:10px; font-size:1.2rem; cursor:pointer;
+            color:var(--text-sec); transition:.2s; background:var(--card); padding:4px 8px; border-radius:20px;
+        }
+        .share-icon:active{ color:var(--accent); background:var(--accent-glow); }
+
+        /* Chart container */
+        .chart-container{ width:100%; height:200px; margin-top:15px; }
+
+        /* Memory buttons */
+        .memory-bar{
+            display:flex; gap:5px; margin:10px 0; justify-content:space-between;
+        }
+        .mem-btn{
+            flex:1; background:var(--card-alt); border:1px solid var(--border); color:var(--text);
+            padding:10px; border-radius:var(--radius-sm); font-weight:600; cursor:pointer;
+        }
 
         /* Unit Pills */
         .unit-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
@@ -256,29 +266,85 @@
             display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
         }
 
-        /* Install Banner */
-        .install-banner {
-            position: fixed; bottom: 80px; left: 16px; right: 16px;
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 16px;
-            display: flex; align-items: center; justify-content: space-between;
-            gap: 12px; box-shadow: 0 4px 12px var(--shadow);
-            z-index: 250; max-width: 400px; margin: 0 auto;
-            transform: translateY(200%); transition: transform 0.3s ease;
+        /* Chatbot Styles */
+        .chat-messages {
+            background: var(--input); border-radius: var(--radius-sm);
+            padding: 15px; height: 300px; overflow-y: auto;
+            display: flex; flex-direction: column; gap: 12px;
+            border: 1px solid var(--border); margin-bottom: 15px;
         }
-        .install-banner.show { transform: translateY(0); }
-        .install-banner .logo { width: 40px; height: 40px; border-radius: 8px; }
-        .install-banner .text { flex: 1; }
-        .install-banner .title { font-weight: 700; color: var(--text); }
-        .install-banner .desc { font-size: 0.75rem; color: var(--text-sec); }
-        .install-banner .close {
-            background: none; border: none; color: var(--text-dim);
-            font-size: 1.2rem; cursor: pointer; padding: 4px;
+        .chat-message {
+            display: flex; flex-direction: column;
+            max-width: 95%;
         }
-        .install-banner .install-btn {
-            background: var(--accent); color: white; border: none;
-            padding: 8px 16px; border-radius: 20px; font-weight: 600;
-            font-size: 0.8rem; cursor: pointer;
+        .chat-message.user {
+            align-self: flex-end;
+        }
+        .chat-message.bot {
+            align-self: flex-start;
+        }
+        .message-bubble {
+            padding: 10px 14px; border-radius: 18px;
+            font-size: 0.95rem; line-height: 1.5; word-wrap: break-word;
+            white-space: pre-line;
+        }
+        .user .message-bubble {
+            background: var(--accent); color: white;
+            border-bottom-right-radius: 4px;
+        }
+        .bot .message-bubble {
+            background: var(--card-alt); color: var(--text);
+            border-bottom-left-radius: 4px;
+            border: 1px solid var(--border);
+        }
+        .message-time {
+            font-size: 0.65rem; color: var(--text-dim);
+            margin: 4px 8px 0;
+        }
+        .chat-input-area {
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .chat-select {
+            width: 100%;
+            padding: 12px;
+            background: var(--input);
+            border: 1px solid var(--border);
+            color: var(--white);
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            font-family: inherit;
+            cursor: pointer;
+        }
+        .chat-select option {
+            background: var(--surface);
+            color: var(--text);
+        }
+        .chat-button {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent);
+            border: none;
+            border-radius: var(--radius-sm);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 3px 0 rgba(0,0,0,.2);
+        }
+        .chat-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 rgba(0,0,0,.2);
+        }
+        .chat-text-input {
+            width: 100%;
+            padding: 12px;
+            background: var(--input);
+            border: 1px solid var(--border);
+            color: var(--white);
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            font-family: inherit;
+            resize: vertical;
         }
 
         /* Responsive */
@@ -286,6 +352,26 @@
             .calc-btn{padding:13px 0;font-size:1.1rem}
             .calc-result{font-size:2.2rem}
         }
+        .swap-btn {
+    background: var(--card-alt);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-size: 1.5rem;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.swap-btn:active {
+    transform: rotate(180deg);
+    background: var(--accent-dim);
+    color: white;
+}
     </style>
 </head>
 <body>
@@ -294,8 +380,7 @@
 <header class="header">
     <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
         <div class="brand">
-            <!-- Logo using data URI (SVG icon) -->
-            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiB2aWV3Qm94PSIwIDAgMTkyIDE5MiI+PHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIHJ4PSIzMiIgZmlsbD0iIzNiODJmNiIvPjx0ZXh0IHg9Ijk2IiB5PSIxMjAiIGZvbnQtc2l6ZT0iODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkZUPC90ZXh0Pjwvc3ZnPg==" alt="logo" style="height: 40px; width: 40px; border-radius: 6px; vertical-align: middle;">
+            <img src="icon-192.png" alt="logo" style="height: 40px; width: 40px; border-radius: 6px; vertical-align: middle;">
             FARDIP THAKRE<span>Tools</span>
         </div>
         <button class="menu-btn" id="menuToggle" aria-label="Menu">☰</button>
@@ -303,37 +388,98 @@
     <div class="tagline">Smart Business Calculator & Utilities</div>
 </header>
 
-<!-- INSTALL BANNER (Popup) -->
-<div class="install-banner" id="installBanner">
-    <!-- Logo using same data URI -->
-    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiB2aWV3Qm94PSIwIDAgMTkyIDE5MiI+PHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIHJ4PSIzMiIgZmlsbD0iIzNiODJmNiIvPjx0ZXh0IHg9Ijk2IiB5PSIxMjAiIGZvbnQtc2l6ZT0iODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkZUPC90ZXh0Pjwvc3ZnPg==" class="logo" alt="logo">
-    <div class="text">
-        <div class="title">FARDIP THAKRE Tools</div>
-        <div class="desc">Install app for quick access</div>
-    </div>
-    <button class="close" id="closeBanner">&times;</button>
-    <button class="install-btn" id="installBtn">Install</button>
-</div>
-
-<!-- SIDE MENU (with Install button) -->
+<!-- SIDE MENU (Categorized) -->
 <div class="side-menu" id="sideMenu">
     <div class="side-menu-header">
         <span>MENU</span>
         <button class="close-menu" id="closeMenu">&times;</button>
     </div>
     <div class="side-menu-items">
+        <!-- Main -->
+        <div class="menu-subtitle">Main</div>
+        <button class="menu-item" onclick="window.location.href='advanced-tools.html'">🔧 Advanced Tools</button>
         <button class="menu-item" data-page="history">📜 History</button>
+
+        <div class="menu-divider"></div>
+
+        <!-- Financial Calculators -->
+        <div class="menu-subtitle">💰 Financial Calculators</div>
         <button class="menu-item" data-page="sip">📈 SIP Calculator</button>
         <button class="menu-item" data-page="stepup-sip">📊 Step-up SIP</button>
+        <button class="menu-item" data-page="lumpsum">💰 Lumpsum Calculator</button>
+        <button class="menu-item" data-page="ppf">🏦 PPF Calculator</button>
+        <button class="menu-item" data-page="retirement">🧓 Retirement Planner</button>
+        <button class="menu-item" data-page="stockaverage">📉 Stock Average</button>
         <button class="menu-item" data-page="emi">💰 EMI Calculator</button>
-        <button class="menu-item" data-page="bmi">⚖️ BMI Calculator</button>
-        <button class="menu-item" data-page="age">📅 Age Calculator</button>
+        <button class="menu-item" data-page="homeloan">🏠 Home Loan EMI</button>
+        <button class="menu-item" data-page="carloan">🚗 Car Loan EMI</button>
+        <button class="menu-item" data-page="personalloan">💳 Personal Loan EMI</button>
+        <button class="menu-item" data-page="loanafford">💵 Loan Affordability</button>
+        <button class="menu-item" data-page="prepayment">⏱️ Prepayment Calculator</button>
+        <button class="menu-item" data-page="incometax">📊 Income Tax Calculator</button>
+
         <div class="menu-divider"></div>
+
+        <!-- Health & Fitness -->
+        <div class="menu-subtitle">❤️ Health & Fitness</div>
+        <button class="menu-item" data-page="bmi">⚖️ BMI Calculator</button>
+        <button class="menu-item" data-page="idealweight">💪 Ideal Weight</button>
+        <button class="menu-item" data-page="bodyfat">🔬 Body Fat %</button>
+        <button class="menu-item" data-page="water">💧 Water Intake</button>
+        <button class="menu-item" data-page="pregnancy">🤰 Pregnancy Due Date</button>
+        <button class="menu-item" data-page="ovulation">🌸 Ovulation Calculator</button>
+
+        <div class="menu-divider"></div>
+
+        <!-- Date & Time -->
+        <div class="menu-subtitle">📅 Date & Time</div>
+        <button class="menu-item" data-page="age">📅 Age Calculator</button>
+        <button class="menu-item" data-page="datediff">📆 Date Difference</button>
+        <button class="menu-item" data-page="workdays">📅 Workday Calculator</button>
+        <button class="menu-item" data-page="timecalc">⏰ Time Calculator</button>
+
+        <div class="menu-divider"></div>
+
+        <!-- Unit Converters & Utilities -->
+        <div class="menu-subtitle">🔄 Unit Converters & Utilities</div>
+        <button class="menu-item" data-page="convert">🔄 Unit Converter</button>
+        <button class="menu-item" data-page="cooking">🥄 Cooking Converter</button>
+        <button class="menu-item" data-page="shoe">👟 Shoe Size</button>
+        <button class="menu-item" data-page="ring">💍 Ring Size</button>
+        <button class="menu-item" data-page="clothing">👕 Clothing Size</button>
+        <button class="menu-item" data-page="gpa">🎓 GPA/Percentage</button>
+        <button class="menu-item" data-page="attendance">📋 Attendance</button>
+        <button class="menu-item" data-page="salary">💼 Salary Converter</button>
+        <button class="menu-item" data-page="tip">🍽️ Tip Calculator</button>
+        <button class="menu-item" data-page="fuel">⛽ Fuel Cost</button>
+        <button class="menu-item" data-page="electricity">💡 Electricity Bill</button>
+        <button class="menu-item" data-page="paint">🎨 Paint/Tile Calculator</button>
+
+        <div class="menu-divider"></div>
+
+        <!-- Fabric & Foam -->
+        <div class="menu-subtitle">📏 Fabric & Foam</div>
+        <button class="menu-item" data-page="fabric">📏 Fabric Master</button>
+        <button class="menu-item" data-page="foam">📦 Foam Density</button>
+        <button class="menu-item" data-page="foam_compare">⚖️ Foam Compare</button>
+        <button class="menu-item" data-page="fabriccost">💰 Fabric Cost Estimator</button>
+        <button class="menu-item" data-page="bulkfabric">📦 Bulk Fabric Order</button>
+
+        <div class="menu-divider"></div>
+
+        <!-- AI Assistant -->
+        <div class="menu-subtitle">🤖 AI Assistant</div>
+        <button class="menu-item" data-page="ai">🤖 Ask with Fardip</button>
+
+        <div class="menu-divider"></div>
+
+        <!-- App Settings (unchanged) -->
         <div class="menu-subtitle">Theme</div>
         <div class="theme-options">
             <button class="theme-btn" data-theme="dark">🌙 Dark</button>
             <button class="theme-btn" data-theme="light">☀️ Light</button>
             <button class="theme-btn" data-theme="original">🔷 Original</button>
+            <button class="theme-btn" data-theme="ocean">🌊 Ocean</button>
         </div>
         <div class="menu-divider"></div>
         <div class="menu-subtitle">Click Sound</div>
@@ -346,7 +492,6 @@
             </select>
         </div>
         <div class="menu-divider"></div>
-        <button class="menu-item" id="installMenuItem">📲 Install App</button>
         <button class="menu-item" id="contactBtn">📞 Contact Us</button>
         <button class="menu-item" id="rateBtn">⭐ Rate this App</button>
         <button class="menu-item" id="shareBtn">📤 Share App</button>
@@ -356,11 +501,17 @@
 <!-- MAIN CONTENT -->
 <div class="main">
 
-    <!-- CALCULATOR PAGE -->
+    <!-- ========== CALCULATOR PAGE ========== -->
     <div class="page active" id="page-calc">
         <div class="calc-display">
             <div class="calc-expr" id="calcExpr">0</div>
             <div class="calc-result" id="calcResult">0</div>
+        </div>
+        <div class="memory-bar">
+            <button class="mem-btn" id="memClear">MC</button>
+            <button class="mem-btn" id="memRecall">MR</button>
+            <button class="mem-btn" id="memAdd">M+</button>
+            <button class="mem-btn" id="memSub">M-</button>
         </div>
         <div class="sci-toggle">
             <button class="basic-btn" id="basicToggle" onclick="setCalcMode('basic')">Basic</button>
@@ -372,11 +523,11 @@
             <button class="calc-btn sci" data-v="tan(">tan</button>
             <button class="calc-btn sci" data-v="log(">log</button>
             <button class="calc-btn sci" data-v="ln(">ln</button>
-            <button class="calc-btn sci" data-v="sqrt(">√</button>
-            <button class="calc-btn sci" data-v="cbrt(">∛</button>
+            <button class="calc-btn sci" data-v="sqrt(">&#8730;</button>
+            <button class="calc-btn sci" data-v="cbrt(">&#8731;</button>
             <button class="calc-btn sci" data-v="^">x^y</button>
             <button class="calc-btn sci" data-v="!">n!</button>
-            <button class="calc-btn sci" data-v="pi">π</button>
+            <button class="calc-btn sci" data-v="pi">&#960;</button>
             <button class="calc-btn sci" data-v="e">e</button>
             <button class="calc-btn sci" data-v="abs(">|x|</button>
             <button class="calc-btn sci" data-v="(">(</button>
@@ -385,17 +536,17 @@
         </div>
         <div class="calc-grid" id="calcGrid">
             <button class="calc-btn ac" data-v="AC">AC</button>
-            <button class="calc-btn fn" data-v="⌫">⌫</button>
+            <button class="calc-btn fn" data-v="⌫">&#9003;</button>
             <button class="calc-btn fn" data-v="%">%</button>
-            <button class="calc-btn op" data-v="/">÷</button>
+            <button class="calc-btn op" data-v="/">&#247;</button>
             <button class="calc-btn" data-v="7">7</button>
             <button class="calc-btn" data-v="8">8</button>
             <button class="calc-btn" data-v="9">9</button>
-            <button class="calc-btn op" data-v="*">×</button>
+            <button class="calc-btn op" data-v="*">&#215;</button>
             <button class="calc-btn" data-v="4">4</button>
             <button class="calc-btn" data-v="5">5</button>
             <button class="calc-btn" data-v="6">6</button>
-            <button class="calc-btn op" data-v="-">−</button>
+            <button class="calc-btn op" data-v="-">&#8722;</button>
             <button class="calc-btn" data-v="1">1</button>
             <button class="calc-btn" data-v="2">2</button>
             <button class="calc-btn" data-v="3">3</button>
@@ -407,11 +558,11 @@
         </div>
     </div>
 
-    <!-- UNIT CONVERTER PAGE -->
+    <!-- ========== UNIT CONVERTER PAGE ========== -->
     <div class="page" id="page-convert">
         <div class="form-card">
             <div class="form-title">
-                <div class="icon" style="background:var(--accent-glow);color:var(--accent)">⇄</div>
+                <div class="icon" style="background:var(--accent-glow);color:var(--accent)">&#8644;</div>
                 Unit Converter
             </div>
             <div class="unit-pills" id="unitCatPills">
@@ -420,34 +571,45 @@
                 <button class="unit-pill" data-cat="volume">Volume</button>
                 <button class="unit-pill" data-cat="fabric">Fabric</button>
                 <button class="unit-pill" data-cat="temperature">Temp</button>
+                <button class="unit-pill" data-cat="pressure">Pressure</button>
+                <button class="unit-pill" data-cat="speed">Speed</button>
+                <button class="unit-pill" data-cat="energy">Energy</button>
+                <button class="unit-pill" data-cat="data">Data</button>
+                <button class="unit-pill" data-cat="cooking">Cooking</button>
+                <button class="unit-pill" data-cat="shoe">Shoe Size</button>
+                <button class="unit-pill" data-cat="ring">Ring Size</button>
+                <button class="unit-pill" data-cat="clothing">Clothing</button>
             </div>
             <div class="form-label">Value</div>
             <input class="form-input" type="number" id="convValue" value="1" step="any">
             <div class="form-row" style="margin-top:12px">
-                <div>
-                    <div class="form-label">From</div>
-                    <select class="form-select" id="convFrom"></select>
-                </div>
-                <div style="flex:0;padding-bottom:6px;color:var(--accent);font-size:1.2rem;align-self:flex-end">→</div>
-                <div>
-                    <div class="form-label">To</div>
-                    <select class="form-select" id="convTo"></select>
-                </div>
-            </div>
+    <div>
+        <div class="form-label">From</div>
+        <select class="form-select" id="convFrom"></select>
+    </div>
+    <div style="flex:0; padding-bottom:6px; align-self:flex-end;">
+        <button class="swap-btn" onclick="swapUnits()" title="Swap Units">⇄</button>
+    </div>
+    <div>
+        <div class="form-label">To</div>
+        <select class="form-select" id="convTo"></select>
+    </div>
+</div>
             <button class="form-btn primary" onclick="doConvert()">Convert</button>
             <div class="result-box" id="convResult" style="display:none">
                 <div class="result-label">Result</div>
                 <div class="result-val" id="convResVal"></div>
                 <div class="result-detail" id="convResDetail"></div>
+                <span class="share-icon" onclick="shareResult('convResVal')">📤</span>
             </div>
         </div>
     </div>
 
-    <!-- FOAM DENSITY PAGE -->
+    <!-- ========== FOAM DENSITY PAGE ========== -->
     <div class="page" id="page-foam">
         <div class="form-card">
             <div class="form-title">
-                <div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">●</div>
+                <div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">&#9679;</div>
                 Foam Density Calculator
             </div>
             <div class="form-label">Foam Weight (grams)</div>
@@ -463,24 +625,25 @@
                 <div class="result-label">Foam Density</div>
                 <div class="result-val" id="foamResVal"></div>
                 <div class="result-detail" id="foamResDetail"></div>
+                <span class="share-icon" onclick="shareResult('foamResVal')">📤</span>
             </div>
         </div>
         <div class="form-card">
             <div class="form-title">
-                <div class="icon" style="background:rgba(20,184,166,.2);color:var(--teal)">◆</div>
+                <div class="icon" style="background:rgba(20,184,166,.2);color:var(--teal)">&#9670;</div>
                 Quick Density Reference
             </div>
             <div style="font-size:.85rem;color:var(--text-sec);line-height:1.8">
-                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(37,51,82,.4)"><span>Soft Foam (Mattress)</span><span style="color:var(--teal)">16 - 24 kg/m³</span></div>
-                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(37,51,82,.4)"><span>Medium Foam (Cushion)</span><span style="color:var(--gold)">24 - 35 kg/m³</span></div>
-                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(37,51,82,.4)"><span>Firm Foam (Sofa)</span><span style="color:var(--accent)">35 - 50 kg/m³</span></div>
-                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(37,51,82,.4)"><span>High Density (Auto)</span><span style="color:var(--rose)">50 - 80 kg/m³</span></div>
-                <div style="display:flex;justify-content:space-between;padding:6px 0"><span>Rebonded Foam</span><span style="color:var(--success)">80 - 150 kg/m³</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(37,51,82,.4)"><span>Soft Foam (Mattress)</span><span style="color:var(--teal)">16 - 24 kg/m&#179;</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(37,51,82,.4)"><span>Medium Foam (Cushion)</span><span style="color:var(--gold)">24 - 35 kg/m&#179;</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(37,51,82,.4)"><span>Firm Foam (Sofa)</span><span style="color:var(--accent)">35 - 50 kg/m&#179;</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(37,51,82,.4)"><span>High Density (Auto)</span><span style="color:var(--rose)">50 - 80 kg/m&#179;</span></div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0"><span>Rebonded Foam</span><span style="color:var(--success)">80 - 150 kg/m&#179;</span></div>
             </div>
         </div>
     </div>
 
-    <!-- FOAM COMPARE PAGE -->
+    <!-- ========== FOAM COMPARE PAGE ========== -->
     <div class="page" id="page-foam_compare">
         <div class="form-card">
             <div class="form-title">Foam Rate Comparison</div>
@@ -489,6 +652,7 @@
                 <div><label class="form-label">Width (In)</label><input type="number" id="fW" class="form-input" value="36"></div>
             </div>
             <label class="form-label">Density (D)</label><input type="number" id="fD" class="form-input" value="32">
+            <label class="form-label">ILD (Optional)</label><input type="number" id="fILD" class="form-input" placeholder="ILD value">
             <label class="form-label">Local Rate</label>
             <div class="form-row">
                 <input type="number" id="rL" class="form-input" placeholder="Rate">
@@ -503,20 +667,21 @@
             <div class="result-box" id="fRes" style="display:none; margin-top:15px; background:var(--input); padding:15px; border-radius:12px; border-left:4px solid var(--accent);">
                 <div id="fVal" style="font-size:1.5rem; font-weight:700; color:var(--success);"></div>
                 <div id="fDet" style="font-size:0.9rem; color:var(--text-sec); margin-top:5px;"></div>
+                <span class="share-icon" onclick="shareResult('fVal')">📤</span>
             </div>
         </div>
     </div>
 
-    <!-- FABRIC MASTER PAGE -->
+    <!-- ========== FABRIC MASTER PAGE ========== -->
     <div class="page" id="page-fabric">
         <!-- Fabric Table -->
         <div class="form-card">
             <div class="form-title">
-                <div class="icon" style="background:rgba(244,63,94,.2);color:var(--rose)">★</div>
+                <div class="icon" style="background:rgba(244,63,94,.2);color:var(--rose)">&#9733;</div>
                 Fabric Master
             </div>
             <div class="search-box">
-                <span class="search-icon">🔍</span>
+                <span class="search-icon">&#128269;</span>
                 <input type="text" id="fabricSearch" placeholder="Search fabric..." oninput="filterFabrics()">
             </div>
             <div style="overflow-x:auto;border-radius:var(--radius-sm);border:1px solid var(--border)">
@@ -544,6 +709,7 @@
                 <div class="result-label">GSM (g/m²)</div>
                 <div class="result-val" id="gsmResVal"></div>
                 <div class="result-detail" id="gsmResDetail"></div>
+                <span class="share-icon" onclick="shareResult('gsmResVal')">📤</span>
             </div>
         </div>
 
@@ -564,6 +730,7 @@
                 <div class="result-label">Length</div>
                 <div class="result-val" id="meterResVal"></div>
                 <div class="result-detail" id="meterResDetail"></div>
+                <span class="share-icon" onclick="shareResult('meterResVal')">📤</span>
             </div>
         </div>
 
@@ -584,13 +751,14 @@
                 <div class="result-label">Weight</div>
                 <div class="result-val" id="weightResVal"></div>
                 <div class="result-detail" id="weightResDetail"></div>
+                <span class="share-icon" onclick="shareResult('weightResVal')">📤</span>
             </div>
         </div>
 
         <!-- Fabric Requirement -->
         <div class="form-card">
             <div class="form-title">
-                <div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">⚒️</div>
+                <div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">&#9878;</div>
                 Fabric Requirement
             </div>
             <div class="form-label">Item to make</div>
@@ -617,11 +785,574 @@
                 <div class="result-label">Fabric Required</div>
                 <div class="result-val" id="fabricReqVal"></div>
                 <div class="result-detail" id="fabricReqDetail"></div>
+                <span class="share-icon" onclick="shareResult('fabricReqVal')">📤</span>
             </div>
         </div>
     </div>
 
-    <!-- HISTORY PAGE -->
+    <!-- ========== FABRIC COST ESTIMATOR PAGE ========== -->
+    <div class="page" id="page-fabriccost">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(59,130,246,.2);color:var(--accent)">💰</div>Fabric Cost Estimator</div>
+            <div class="form-label">Fabric Name</div>
+            <input class="form-input" type="text" id="fabricCostName" placeholder="e.g. Cotton" list="fabricList">
+            <datalist id="fabricList"></datalist>
+            <div class="form-label">Price per meter (₹)</div>
+            <input class="form-input" type="number" id="fabricPrice" step="any">
+            <div class="form-label">GSM (optional)</div>
+            <input class="form-input" type="number" id="fabricCostGSM" step="any">
+            <div class="form-label">Width (cm)</div>
+            <input class="form-input" type="number" id="fabricCostWidth" step="any" value="150">
+            <div class="form-label">Quantity (meters)</div>
+            <input class="form-input" type="number" id="fabricCostQty" step="any" value="1">
+            <div class="form-label">Wastage %</div>
+            <input class="form-input" type="number" id="fabricCostWaste" value="5" step="any">
+            <button class="form-btn primary" onclick="calcFabricCost()">Calculate Cost</button>
+            <div class="result-box" id="fabricCostResult" style="display:none">
+                <div class="result-label">Total Cost</div><div class="result-val" id="fabricCostResVal"></div>
+                <div class="result-detail" id="fabricCostResDetail"></div>
+                <span class="share-icon" onclick="shareResult('fabricCostResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== BULK FABRIC ORDER PAGE ========== -->
+    <div class="page" id="page-bulkfabric">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">📦</div>Bulk Fabric Order</div>
+            <div class="form-label">Price per meter (₹)</div>
+            <input class="form-input" type="number" id="bulkPrice" step="any">
+            <div class="form-label">Quantity (meters)</div>
+            <input class="form-input" type="number" id="bulkQty" step="any">
+            <div class="form-label">Bulk Discount %</div>
+            <input class="form-input" type="number" id="bulkDiscount" value="0" step="any">
+            <button class="form-btn gold" onclick="calcBulkFabric()">Calculate</button>
+            <div class="result-box gold-border" id="bulkResult" style="display:none">
+                <div class="result-label">Final Price</div><div class="result-val" id="bulkResVal"></div>
+                <div class="result-detail" id="bulkResDetail"></div>
+                <span class="share-icon" onclick="shareResult('bulkResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+        <!-- ========== HOME LOAN EMI PAGE ========== -->
+    <div class="page" id="page-homeloan">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(59,130,246,.2);color:var(--accent)">🏠</div>Home Loan EMI</div>
+            <div class="form-label">Loan Amount (₹)</div><input class="form-input" type="number" id="homeLoanAmount" placeholder="e.g. 5000000" step="any">
+            <div class="form-label">Interest Rate (% p.a.)</div><input class="form-input" type="number" id="homeLoanRate" placeholder="e.g. 8.5" step="any" value="8.5">
+            <div class="form-label">Loan Tenure (years)</div><input class="form-input" type="number" id="homeLoanYears" placeholder="e.g. 20" step="any" value="20">
+            <button class="form-btn primary" onclick="calcHomeLoan()">Calculate EMI</button>
+            <div class="result-box" id="homeLoanResult" style="display:none">
+                <div class="result-label">Monthly EMI</div><div class="result-val" id="homeLoanResVal"></div>
+                <div class="result-detail" id="homeLoanResDetail"></div>
+                <span class="share-icon" onclick="shareResult('homeLoanResVal')">📤</span>
+            </div>
+            <div class="chart-container"><canvas id="homeLoanChart"></canvas></div>
+        </div>
+    </div>
+
+    <!-- ========== CAR LOAN EMI PAGE ========== -->
+    <div class="page" id="page-carloan">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(34,197,94,.2);color:var(--success)">🚗</div>Car Loan EMI</div>
+            <div class="form-label">Loan Amount (₹)</div><input class="form-input" type="number" id="carLoanAmount" placeholder="e.g. 800000" step="any">
+            <div class="form-label">Interest Rate (% p.a.)</div><input class="form-input" type="number" id="carLoanRate" placeholder="e.g. 9" step="any" value="9">
+            <div class="form-label">Loan Tenure (months)</div><input class="form-input" type="number" id="carLoanMonths" placeholder="e.g. 60" step="any" value="60">
+            <button class="form-btn success" onclick="calcCarLoan()">Calculate EMI</button>
+            <div class="result-box" id="carLoanResult" style="display:none; border-left-color:var(--success);">
+                <div class="result-label">Monthly EMI</div><div class="result-val" id="carLoanResVal"></div>
+                <div class="result-detail" id="carLoanResDetail"></div>
+                <span class="share-icon" onclick="shareResult('carLoanResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PERSONAL LOAN EMI PAGE ========== -->
+    <div class="page" id="page-personalloan">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">💳</div>Personal Loan EMI</div>
+            <div class="form-label">Loan Amount (₹)</div><input class="form-input" type="number" id="personalLoanAmount" placeholder="e.g. 300000" step="any">
+            <div class="form-label">Interest Rate (% p.a.)</div><input class="form-input" type="number" id="personalLoanRate" placeholder="e.g. 12" step="any" value="12">
+            <div class="form-label">Loan Tenure (months)</div><input class="form-input" type="number" id="personalLoanMonths" placeholder="e.g. 36" step="any" value="36">
+            <button class="form-btn gold" onclick="calcPersonalLoan()">Calculate EMI</button>
+            <div class="result-box gold-border" id="personalLoanResult" style="display:none">
+                <div class="result-label">Monthly EMI</div><div class="result-val" id="personalLoanResVal"></div>
+                <div class="result-detail" id="personalLoanResDetail"></div>
+                <span class="share-icon" onclick="shareResult('personalLoanResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== LOAN AFFORDABILITY PAGE ========== -->
+    <div class="page" id="page-loanafford">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:var(--accent-glow);color:var(--accent)">💵</div>Loan Affordability</div>
+            <div class="form-label">Monthly Income (₹)</div><input class="form-input" type="number" id="affordIncome" placeholder="e.g. 50000" step="any">
+            <div class="form-label">Existing EMIs (₹)</div><input class="form-input" type="number" id="affordExisting" value="0" step="any">
+            <div class="form-label">Interest Rate (% p.a.)</div><input class="form-input" type="number" id="affordRate" placeholder="e.g. 10" step="any">
+            <div class="form-label">Loan Tenure (months)</div><input class="form-input" type="number" id="affordTenure" placeholder="e.g. 60" step="any">
+            <div class="form-label">FOIR % (usually 50%)</div><input class="form-input" type="number" id="affordFoir" value="50" step="any">
+            <button class="form-btn primary" onclick="calcAffordability()">Max Loan Amount</button>
+            <div class="result-box" id="affordResult" style="display:none">
+                <div class="result-label">You can afford</div><div class="result-val" id="affordResVal"></div>
+                <div class="result-detail" id="affordResDetail"></div>
+                <span class="share-icon" onclick="shareResult('affordResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PREPAYMENT CALCULATOR PAGE ========== -->
+    <div class="page" id="page-prepayment">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(139,92,246,.2);color:#8b5cf6">⏱️</div>Prepayment Calculator</div>
+            <div class="form-label">Loan Amount (₹)</div><input class="form-input" type="number" id="preLoanAmount" step="any">
+            <div class="form-label">Interest Rate (% p.a.)</div><input class="form-input" type="number" id="preRate" step="any">
+            <div class="form-label">Remaining Tenure (months)</div><input class="form-input" type="number" id="preTenure" step="any">
+            <div class="form-label">Prepayment Amount (₹)</div><input class="form-input" type="number" id="preAmount" step="any">
+            <button class="form-btn primary" onclick="calcPrepayment()">Calculate</button>
+            <div class="result-box" id="preResult" style="display:none">
+                <div class="result-label">Interest Saved</div><div class="result-val" id="preResVal"></div>
+                <div class="result-detail" id="preResDetail"></div>
+                <span class="share-icon" onclick="shareResult('preResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== INCOME TAX CALCULATOR PAGE ========== -->
+    <div class="page" id="page-incometax">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">📊</div>Income Tax Calculator (FY 2025-26)</div>
+            <div class="form-label">Annual Income (₹)</div><input class="form-input" type="number" id="taxIncome" step="any">
+            <div class="form-label">Regime</div>
+            <select class="form-select" id="taxRegime">
+                <option value="old">Old Regime</option>
+                <option value="new" selected>New Regime</option>
+            </select>
+            <div class="form-label" id="taxOldSection" style="display:none;">Deductions under old regime (₹) <br><small>80C, 80D, HRA etc.</small></div>
+            <input class="form-input" type="number" id="taxDeductions" value="0" step="any" style="display:none;">
+            <button class="form-btn gold" onclick="calcIncomeTax()">Calculate Tax</button>
+            <div class="result-box gold-border" id="taxResult" style="display:none">
+                <div class="result-label">Tax Payable</div><div class="result-val" id="taxResVal"></div>
+                <div class="result-detail" id="taxResDetail"></div>
+                <span class="share-icon" onclick="shareResult('taxResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== LUMPSUM CALCULATOR PAGE ========== -->
+    <div class="page" id="page-lumpsum">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(34,197,94,.2);color:var(--success)">💰</div>Lumpsum Calculator</div>
+            <div class="form-label">Investment Amount (₹)</div><input class="form-input" type="number" id="lumpsumAmount" step="any">
+            <div class="form-label">Expected Return Rate (% p.a.)</div><input class="form-input" type="number" id="lumpsumRate" step="any">
+            <div class="form-label">Time Period (years)</div><input class="form-input" type="number" id="lumpsumYears" step="any">
+            <button class="form-btn success" onclick="calcLumpsum()">Calculate</button>
+            <div class="result-box" id="lumpsumResult" style="display:none; border-left-color:var(--success);">
+                <div class="result-label">Future Value</div><div class="result-val" id="lumpsumResVal"></div>
+                <div class="result-detail" id="lumpsumResDetail"></div>
+                <span class="share-icon" onclick="shareResult('lumpsumResVal')">📤</span>
+            </div>
+            <div class="chart-container"><canvas id="lumpsumChart"></canvas></div>
+        </div>
+    </div>
+
+    <!-- ========== PPF CALCULATOR PAGE ========== -->
+    <div class="page" id="page-ppf">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(59,130,246,.2);color:var(--accent)">🏦</div>PPF Calculator</div>
+            <div class="form-label">Annual Deposit (₹)</div><input class="form-input" type="number" id="ppfAmount" step="any" value="150000">
+            <div class="form-label">Interest Rate (% p.a.)</div><input class="form-input" type="number" id="ppfRate" step="any" value="7.1">
+            <div class="form-label">Time Period (years)</div><input class="form-input" type="number" id="ppfYears" step="any" value="15">
+            <button class="form-btn primary" onclick="calcPPF()">Calculate</button>
+            <div class="result-box" id="ppfResult" style="display:none">
+                <div class="result-label">Maturity Amount</div><div class="result-val" id="ppfResVal"></div>
+                <div class="result-detail" id="ppfResDetail"></div>
+                <span class="share-icon" onclick="shareResult('ppfResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== RETIREMENT PLANNER PAGE ========== -->
+    <div class="page" id="page-retirement">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">🧓</div>Retirement Planner</div>
+            <div class="form-label">Current Age</div><input class="form-input" type="number" id="retireAge" step="any">
+            <div class="form-label">Retirement Age</div><input class="form-input" type="number" id="retireRetireAge" step="any">
+            <div class="form-label">Monthly Expenses (₹ at retirement)</div><input class="form-input" type="number" id="retireExpense" step="any">
+            <div class="form-label">Expected Return (% p.a.)</div><input class="form-input" type="number" id="retireRate" step="any" value="8">
+            <div class="form-label">Inflation (%)</div><input class="form-input" type="number" id="retireInflation" step="any" value="6">
+            <button class="form-btn gold" onclick="calcRetirement()">Calculate</button>
+            <div class="result-box gold-border" id="retireResult" style="display:none">
+                <div class="result-label">Corpus Required</div><div class="result-val" id="retireResVal"></div>
+                <div class="result-detail" id="retireResDetail"></div>
+                <span class="share-icon" onclick="shareResult('retireResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== STOCK AVERAGE PRICE PAGE ========== -->
+    <div class="page" id="page-stockaverage">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(236,72,153,.2);color:#ec4899">📉</div>Stock Average Price</div>
+            <div id="stockEntries">
+                <div class="form-row"><input class="form-input" type="number" placeholder="Shares" id="stockQty1" value="10"> <input class="form-input" type="number" placeholder="Price" id="stockPrice1" value="100"></div>
+                <div class="form-row"><input class="form-input" type="number" placeholder="Shares" id="stockQty2" value="5"> <input class="form-input" type="number" placeholder="Price" id="stockPrice2" value="120"></div>
+            </div>
+            <button class="form-btn teal" onclick="addStockEntry()">+ Add More</button>
+            <button class="form-btn primary" onclick="calcStockAverage()">Calculate Average</button>
+            <div class="result-box" id="stockResult" style="display:none">
+                <div class="result-label">Average Price</div><div class="result-val" id="stockResVal"></div>
+                <div class="result-detail" id="stockResDetail"></div>
+                <span class="share-icon" onclick="shareResult('stockResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== IDEAL WEIGHT PAGE ========== -->
+    <div class="page" id="page-idealweight">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(34,197,94,.2);color:var(--success)">💪</div>Ideal Weight (Devine Formula)</div>
+            <div class="form-label">Gender</div>
+            <select class="form-select" id="idealGender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            <div class="form-label">Height (cm)</div><input class="form-input" type="number" id="idealHeight" step="any">
+            <button class="form-btn success" onclick="calcIdealWeight()">Calculate</button>
+            <div class="result-box" id="idealResult" style="display:none; border-left-color:var(--success);">
+                <div class="result-label">Ideal Weight</div><div class="result-val" id="idealResVal"></div>
+                <div class="result-detail" id="idealResDetail"></div>
+                <span class="share-icon" onclick="shareResult('idealResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== BODY FAT PERCENTAGE PAGE ========== -->
+    <div class="page" id="page-bodyfat">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">🔬</div>Body Fat % (BMI based)</div>
+            <div class="form-label">Gender</div>
+            <select class="form-select" id="bfGender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            <div class="form-label">Age (years)</div><input class="form-input" type="number" id="bfAge" step="any">
+            <div class="form-label">BMI</div><input class="form-input" type="number" id="bfBmi" step="any" placeholder="Calculate from BMI page">
+            <button class="form-btn gold" onclick="calcBodyFat()">Estimate Body Fat</button>
+            <div class="result-box gold-border" id="bfResult" style="display:none">
+                <div class="result-label">Body Fat %</div><div class="result-val" id="bfResVal"></div>
+                <div class="result-detail" id="bfResDetail"></div>
+                <span class="share-icon" onclick="shareResult('bfResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== WATER INTAKE CALCULATOR PAGE ========== -->
+    <div class="page" id="page-water">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:var(--accent-glow);color:var(--accent)">💧</div>Daily Water Intake</div>
+            <div class="form-label">Weight (kg)</div><input class="form-input" type="number" id="waterWeight" step="any">
+            <div class="form-label">Activity level</div>
+            <select class="form-select" id="waterActivity">
+                <option value="1">Sedentary (little exercise)</option>
+                <option value="1.2">Moderately active</option>
+                <option value="1.5">Very active</option>
+            </select>
+            <button class="form-btn primary" onclick="calcWater()">Calculate</button>
+            <div class="result-box" id="waterResult" style="display:none">
+                <div class="result-label">Water per day</div><div class="result-val" id="waterResVal"></div>
+                <div class="result-detail" id="waterResDetail"></div>
+                <span class="share-icon" onclick="shareResult('waterResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PREGNANCY DUE DATE PAGE ========== -->
+    <div class="page" id="page-pregnancy">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(236,72,153,.2);color:#ec4899">🤰</div>Pregnancy Due Date</div>
+            <div class="form-label">First day of last menstrual period</div>
+            <input class="form-input" type="date" id="pregnancyLmp">
+            <div class="form-label">Cycle length (days)</div>
+            <input class="form-input" type="number" id="pregnancyCycle" value="28">
+            <button class="form-btn teal" onclick="calcDueDate()">Calculate Due Date</button>
+            <div class="result-box teal-border" id="pregnancyResult" style="display:none">
+                <div class="result-label">Due Date</div><div class="result-val" id="pregnancyResVal"></div>
+                <div class="result-detail" id="pregnancyResDetail"></div>
+                <span class="share-icon" onclick="shareResult('pregnancyResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== OVULATION CALCULATOR PAGE ========== -->
+    <div class="page" id="page-ovulation">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">🌸</div>Ovulation Calculator</div>
+            <div class="form-label">First day of last period</div>
+            <input class="form-input" type="date" id="ovulationLmp">
+            <div class="form-label">Average cycle length (days)</div>
+            <input class="form-input" type="number" id="ovulationCycle" value="28">
+            <button class="form-btn gold" onclick="calcOvulation()">Calculate</button>
+            <div class="result-box gold-border" id="ovulationResult" style="display:none">
+                <div class="result-label">Next Ovulation</div><div class="result-val" id="ovulationResVal"></div>
+                <div class="result-detail" id="ovulationResDetail"></div>
+                <span class="share-icon" onclick="shareResult('ovulationResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== DATE DIFFERENCE PAGE ========== -->
+    <div class="page" id="page-datediff">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(59,130,246,.2);color:var(--accent)">📆</div>Date Difference</div>
+            <div class="form-label">Start Date</div><input class="form-input" type="date" id="dateStart">
+            <div class="form-label">End Date</div><input class="form-input" type="date" id="dateEnd">
+            <button class="form-btn primary" onclick="calcDateDiff()">Calculate</button>
+            <div class="result-box" id="dateDiffResult" style="display:none">
+                <div class="result-label">Difference</div><div class="result-val" id="dateDiffResVal"></div>
+                <div class="result-detail" id="dateDiffResDetail"></div>
+                <span class="share-icon" onclick="shareResult('dateDiffResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== WORKDAY CALCULATOR PAGE ========== -->
+    <div class="page" id="page-workdays">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(34,197,94,.2);color:var(--success)">📅</div>Workday Calculator</div>
+            <div class="form-label">Start Date</div><input class="form-input" type="date" id="workStart">
+            <div class="form-label">End Date</div><input class="form-input" type="date" id="workEnd">
+            <div class="form-label">Exclude weekends?</div>
+            <label><input type="checkbox" id="workExcludeWeekends" checked> Exclude Sat & Sun</label>
+            <button class="form-btn success" onclick="calcWorkdays()">Calculate</button>
+            <div class="result-box" id="workResult" style="display:none; border-left-color:var(--success);">
+                <div class="result-label">Workdays</div><div class="result-val" id="workResVal"></div>
+                <div class="result-detail" id="workResDetail"></div>
+                <span class="share-icon" onclick="shareResult('workResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== TIME CALCULATOR PAGE ========== -->
+    <div class="page" id="page-timecalc">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:var(--accent-glow);color:var(--accent)">⏰</div>Time Calculator</div>
+            <div class="form-row">
+                <div><label>Hours</label><input class="form-input" type="number" id="timeHours" value="0"></div>
+                <div><label>Minutes</label><input class="form-input" type="number" id="timeMins" value="0"></div>
+                <div><label>Seconds</label><input class="form-input" type="number" id="timeSecs" value="0"></div>
+            </div>
+            <div class="form-row">
+                <button class="form-btn primary" onclick="timeAdd()">Add</button>
+                <button class="form-btn gold" onclick="timeSubtract()">Subtract</button>
+            </div>
+            <div class="result-box" id="timeResult" style="display:none">
+                <div class="result-label">Result</div><div class="result-val" id="timeResVal"></div>
+                <div class="result-detail" id="timeResDetail"></div>
+                <span class="share-icon" onclick="shareResult('timeResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== COOKING CONVERTER PAGE ========== -->
+    <div class="page" id="page-cooking">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">🥄</div>Cooking Converter</div>
+            <div class="form-label">Value</div><input class="form-input" type="number" id="cookVal" value="1" step="any">
+            <div class="form-row">
+                <div><div class="form-label">From</div>
+                    <select class="form-select" id="cookFrom">
+                        <option value="cup">Cup</option><option value="tbsp">Tablespoon</option><option value="tsp">Teaspoon</option>
+                        <option value="ml">Milliliter</option><option value="gram">Gram (water)</option>
+                    </select>
+                </div>
+                <div><div class="form-label">To</div>
+                    <select class="form-select" id="cookTo">
+                        <option value="ml">Milliliter</option><option value="cup">Cup</option><option value="tbsp">Tablespoon</option>
+                        <option value="tsp">Teaspoon</option><option value="gram">Gram (water)</option>
+                    </select>
+                </div>
+            </div>
+            <button class="form-btn gold" onclick="convertCooking()">Convert</button>
+            <div class="result-box gold-border" id="cookResult" style="display:none">
+                <div class="result-label">Result</div><div class="result-val" id="cookResVal"></div>
+                <div class="result-detail" id="cookResDetail"></div>
+                <span class="share-icon" onclick="shareResult('cookResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== SHOE SIZE CONVERTER PAGE ========== -->
+    <div class="page" id="page-shoe">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(59,130,246,.2);color:var(--accent)">👟</div>Shoe Size Converter</div>
+            <div class="form-label">Foot length (cm)</div><input class="form-input" type="number" id="shoeCm" step="any">
+            <div class="form-label">Gender</div>
+            <select class="form-select" id="shoeGender"><option value="men">Men</option><option value="women">Women</option></select>
+            <button class="form-btn primary" onclick="convertShoe()">Convert</button>
+            <div class="result-box" id="shoeResult" style="display:none">
+                <div class="result-label">Shoe Sizes</div><div class="result-val" id="shoeResVal"></div>
+                <div class="result-detail" id="shoeResDetail"></div>
+                <span class="share-icon" onclick="shareResult('shoeResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== RING SIZE CONVERTER PAGE ========== -->
+    <div class="page" id="page-ring">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(236,72,153,.2);color:#ec4899">💍</div>Ring Size Converter</div>
+            <div class="form-label">Inner diameter (mm)</div><input class="form-input" type="number" id="ringMm" step="any">
+            <div class="form-label">Inner circumference (mm)</div><input class="form-input" type="number" id="ringCirc" step="any">
+            <button class="form-btn teal" onclick="convertRing()">Convert</button>
+            <div class="result-box teal-border" id="ringResult" style="display:none">
+                <div class="result-label">Ring Sizes</div><div class="result-val" id="ringResVal"></div>
+                <div class="result-detail" id="ringResDetail"></div>
+                <span class="share-icon" onclick="shareResult('ringResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== CLOTHING SIZE CONVERTER PAGE ========== -->
+    <div class="page" id="page-clothing">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(34,197,94,.2);color:var(--success)">👕</div>Clothing Size</div>
+            <div class="form-label">Chest (inches)</div><input class="form-input" type="number" id="clothingChest" step="any">
+            <div class="form-label">Waist (inches)</div><input class="form-input" type="number" id="clothingWaist" step="any">
+            <button class="form-btn success" onclick="convertClothing()">Get Size</button>
+            <div class="result-box" id="clothingResult" style="display:none; border-left-color:var(--success);">
+                <div class="result-label">Size</div><div class="result-val" id="clothingResVal"></div>
+                <div class="result-detail" id="clothingResDetail"></div>
+                <span class="share-icon" onclick="shareResult('clothingResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== GPA/PERCENTAGE PAGE ========== -->
+    <div class="page" id="page-gpa">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(59,130,246,.2);color:var(--accent)">🎓</div>GPA/Percentage</div>
+            <div class="form-label">Total Marks Obtained</div><input class="form-input" type="number" id="gpaObtained" step="any">
+            <div class="form-label">Total Marks</div><input class="form-input" type="number" id="gpaTotal" step="any">
+            <button class="form-btn primary" onclick="calcGPA()">Calculate</button>
+            <div class="result-box" id="gpaResult" style="display:none">
+                <div class="result-label">Percentage</div><div class="result-val" id="gpaResVal"></div>
+                <div class="result-detail" id="gpaResDetail"></div>
+                <span class="share-icon" onclick="shareResult('gpaResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== ATTENDANCE CALCULATOR PAGE ========== -->
+    <div class="page" id="page-attendance">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">📋</div>Attendance Calculator</div>
+            <div class="form-label">Total classes held</div><input class="form-input" type="number" id="attTotal" step="any">
+            <div class="form-label">Classes attended</div><input class="form-input" type="number" id="attAttended" step="any">
+            <div class="form-label">Required attendance %</div><input class="form-input" type="number" id="attRequired" value="75" step="any">
+            <button class="form-btn gold" onclick="calcAttendance()">Calculate</button>
+            <div class="result-box gold-border" id="attResult" style="display:none">
+                <div class="result-label">Current %</div><div class="result-val" id="attResVal"></div>
+                <div class="result-detail" id="attResDetail"></div>
+                <span class="share-icon" onclick="shareResult('attResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== SALARY CONVERTER PAGE ========== -->
+    <div class="page" id="page-salary">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(34,197,94,.2);color:var(--success)">💼</div>Salary Converter</div>
+            <div class="form-label">Amount</div><input class="form-input" type="number" id="salaryAmount" step="any">
+            <div class="form-label">From</div>
+            <select class="form-select" id="salaryFrom">
+                <option value="hourly">Hourly</option><option value="daily">Daily</option><option value="monthly">Monthly</option><option value="yearly">Yearly</option>
+            </select>
+            <div class="form-label">To</div>
+            <select class="form-select" id="salaryTo">
+                <option value="yearly">Yearly</option><option value="monthly">Monthly</option><option value="daily">Daily</option><option value="hourly">Hourly</option>
+            </select>
+            <div class="form-label">Hours per day (if hourly)</div>
+            <input class="form-input" type="number" id="salaryHours" value="8">
+            <div class="form-label">Days per week (if daily)</div>
+            <input class="form-input" type="number" id="salaryDays" value="5">
+            <button class="form-btn success" onclick="convertSalary()">Convert</button>
+            <div class="result-box" id="salaryResult" style="display:none; border-left-color:var(--success);">
+                <div class="result-label">Converted</div><div class="result-val" id="salaryResVal"></div>
+                <div class="result-detail" id="salaryResDetail"></div>
+                <span class="share-icon" onclick="shareResult('salaryResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== TIP CALCULATOR PAGE ========== -->
+    <div class="page" id="page-tip">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:var(--accent-glow);color:var(--accent)">🍽️</div>Tip Calculator</div>
+            <div class="form-label">Bill Amount (₹)</div><input class="form-input" type="number" id="tipBill" step="any">
+            <div class="form-label">Tip %</div><input class="form-input" type="number" id="tipPercent" value="10" step="any">
+            <div class="form-label">Number of people</div><input class="form-input" type="number" id="tipPeople" value="1" step="any">
+            <button class="form-btn primary" onclick="calcTip()">Calculate</button>
+            <div class="result-box" id="tipResult" style="display:none">
+                <div class="result-label">Total per person</div><div class="result-val" id="tipResVal"></div>
+                <div class="result-detail" id="tipResDetail"></div>
+                <span class="share-icon" onclick="shareResult('tipResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== FUEL COST CALCULATOR PAGE ========== -->
+    <div class="page" id="page-fuel">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">⛽</div>Fuel Cost Calculator</div>
+            <div class="form-label">Distance (km)</div><input class="form-input" type="number" id="fuelDist" step="any">
+            <div class="form-label">Fuel efficiency (km/l)</div><input class="form-input" type="number" id="fuelEfficiency" step="any">
+            <div class="form-label">Fuel price (₹/l)</div><input class="form-input" type="number" id="fuelPrice" step="any">
+            <button class="form-btn gold" onclick="calcFuel()">Calculate</button>
+            <div class="result-box gold-border" id="fuelResult" style="display:none">
+                <div class="result-label">Total Cost</div><div class="result-val" id="fuelResVal"></div>
+                <div class="result-detail" id="fuelResDetail"></div>
+                <span class="share-icon" onclick="shareResult('fuelResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== ELECTRICITY BILL CALCULATOR PAGE ========== -->
+    <div class="page" id="page-electricity">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(34,197,94,.2);color:var(--success)">💡</div>Electricity Bill</div>
+            <div class="form-label">Units consumed (kWh)</div><input class="form-input" type="number" id="elecUnits" step="any">
+            <div class="form-label">Rate per unit (₹)</div><input class="form-input" type="number" id="elecRate" step="any">
+            <div class="form-label">Fixed charges (₹)</div><input class="form-input" type="number" id="elecFixed" value="0" step="any">
+            <button class="form-btn success" onclick="calcElectricity()">Calculate</button>
+            <div class="result-box" id="elecResult" style="display:none; border-left-color:var(--success);">
+                <div class="result-label">Total Bill</div><div class="result-val" id="elecResVal"></div>
+                <div class="result-detail" id="elecResDetail"></div>
+                <span class="share-icon" onclick="shareResult('elecResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PAINT/TILE CALCULATOR PAGE ========== -->
+    <div class="page" id="page-paint">
+        <div class="form-card">
+            <div class="form-title"><div class="icon" style="background:rgba(236,72,153,.2);color:#ec4899">🎨</div>Paint Calculator</div>
+            <div class="form-label">Room length (m)</div><input class="form-input" type="number" id="paintLength" step="any">
+            <div class="form-label">Room width (m)</div><input class="form-input" type="number" id="paintWidth" step="any">
+            <div class="form-label">Room height (m)</div><input class="form-input" type="number" id="paintHeight" step="any" value="2.7">
+            <div class="form-label">Doors (subtract ~1.5 m² each)</div><input class="form-input" type="number" id="paintDoors" value="1" step="any">
+            <div class="form-label">Windows (subtract ~1 m² each)</div><input class="form-input" type="number" id="paintWindows" value="1" step="any">
+            <div class="form-label">Paint coverage (m² per liter)</div><input class="form-input" type="number" id="paintCoverage" value="11" step="any">
+            <button class="form-btn primary" onclick="calcPaint()">Calculate</button>
+            <div class="result-box" id="paintResult" style="display:none">
+                <div class="result-label">Paint needed</div><div class="result-val" id="paintResVal"></div>
+                <div class="result-detail" id="paintResDetail"></div>
+                <span class="share-icon" onclick="shareResult('paintResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== HISTORY PAGE ========== -->
     <div class="page" id="page-history">
         <div class="form-card">
             <div class="form-title">
@@ -639,7 +1370,7 @@
         </div>
     </div>
 
-    <!-- SIP PAGE -->
+    <!-- ========== SIP CALCULATOR PAGE ========== -->
     <div class="page" id="page-sip">
         <div class="form-card">
             <div class="form-title"><div class="icon" style="background:rgba(59,130,246,.2);color:var(--accent)">📈</div>SIP Calculator</div>
@@ -650,11 +1381,13 @@
             <div class="result-box" id="sipResult" style="display:none">
                 <div class="result-label">Maturity Amount</div><div class="result-val" id="sipResVal"></div>
                 <div class="result-detail" id="sipResDetail"></div>
+                <span class="share-icon" onclick="shareResult('sipResVal')">📤</span>
             </div>
+            <div class="chart-container"><canvas id="sipChart"></canvas></div>
         </div>
     </div>
 
-    <!-- STEP-UP SIP PAGE -->
+    <!-- ========== STEP-UP SIP PAGE ========== -->
     <div class="page" id="page-stepup-sip">
         <div class="form-card">
             <div class="form-title"><div class="icon" style="background:rgba(139,92,246,.2);color:#8b5cf6">📊</div>Step-up SIP Calculator</div>
@@ -666,11 +1399,12 @@
             <div class="result-box" id="stepSipResult" style="display:none">
                 <div class="result-label">Maturity Amount</div><div class="result-val" id="stepSipResVal"></div>
                 <div class="result-detail" id="stepSipResDetail"></div>
+                <span class="share-icon" onclick="shareResult('stepSipResVal')">📤</span>
             </div>
         </div>
     </div>
 
-    <!-- EMI PAGE -->
+    <!-- ========== EMI CALCULATOR PAGE ========== -->
     <div class="page" id="page-emi">
         <div class="form-card">
             <div class="form-title"><div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">💰</div>EMI Calculator</div>
@@ -681,11 +1415,13 @@
             <div class="result-box gold-border" id="emiResult" style="display:none">
                 <div class="result-label">Monthly EMI</div><div class="result-val" id="emiResVal"></div>
                 <div class="result-detail" id="emiResDetail"></div>
+                <span class="share-icon" onclick="shareResult('emiResVal')">📤</span>
             </div>
+            <div class="chart-container"><canvas id="emiChart"></canvas></div>
         </div>
     </div>
 
-    <!-- BMI PAGE -->
+    <!-- ========== BMI CALCULATOR PAGE ========== -->
     <div class="page" id="page-bmi">
         <div class="form-card">
             <div class="form-title"><div class="icon" style="background:rgba(236,72,153,.2);color:#ec4899">⚖️</div>BMI Calculator</div>
@@ -695,11 +1431,12 @@
             <div class="result-box" id="bmiResult" style="display:none">
                 <div class="result-label">Your BMI</div><div class="result-val" id="bmiResVal"></div>
                 <div class="result-detail" id="bmiResDetail"></div>
+                <span class="share-icon" onclick="shareResult('bmiResVal')">📤</span>
             </div>
         </div>
     </div>
 
-    <!-- AGE PAGE -->
+    <!-- ========== AGE CALCULATOR PAGE ========== -->
     <div class="page" id="page-age">
         <div class="form-card">
             <div class="form-title"><div class="icon" style="background:rgba(20,184,166,.2);color:var(--teal)">📅</div>Age Calculator</div>
@@ -709,6 +1446,144 @@
             <div class="result-box teal-border" id="ageResult" style="display:none">
                 <div class="result-label">Your Age</div><div class="result-val" id="ageResVal"></div>
                 <div class="result-detail" id="ageResDetail"></div>
+                <span class="share-icon" onclick="shareResult('ageResVal')">📤</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== AI CHATBOT PAGE ========== -->
+    <div class="page" id="page-ai">
+        <div class="form-card">
+            <div class="form-title">
+                <div class="icon" style="background:linear-gradient(145deg,#4285f4,#34a853);color:white">🤖</div>
+                Ask with Fardip
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-message bot">
+                    <div class="message-bubble">नमस्ते! नीचे दिए गए विकल्पों में से कोई भी प्रश्न चुनें या अपना सवाल लिखें। मैं आपको विस्तृत जानकारी दूंगा।</div>
+                    <div class="message-time">अभी</div>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <select class="chat-select" id="questionSelect">
+                    <option value="">-- कृपया एक प्रश्न चुनें --</option>
+                    <!-- SIP Questions -->
+                    <optgroup label="📈 SIP कैलकुलेटर">
+                        <option value="sip_kya">📈 SIP क्या है?</option>
+                        <option value="sip_formula">📐 SIP का फॉर्मूला क्या है?</option>
+                        <option value="sip_example">📊 SIP का उदाहरण दीजिए</option>
+                        <option value="sip_benefits">💡 SIP के क्या फायदे हैं?</option>
+                        <option value="sip_vs_lumpsum">⚖️ SIP और लम्पसम में क्या अंतर है?</option>
+                        <option value="sip_stepup">🔝 स्टेप-अप SIP क्या है?</option>
+                        <option value="sip_tax">💰 SIP पर टैक्स कैसे लगता है?</option>
+                        <option value="sip_risk">⚠️ SIP में कितना जोखिम है?</option>
+                        <option value="sip_how_to_start">📝 SIP कैसे शुरू करें?</option>
+                        <option value="sip_best_for">🎯 SIP किसके लिए सबसे अच्छा है?</option>
+                    </optgroup>
+                    
+                    <!-- EMI Questions -->
+                    <optgroup label="💰 EMI कैलकुलेटर">
+                        <option value="emi_kya">💰 EMI क्या है?</option>
+                        <option value="emi_formula">📐 EMI का फॉर्मूला क्या है?</option>
+                        <option value="emi_example">📊 EMI का उदाहरण दीजिए</option>
+                        <option value="emi_calculation">🧮 EMI कैसे कैलकुलेट करें?</option>
+                        <option value="emi_amortization">📊 अमोर्टाइजेशन क्या है?</option>
+                        <option value="emi_interest_principal">💵 EMI में ब्याज और मूलधन का हिस्सा कैसे बदलता है?</option>
+                        <option value="emi_prepayment">💰 प्रीपेमेंट करने से क्या फायदा?</option>
+                        <option value="emi_loan_tenure">📅 लोन टेन्योर क्या है?</option>
+                        <option value="emi_flat_vs_reducing">⚖️ फ्लैट ब्याज और रिड्यूसिंग ब्याज में अंतर</option>
+                    </optgroup>
+                    
+                    <!-- BMI Questions -->
+                    <optgroup label="⚖️ BMI कैलकुलेटर">
+                        <option value="bmi_kya">⚖️ BMI क्या है?</option>
+                        <option value="bmi_formula">📐 BMI का फॉर्मूला क्या है?</option>
+                        <option value="bmi_range">📊 BMI श्रेणियाँ क्या हैं?</option>
+                        <option value="bmi_example">📊 BMI का उदाहरण दीजिए</option>
+                        <option value="bmi_healthy">💪 हेल्दी BMI कितना होता है?</option>
+                        <option value="bmi_underweight">⚠️ कम वजन (Underweight) क्या है?</option>
+                        <option value="bmi_overweight">⚠️ अधिक वजन (Overweight) क्या है?</option>
+                        <option value="bmi_obese">⚠️ मोटापा (Obese) क्या है?</option>
+                        <option value="bmi_children">👶 बच्चों का BMI कैसे निकालें?</option>
+                    </optgroup>
+                    
+                    <!-- Age Calculator Questions -->
+                    <optgroup label="📅 आयु कैलकुलेटर">
+                        <option value="age_kya">📅 आयु कैलकुलेटर क्या है?</option>
+                        <option value="age_example">📊 आयु गणना का उदाहरण दीजिए</option>
+                        <option value="age_accuracy">🎯 आयु कैलकुलेटर कितना सटीक है?</option>
+                        <option value="age_total_days">📊 कुल दिनों की गणना कैसे करें?</option>
+                        <option value="age_future_date">🔮 भविष्य की किसी तारीख पर आयु कैसे निकालें?</option>
+                    </optgroup>
+                    
+                    <!-- Fabric Master Questions -->
+                    <optgroup label="📏 फैब्रिक मास्टर">
+                        <option value="fabric_gsm_kya">📏 GSM क्या है?</option>
+                        <option value="fabric_gsm_range">📊 GSM रेंज और उपयोग क्या है?</option>
+                        <option value="fabric_meter_calc">📏 मीटर कैलकुलेटर कैसे use करें?</option>
+                        <option value="fabric_weight_calc">⚖️ वेट कैलकुलेटर कैसे use करें?</option>
+                        <option value="fabric_requirement">📋 फैब्रिक रिक्वायरमेंट टेबल क्या है?</option>
+                        <option value="fabric_sofa_cover">🛋️ सोफा कवर के लिए कितना कपड़ा चाहिए?</option>
+                        <option value="fabric_bedsheet">🛏️ बेडशीट के लिए कितना कपड़ा चाहिए?</option>
+                        <option value="fabric_curtain">🪟 पर्दे के लिए कितना कपड़ा चाहिए?</option>
+                        <option value="fabric_width_effect">📏 कपड़े की चौड़ाई का क्या असर होता है?</option>
+                        <option value="fabric_cotton_gsm">🌿 कॉटन का GSM कितना होता है?</option>
+                        <option value="fabric_silk_gsm">✨ सिल्क का GSM कितना होता है?</option>
+                        <option value="fabric_denim_gsm">👖 डेनिम का GSM कितना होता है?</option>
+                    </optgroup>
+                    
+                    <!-- Foam Calculator Questions -->
+                    <optgroup label="📦 फोम कैलकुलेटर">
+                        <option value="foam_density_kya">📦 फोम डेंसिटी क्या है?</option>
+                        <option value="foam_density_formula">📐 फोम डेंसिटी का फॉर्मूला क्या है?</option>
+                        <option value="foam_density_range">📊 डेंसिटी रेंज और उपयोग क्या है?</option>
+                        <option value="foam_compare">⚖️ फोम कंपेयर कैसे करें?</option>
+                        <option value="foam_mattress">🛏️ गद्दे के लिए कितनी डेंसिटी सही है?</option>
+                        <option value="foam_cushion">🛋️ कुशन के लिए कितनी डेंसिटी सही है?</option>
+                        <option value="foam_sofa">🪑 सोफे के लिए कितनी डेंसिटी सही है?</option>
+                        <option value="foam_car_seat">🚗 कार सीट के लिए कितनी डेंसिटी सही है?</option>
+                        <option value="foam_quality">💡 फोम की गुणवत्ता कैसे पहचानें?</option>
+                    </optgroup>
+                    
+                    <!-- Unit Converter Questions -->
+                    <optgroup label="🔄 यूनिट कन्वर्टर">
+                        <option value="unit_converter_kya">🔄 यूनिट कन्वर्टर क्या है?</option>
+                        <option value="unit_length">📏 लंबाई रूपांतरण (मीटर, फीट, इंच)</option>
+                        <option value="unit_weight">⚖️ वजन रूपांतरण (किलो, पाउंड)</option>
+                        <option value="unit_temperature">🌡️ तापमान रूपांतरण (सेल्सियस, फ़ारेनहाइट)</option>
+                        <option value="unit_volume">🧪 आयतन रूपांतरण (लीटर, गैलन)</option>
+                        <option value="unit_fabric">📏 फैब्रिक यूनिट रूपांतरण (मीटर, गज)</option>
+                        <option value="unit_meter_to_feet">📏 1 मीटर में कितने फीट होते हैं?</option>
+                        <option value="unit_feet_to_meter">📏 1 फीट में कितने मीटर होते हैं?</option>
+                        <option value="unit_inch_to_cm">📏 1 इंच में कितने सेंटीमीटर होते हैं?</option>
+                        <option value="unit_kg_to_pound">⚖️ 1 किलो में कितने पाउंड होते हैं?</option>
+                        <option value="unit_celsius_to_fahrenheit">🌡️ सेल्सियस को फ़ारेनहाइट में कैसे बदलें?</option>
+                    </optgroup>
+                    
+                    <!-- Scientific Calculator Questions -->
+                    <optgroup label="🧮 वैज्ञानिक कैलकुलेटर">
+                        <option value="sci_trig">🧮 त्रिकोणमिति फलन (sin, cos, tan) क्या हैं?</option>
+                        <option value="sci_log">📐 लघुगणक (log, ln) क्या हैं?</option>
+                        <option value="sci_power">🔢 घातांक (x^y, √, ∛) क्या हैं?</option>
+                        <option value="sci_constants">π, e (गणितीय स्थिरांक) क्या हैं?</option>
+                        <option value="sci_factorial">! (फैक्टोरियल) क्या है?</option>
+                        <option value="sci_abs">|x| (एब्सोल्यूट वैल्यू) क्या है?</option>
+                    </optgroup>
+                    
+                    <!-- App Features Questions -->
+                    <optgroup label="⚙️ ऐप फीचर्स">
+                        <option value="app_theme">🎨 थीम कैसे बदलें?</option>
+                        <option value="app_sound">🔊 क्लिक साउंड कैसे बदलें?</option>
+                        <option value="app_history">📜 हिस्ट्री एक्सपोर्ट कैसे करें?</option>
+                        <option value="app_contact">📞 संपर्क जानकारी क्या है?</option>
+                        <option value="app_features">🤖 ऐप में कौन-कौन से कैलकुलेटर हैं?</option>
+                    </optgroup>
+                </select>
+                <textarea class="chat-text-input" id="chatCustomQuestion" placeholder="या अपना सवाल यहाँ लिखें..." rows="2"></textarea>
+                <button class="chat-button" onclick="askSelectedQuestion()">प्रश्न पूछें ➤</button>
+            </div>
+            <div style="font-size:0.7rem; color:var(--text-dim); text-align:center; margin-top:10px;">
+                📚 150+ विशेषज्ञ प्रश्न • तुरंत उत्तर • बिना इंटरनेट के
             </div>
         </div>
     </div>
@@ -727,11 +1602,11 @@
 
 <!-- BOTTOM TAB BAR -->
 <nav class="tab-bar">
-    <button class="tab-item active" data-page="calc"><div class="tab-icon">🧮</div><div class="tab-label">Calculator</div></button>
-    <button class="tab-item" data-page="convert"><div class="tab-icon">⇄</div><div class="tab-label">Convert</div></button>
-    <button class="tab-item" data-page="foam"><div class="tab-icon">●</div><div class="tab-label">Foam</div></button>
-    <button class="tab-item" data-page="foam_compare"><div class="tab-icon">⚖️</div><div class="tab-label">Compare</div></button>
-    <button class="tab-item" data-page="fabric"><div class="tab-icon">★</div><div class="tab-label">Fabric</div></button>
+    <button class="tab-item active" data-page="calc"><div class="tab-icon">&#127386;</div><div class="tab-label">Calculator</div></button>
+    <button class="tab-item" data-page="convert"><div class="tab-icon">&#8644;</div><div class="tab-label">Convert</div></button>
+    <button class="tab-item" data-page="foam"><div class="tab-icon">&#9679;</div><div class="tab-label">Foam</div></button>
+    <button class="tab-item" data-page="foam_compare"><div class="tab-icon">⚖️</div><div class="tab-label">Foam Compare</div></button>
+    <button class="tab-item" data-page="fabric"><div class="tab-icon">&#9733;</div><div class="tab-label">Fabric</div></button>
 </nav>
 
 <!-- CONTACT MODAL -->
@@ -741,7 +1616,7 @@
         <h3>Contact FARDIP THAKRE</h3>
         <p>📧 Email: fardip@example.com</p>
         <p>📞 Phone: +91 98765 43210</p>
-        <p>🌐 Website: <a href="#" target="_blank">www.fardipthakre.com</a></p>
+        <p>🌐 Website: <a href="https://fardipthakre.github.io/FT/" target="_blank">https://fardipthakre.github.io/FT/</a></p>
         <p>Follow me on social media:</p>
         <div style="display: flex; gap: 15px; justify-content: center; margin-top: 10px;">
             <a href="https://facebook.com/fardip.thakre" target="_blank"><img src="https://cdn.simpleicons.org/facebook" width="32" height="32" style="filter: none !important;" alt="Facebook"></a>
@@ -750,12 +1625,20 @@
         </div>
     </div>
 </div>
-
 <!-- SCRIPTS -->
 <script>
-// ========== ORIGINAL SCRIPT (IIFE) with modifications ==========
+// ========== GLOBAL VARIABLES ==========
+let history = JSON.parse(localStorage.getItem('calcHistory')) || [];
+let memory = 0;
+let stockEntryCount = 2;
+let customFabrics = JSON.parse(localStorage.getItem('customFabrics')) || [];
+let favoriteCalculators = JSON.parse(localStorage.getItem('favorites')) || [];
+let guestMode = localStorage.getItem('guestMode') === 'true';
+let currentTheme = localStorage.getItem('theme') || 'dark';
+
+// ========== ORIGINAL CALCULATOR FUNCTIONS ==========
 (function(){
-    // ========== TAB NAVIGATION ==========
+    // Tab Navigation
     const tabs = document.querySelectorAll('.tab-item');
     const pages = document.querySelectorAll('.page');
     tabs.forEach(tab => {
@@ -768,12 +1651,33 @@
         });
     });
 
-    // ========== CALCULATOR ==========
+    // Calculator
     const exprEl = document.getElementById('calcExpr');
     const resEl = document.getElementById('calcResult');
     let expr = '';
     let lastCalc = false;
-    let history = JSON.parse(localStorage.getItem('calcHistory')) || [];
+
+    // Memory functions
+    document.getElementById('memClear').onclick = () => { memory = 0; playSound(); };
+    document.getElementById('memRecall').onclick = () => { 
+        if (memory !== 0) {
+            if (lastCalc) expr = '';
+            expr += memory.toString();
+            updDisp();
+            lastCalc = false;
+        }
+        playSound();
+    };
+    document.getElementById('memAdd').onclick = () => {
+        let current = parseFloat(resEl.textContent);
+        if (!isNaN(current)) memory += current;
+        playSound();
+    };
+    document.getElementById('memSub').onclick = () => {
+        let current = parseFloat(resEl.textContent);
+        if (!isNaN(current)) memory -= current;
+        playSound();
+    };
 
     function updateHistoryPage() {
         const list = document.getElementById('historyPageList');
@@ -787,6 +1691,7 @@
     }
 
     window.exportHistory = function(format) {
+        if (guestMode) { alert('Guest mode: History not saved'); return; }
         let data, filename, mime;
         if (format === 'csv') {
             data = "Expression,Result\n" + history.map(h => `"${h.expr}","${h.result}"`).join('\n');
@@ -801,7 +1706,12 @@
             filename = 'history.txt';
             mime = 'text/plain';
         } else if (format === 'pdf') {
-            alert('PDF export would require additional libraries. Please use CSV/JSON/TXT.');
+            const win = window.open('', '_blank');
+            win.document.write('<html><head><title>History</title><style>body{font-family:Arial;}</style></head><body>');
+            win.document.write('<h1>Calculation History</h1><ul>');
+            history.forEach(h => win.document.write(`<li>${h.expr} = ${h.result}</li>`));
+            win.document.write('</ul></body></html>');
+            win.print();
             return;
         }
         const blob = new Blob([data], {type: mime});
@@ -814,6 +1724,7 @@
     };
 
     window.clearHistory = function() {
+        if (guestMode) { alert('Guest mode: History not cleared'); return; }
         history = [];
         localStorage.removeItem('calcHistory');
         updateHistoryPage();
@@ -840,9 +1751,11 @@
                         rs = r.toFixed(10).replace(/\.?0+$/, '');
                     }
                     resEl.textContent = rs;
-                    history.push({ expr: expr, result: rs });
-                    localStorage.setItem('calcHistory', JSON.stringify(history));
-                    updateHistoryPage();
+                    if (!guestMode) {
+                        history.push({ expr: expr, result: rs });
+                        localStorage.setItem('calcHistory', JSON.stringify(history));
+                        updateHistoryPage();
+                    }
                     lastCalc = true;
                 }catch(e){
                     resEl.textContent = 'Error';
@@ -874,24 +1787,33 @@
         }
     };
 
-    // ========== UNIT CONVERTER ==========
-    const unitData = {
+    // ========== UNIT CONVERTER DATA ==========
+    window.unitData = {
         length: { units: ['Meter','CM','MM','KM','Inch','Feet','Yard','Mile'], factors: {Meter:1,CM:0.01,MM:0.001,KM:1000,Inch:0.0254,Feet:0.3048,Yard:0.9144,Mile:1609.344} },
         mass: { units: ['KG','Gram','MG','Pound','Ounce','Ton','Quintal'], factors: {KG:1,Gram:0.001,MG:0.000001,Pound:0.453592,Ounce:0.0283495,Ton:1000,Quintal:100} },
         volume: { units: ['Liter','ml','Gallon','Quart','Pint'], factors: {Liter:1,ml:0.001,Gallon:3.78541,Quart:0.946353,Pint:0.473176} },
         fabric: { units: ['Meter','Yard','Feet','Inch','CM'], factors: {Meter:1,Yard:0.9144,Feet:0.3048,Inch:0.0254,CM:0.01} },
-        temperature: { units: ['Celsius','Fahrenheit','Kelvin'], factors: null }
+        temperature: { units: ['Celsius','Fahrenheit','Kelvin'], factors: null },
+        pressure: { units: ['Pa','kPa','MPa','Bar','psi','atm'], factors: {Pa:1,kPa:1000,MPa:1e6,Bar:1e5,psi:6894.76,atm:101325} },
+        speed: { units: ['m/s','km/h','mph','knot','ft/s'], factors: {'m/s':1,'km/h':0.277778,'mph':0.44704,'knot':0.514444,'ft/s':0.3048} },
+        energy: { units: ['J','kJ','cal','kcal','Wh','kWh'], factors: {J:1,kJ:1000,cal:4.184,kcal:4184,Wh:3600,kWh:3.6e6} },
+        data: { units: ['B','KB','MB','GB','TB','PB'], factors: {B:1,KB:1024,MB:1048576,GB:1073741824,TB:1099511627776,PB:1125899906842624} },
+        cooking: { units: ['cup','tbsp','tsp','ml','gram'], factors: {cup:236.588, tbsp:14.7868, tsp:4.92892, ml:1, gram:1} }, // ml based
+        shoe: { units: ['US Men','US Women','UK','EU','CM'], factors: null },
+        ring: { units: ['US','UK','India','mm'], factors: null },
+        clothing: { units: ['XS','S','M','L','XL','XXL'], factors: null }
     };
 
     let curCat = 'length';
 
-    function populateUnits(){
+    window.populateUnits = function(){
         const from = document.getElementById('convFrom');
         const to = document.getElementById('convTo');
-        const units = unitData[curCat].units;
+        if (!from || !to) return;
+        const units = unitData[curCat]?.units || [];
         from.innerHTML = units.map((u,i) => `<option value="${u}" ${i===0?'selected':''}>${u}</option>`).join('');
         to.innerHTML = units.map((u,i) => `<option value="${u}" ${i===1?'selected':''}>${u}</option>`).join('');
-    }
+    };
     populateUnits();
 
     document.querySelectorAll('#unitCatPills .unit-pill').forEach(pill => {
@@ -918,13 +1840,54 @@
             if(to === 'Celsius') result = c;
             else if(to === 'Fahrenheit') result = c * 9/5 + 32;
             else result = c + 273.15;
+        } else if (curCat === 'shoe') {
+            // Shoe size conversion (simplified)
+            if (from === 'CM' || to === 'CM') {
+                if (from === 'CM') result = val;
+                else {
+                    // Approx conversion
+                    if (from.includes('US')) result = (val + 1) * 0.847 + 22; // rough
+                    else if (from === 'UK') result = (val + 1.5) * 0.847 + 22;
+                    else if (from === 'EU') result = val * 0.667;
+                    else result = val;
+                }
+                if (to === 'US Men') result = (result - 22) / 0.847 - 1;
+                else if (to === 'US Women') result = (result - 22) / 0.847 + 1;
+                else if (to === 'UK') result = (result - 22) / 0.847 - 1.5;
+                else if (to === 'EU') result = result / 0.667;
+                else if (to === 'CM') result = val;
+            } else {
+                result = val; // dummy
+            }
+        } else if (curCat === 'ring') {
+            if (from === 'mm' && to === 'US') result = (val - 12.7) / 0.8; // approx
+            else if (from === 'US' && to === 'mm') result = val * 0.8 + 12.7;
+            else result = val;
+        } else if (curCat === 'clothing') {
+            // Simplified clothing size based on chest
+            const chest = val;
+            if (chest < 34) result = 'XS';
+            else if (chest < 38) result = 'S';
+            else if (chest < 42) result = 'M';
+            else if (chest < 46) result = 'L';
+            else if (chest < 50) result = 'XL';
+            else result = 'XXL';
         } else {
-            const factors = unitData[curCat].factors;
+            const factors = unitData[curCat]?.factors;
+            if (!factors) return;
             const base = val * factors[from];
             result = base / factors[to];
         }
-        const fmt = Number.isInteger(result) ? result.toString() : result.toFixed(6).replace(/\.?0+$/,'');
-        document.getElementById('convResVal').textContent = fmt + ' ' + to;
+        window.swapUnits = function() {
+    const from = document.getElementById('convFrom');
+    const to = document.getElementById('convTo');
+    const temp = from.value;
+    from.value = to.value;
+    to.value = temp;
+    doConvert(); // automatic convert after swap
+};
+        const fmt = typeof result === 'number' ? (Number.isInteger(result) ? result.toString() : result.toFixed(6).replace(/\.?0+$/,'')) : result;
+        document.getElementById('convResVal').textContent = fmt + (typeof result === 'number' ? ' ' + to : '');
         document.getElementById('convResDetail').textContent = val + ' ' + from + ' = ' + fmt + ' ' + to;
         document.getElementById('convResult').style.display = 'block';
     };
@@ -952,9 +1915,9 @@
         else if(densityKg < 50) grade = 'Firm - Sofa Grade';
         else if(densityKg < 80) grade = 'High Density - Auto Grade';
         else grade = 'Rebonded / Extra High Density';
-        document.getElementById('foamResVal').textContent = fmt + ' kg/m³';
+        document.getElementById('foamResVal').textContent = fmt + ' kg/m\u00B3';
         document.getElementById('foamResDetail').innerHTML =
-            'Volume: ' + volCm3.toFixed(1) + ' cm³ (' + volM3.toFixed(6) + ' m³)<br>' +
+            'Volume: ' + volCm3.toFixed(1) + ' cm\u00B3 (' + volM3.toFixed(6) + ' m\u00B3)<br>' +
             'Weight: ' + w + ' g (' + (w/1000).toFixed(3) + ' kg)<br>' +
             '<strong style="color:var(--gold)">' + grade + '</strong>';
         document.getElementById('foamResult').style.display = 'block';
@@ -983,23 +1946,34 @@
         {name:'Khadi',gsm:'120-250',width:'36-44"',use:'Kurta, Traditional'},
         {name:'Jute',gsm:'200-500',width:'40-50"',use:'Bags, Decor'},
     ];
+    const allFabrics = [...fabricData, ...customFabrics];
 
     function renderFabrics(data){
         document.getElementById('fabricBody').innerHTML = data.map(f =>
             `<tr><td style="color:var(--text);font-weight:600">${f.name}</td><td>${f.gsm}</td><td>${f.width}</td><td>${f.use}</td></tr>`
         ).join('');
     }
-    renderFabrics(fabricData);
+    renderFabrics(allFabrics);
 
     window.filterFabrics = function(){
         const q = document.getElementById('fabricSearch').value.toLowerCase();
-        const filtered = fabricData.filter(f =>
+        const filtered = allFabrics.filter(f =>
             f.name.toLowerCase().includes(q) || f.use.toLowerCase().includes(q)
         );
         renderFabrics(filtered);
     };
 
-    // GSM Calculator (Original)
+    // Update fabric datalist for cost estimator
+    const fabricList = document.getElementById('fabricList');
+    if (fabricList) {
+        allFabrics.forEach(f => {
+            let opt = document.createElement('option');
+            opt.value = f.name;
+            fabricList.appendChild(opt);
+        });
+    }
+
+    // ========== GSM CALCULATOR ==========
     window.calcGSM = function(){
         const w = parseFloat(document.getElementById('gsmWeight').value);
         const l = parseFloat(document.getElementById('gsmLength').value);
@@ -1021,16 +1995,16 @@
         else cat = 'Extra Heavy (Upholstery)';
         document.getElementById('gsmResVal').textContent = fmt + ' GSM';
         document.getElementById('gsmResDetail').innerHTML =
-            'Sample Area: ' + (l*wd).toFixed(1) + ' cm² (' + areaM2.toFixed(6) + ' m²)<br>' +
+            'Sample Area: ' + (l*wd).toFixed(1) + ' cm\u00B2 (' + areaM2.toFixed(6) + ' m\u00B2)<br>' +
             '<strong style="color:var(--teal)">' + cat + '</strong>';
         document.getElementById('gsmResult').style.display = 'block';
     };
 
-    // Meter Calculator (GSM + Width + Weight -> Length in meters)
+    // ========== METER CALCULATOR ==========
     window.calcMeter = function(){
         const gsm = parseFloat(document.getElementById('meterGSM').value);
         const wd = parseFloat(document.getElementById('meterWidth').value);
-        const wt = parseFloat(document.getElementById('meterWeight').value); // in kg
+        const wt = parseFloat(document.getElementById('meterWeight').value);
         if(isNaN(gsm) || isNaN(wd) || isNaN(wt) || gsm<=0 || wd<=0 || wt<=0){
             alert('Please fill all fields with positive numbers');
             return;
@@ -1044,7 +2018,7 @@
         document.getElementById('meterResult').style.display = 'block';
     };
 
-    // Weight Calculator (GSM + Length + Width -> Weight in grams)
+    // ========== WEIGHT CALCULATOR ==========
     window.calcWeight = function(){
         const gsm = parseFloat(document.getElementById('weightGSM').value);
         const len = parseFloat(document.getElementById('weightLength').value);
@@ -1061,7 +2035,7 @@
         document.getElementById('weightResult').style.display = 'block';
     };
 
-    // Fabric Requirement Calculator
+    // ========== FABRIC REQUIREMENT ==========
     const fabricReqs = {
         sofa_3seat: {name:'3-Seater Sofa Cover', meters:{44:14,54:12,60:10,72:9,90:7.5,108:6.5}},
         sofa_2seat: {name:'2-Seater Sofa Cover', meters:{44:10,54:8.5,60:7.5,72:6.5,90:5.5,108:4.5}},
@@ -1092,7 +2066,41 @@
         document.getElementById('fabricReqResult').style.display = 'block';
     };
 
-    // Keyboard support for calculator
+    // ========== FABRIC COST ESTIMATOR ==========
+    window.calcFabricCost = function(){
+        const name = document.getElementById('fabricCostName').value;
+        const price = parseFloat(document.getElementById('fabricPrice').value);
+        const gsm = parseFloat(document.getElementById('fabricCostGSM').value);
+        const width = parseFloat(document.getElementById('fabricCostWidth').value);
+        const qty = parseFloat(document.getElementById('fabricCostQty').value);
+        const waste = parseFloat(document.getElementById('fabricCostWaste').value) / 100;
+        if (isNaN(price) || isNaN(qty) || qty <= 0) { alert('Enter valid price and quantity'); return; }
+        const totalCost = price * qty * (1 + waste);
+        document.getElementById('fabricCostResVal').innerText = '₹ ' + totalCost.toFixed(2);
+        let detail = `Price: ₹${price}/m × ${qty}m = ₹${(price*qty).toFixed(2)}`;
+        if (waste > 0) detail += `<br>Wastage (${waste*100}%): ₹${(price*qty*waste).toFixed(2)}`;
+        if (!isNaN(gsm) && gsm > 0 && !isNaN(width) && width > 0) {
+            const weight = (gsm * qty * width/100) / 1000;
+            detail += `<br>Est. Weight: ${weight.toFixed(2)} kg`;
+        }
+        document.getElementById('fabricCostResDetail').innerHTML = detail;
+        document.getElementById('fabricCostResult').style.display = 'block';
+    };
+
+    // ========== BULK FABRIC ORDER ==========
+    window.calcBulkFabric = function(){
+        const price = parseFloat(document.getElementById('bulkPrice').value);
+        const qty = parseFloat(document.getElementById('bulkQty').value);
+        const disc = parseFloat(document.getElementById('bulkDiscount').value) / 100;
+        if (isNaN(price) || isNaN(qty)) { alert('Enter valid numbers'); return; }
+        const total = price * qty * (1 - disc);
+        document.getElementById('bulkResVal').innerText = '₹ ' + total.toFixed(2);
+        document.getElementById('bulkResDetail').innerHTML = 
+            `Original: ₹${(price*qty).toFixed(2)}<br>Discount: ${disc*100}%<br>Saved: ₹${(price*qty*disc).toFixed(2)}`;
+        document.getElementById('bulkResult').style.display = 'block';
+    };
+
+    // ========== KEYBOARD SUPPORT ==========
     document.addEventListener('keydown', function(e){
         const activePage = document.querySelector('.page.active');
         if(!activePage || activePage.id !== 'page-calc') return;
@@ -1116,11 +2124,12 @@
         }
     });
 
-    // Foam Compare
+    // ========== FOAM COMPARE ==========
     window.runFoamCompare = function() {
         const l = parseFloat(document.getElementById('fL').value) * 25.4;
         const w = parseFloat(document.getElementById('fW').value) * 25.4;
         const d = parseFloat(document.getElementById('fD').value);
+        const ild = document.getElementById('fILD').value;
         if(!l || !w || !d) return alert("Sahi dimensions bhariye");
         const weight1mm = (l * w * 1 * d) / 1000000000;
         const rateL = parseFloat(document.getElementById('rL').value) || 0;
@@ -1132,16 +2141,648 @@
         const diff = Math.abs(finalL - finalB);
         document.getElementById('fRes').style.display = 'block';
         document.getElementById('fVal').innerText = "Difference: ₹" + diff.toFixed(2) + " per mm";
+        let ildText = ild ? `<br>ILD: ${ild} (higher = firmer)` : '';
         document.getElementById('fDet').innerHTML = 
             '<b>Local Rate:</b> ₹' + finalL.toFixed(2) + ' per mm<br>' +
             '<b>Brand Rate:</b> ₹' + finalB.toFixed(2) + ' per mm<br>' +
-            '<small style="color:var(--text-dim)">Sheet Weight (1mm): ' + weight1mm.toFixed(3) + ' kg</small>';
+            '<small style="color:var(--text-dim)">Sheet Weight (1mm): ' + weight1mm.toFixed(3) + ' kg' + ildText + '</small>';
     };
 })();
-</script>
 
-<!-- SECOND SCRIPT: HAMBURGER MENU, THEME (FULLY FIXED), SOUND, INSTALL, ETC. -->
-<script>
+// ========== NEW CALCULATOR FUNCTIONS ==========
+
+// Home Loan EMI
+window.calcHomeLoan = function() {
+    const P = parseFloat(document.getElementById('homeLoanAmount').value);
+    const r = parseFloat(document.getElementById('homeLoanRate').value) / 100 / 12;
+    const n = parseFloat(document.getElementById('homeLoanYears').value) * 12;
+    if (isNaN(P) || isNaN(r) || isNaN(n) || P <= 0 || r <= 0 || n <= 0) { alert('Enter valid numbers'); return; }
+    const emi = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+    const total = emi * n;
+    const interest = total - P;
+    document.getElementById('homeLoanResVal').innerText = '₹ ' + emi.toFixed(2);
+    document.getElementById('homeLoanResDetail').innerHTML = 
+        `Principal: ₹${P.toFixed(2)}<br>Total Interest: ₹${interest.toFixed(2)}<br>Total Payment: ₹${total.toFixed(2)}`;
+    document.getElementById('homeLoanResult').style.display = 'block';
+    
+    // Chart
+    const ctx = document.getElementById('homeLoanChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Principal', 'Interest'],
+            datasets: [{
+                data: [P, interest],
+                backgroundColor: ['#22c55e', '#ef4444']
+            }]
+        }
+    });
+};
+
+// Car Loan EMI
+window.calcCarLoan = function() {
+    const P = parseFloat(document.getElementById('carLoanAmount').value);
+    const r = parseFloat(document.getElementById('carLoanRate').value) / 100 / 12;
+    const n = parseFloat(document.getElementById('carLoanMonths').value);
+    if (isNaN(P) || isNaN(r) || isNaN(n) || P <= 0 || r <= 0 || n <= 0) { alert('Enter valid numbers'); return; }
+    const emi = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+    const total = emi * n;
+    document.getElementById('carLoanResVal').innerText = '₹ ' + emi.toFixed(2);
+    document.getElementById('carLoanResDetail').innerHTML = `Total Payment: ₹${total.toFixed(2)}`;
+    document.getElementById('carLoanResult').style.display = 'block';
+};
+
+// Personal Loan EMI
+window.calcPersonalLoan = function() {
+    const P = parseFloat(document.getElementById('personalLoanAmount').value);
+    const r = parseFloat(document.getElementById('personalLoanRate').value) / 100 / 12;
+    const n = parseFloat(document.getElementById('personalLoanMonths').value);
+    if (isNaN(P) || isNaN(r) || isNaN(n) || P <= 0 || r <= 0 || n <= 0) { alert('Enter valid numbers'); return; }
+    const emi = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+    document.getElementById('personalLoanResVal').innerText = '₹ ' + emi.toFixed(2);
+    document.getElementById('personalLoanResDetail').innerHTML = `Total Interest: ₹${(emi*n - P).toFixed(2)}`;
+    document.getElementById('personalLoanResult').style.display = 'block';
+};
+
+// Loan Affordability
+window.calcAffordability = function() {
+    const income = parseFloat(document.getElementById('affordIncome').value);
+    const existing = parseFloat(document.getElementById('affordExisting').value);
+    const rate = parseFloat(document.getElementById('affordRate').value) / 100 / 12;
+    const tenure = parseFloat(document.getElementById('affordTenure').value);
+    const foir = parseFloat(document.getElementById('affordFoir').value) / 100;
+    if (isNaN(income) || isNaN(rate) || isNaN(tenure) || income <= 0 || rate <= 0 || tenure <= 0) { alert('Enter valid numbers'); return; }
+    const maxEmi = income * foir - existing;
+    if (maxEmi <= 0) { alert('Existing EMIs too high'); return; }
+    const maxLoan = maxEmi * (Math.pow(1 + rate, tenure) - 1) / (rate * Math.pow(1 + rate, tenure));
+    document.getElementById('affordResVal').innerText = '₹ ' + maxLoan.toFixed(2);
+    document.getElementById('affordResDetail').innerHTML = `Max EMI: ₹${maxEmi.toFixed(2)}<br>Tenure: ${tenure} months`;
+    document.getElementById('affordResult').style.display = 'block';
+};
+
+// Prepayment Calculator
+window.calcPrepayment = function() {
+    const P = parseFloat(document.getElementById('preLoanAmount').value);
+    const r = parseFloat(document.getElementById('preRate').value) / 100 / 12;
+    const n = parseFloat(document.getElementById('preTenure').value);
+    const prepay = parseFloat(document.getElementById('preAmount').value);
+    if (isNaN(P) || isNaN(r) || isNaN(n) || isNaN(prepay) || P <= 0 || r <= 0 || n <= 0 || prepay <= 0) { alert('Enter valid numbers'); return; }
+    const emi = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+    const totalInterest = emi * n - P;
+    const newBalance = P - prepay;
+    const newN = Math.log(emi / (emi - newBalance * r)) / Math.log(1 + r);
+    const newTotalInterest = emi * newN - newBalance;
+    const saved = totalInterest - newTotalInterest;
+    document.getElementById('preResVal').innerText = '₹ ' + saved.toFixed(2);
+    document.getElementById('preResDetail').innerHTML = `New tenure: ${Math.ceil(newN)} months<br>Interest saved: ₹${saved.toFixed(2)}`;
+    document.getElementById('preResult').style.display = 'block';
+};
+
+// Income Tax Calculator
+window.calcIncomeTax = function() {
+    let income = parseFloat(document.getElementById('taxIncome').value);
+    const regime = document.getElementById('taxRegime').value;
+    const deductions = parseFloat(document.getElementById('taxDeductions').value) || 0;
+    if (isNaN(income) || income < 0) { alert('Enter valid income'); return; }
+    let taxable = income;
+    if (regime === 'old') taxable = Math.max(0, income - deductions - 50000); // standard deduction
+    else taxable = income - 50000; // new regime standard deduction
+    
+    let tax = 0;
+    if (regime === 'old') {
+        if (taxable > 250000) {
+            if (taxable > 500000) tax += 12500;
+            else tax += (taxable - 250000) * 0.05;
+            if (taxable > 500000) tax += (Math.min(taxable, 1000000) - 500000) * 0.2;
+            if (taxable > 1000000) tax += (taxable - 1000000) * 0.3;
+        }
+    } else {
+        // New regime slabs FY 2025-26 (approx)
+        if (taxable > 300000) {
+            if (taxable > 600000) tax += 15000;
+            else tax += (taxable - 300000) * 0.05;
+            if (taxable > 600000) tax += (Math.min(taxable, 900000) - 600000) * 0.1;
+            if (taxable > 900000) tax += (Math.min(taxable, 1200000) - 900000) * 0.15;
+            if (taxable > 1200000) tax += (Math.min(taxable, 1500000) - 1200000) * 0.2;
+            if (taxable > 1500000) tax += (taxable - 1500000) * 0.3;
+        }
+    }
+    tax += tax * 0.04; // cess
+    document.getElementById('taxResVal').innerText = '₹ ' + tax.toFixed(2);
+    document.getElementById('taxResDetail').innerHTML = `Taxable Income: ₹${taxable.toFixed(2)}`;
+    document.getElementById('taxResult').style.display = 'block';
+};
+
+// Lumpsum Calculator
+window.calcLumpsum = function() {
+    const P = parseFloat(document.getElementById('lumpsumAmount').value);
+    const r = parseFloat(document.getElementById('lumpsumRate').value) / 100;
+    const n = parseFloat(document.getElementById('lumpsumYears').value);
+    if (isNaN(P) || isNaN(r) || isNaN(n) || P <= 0 || r <= 0 || n <= 0) { alert('Enter valid numbers'); return; }
+    const A = P * Math.pow(1 + r, n);
+    const gain = A - P;
+    document.getElementById('lumpsumResVal').innerText = '₹ ' + A.toFixed(2);
+    document.getElementById('lumpsumResDetail').innerHTML = `Invested: ₹${P.toFixed(2)}<br>Gain: ₹${gain.toFixed(2)}`;
+    document.getElementById('lumpsumResult').style.display = 'block';
+    
+    const ctx = document.getElementById('lumpsumChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Principal', 'Gain'],
+            datasets: [{
+                data: [P, gain],
+                backgroundColor: ['#22c55e', '#3b82f6']
+            }]
+        }
+    });
+};
+
+// PPF Calculator
+window.calcPPF = function() {
+    const P = parseFloat(document.getElementById('ppfAmount').value);
+    const r = parseFloat(document.getElementById('ppfRate').value) / 100;
+    const n = parseFloat(document.getElementById('ppfYears').value);
+    if (isNaN(P) || isNaN(r) || isNaN(n) || P <= 0 || r <= 0 || n <= 0) { alert('Enter valid numbers'); return; }
+    // PPF compounding annually
+    let total = 0;
+    for (let i = 0; i < n; i++) {
+        total = (total + P) * (1 + r);
+    }
+    const invested = P * n;
+    document.getElementById('ppfResVal').innerText = '₹ ' + total.toFixed(2);
+    document.getElementById('ppfResDetail').innerHTML = `Invested: ₹${invested.toFixed(2)}<br>Interest: ₹${(total-invested).toFixed(2)}`;
+    document.getElementById('ppfResult').style.display = 'block';
+};
+
+// Retirement Planner
+window.calcRetirement = function() {
+    const age = parseFloat(document.getElementById('retireAge').value);
+    const retireAge = parseFloat(document.getElementById('retireRetireAge').value);
+    const expense = parseFloat(document.getElementById('retireExpense').value);
+    const rate = parseFloat(document.getElementById('retireRate').value) / 100;
+    const inflation = parseFloat(document.getElementById('retireInflation').value) / 100;
+    if (isNaN(age) || isNaN(retireAge) || isNaN(expense) || isNaN(rate) || isNaN(inflation)) { alert('Enter valid numbers'); return; }
+    const yearsToRetire = retireAge - age;
+    const yearsInRetirement = 20; // assume 20 years post retirement
+    const inflatedExpense = expense * Math.pow(1 + inflation, yearsToRetire);
+    // Corpus needed to generate inflatedExpense for 20 years at rate of return
+    const corpus = inflatedExpense * (1 - Math.pow(1 + rate, -yearsInRetirement)) / rate;
+    document.getElementById('retireResVal').innerText = '₹ ' + corpus.toFixed(2);
+    document.getElementById('retireResDetail').innerHTML = `Monthly expense at retirement: ₹${inflatedExpense.toFixed(2)}`;
+    document.getElementById('retireResult').style.display = 'block';
+};
+
+// Stock Average
+window.addStockEntry = function() {
+    stockEntryCount++;
+    const div = document.createElement('div');
+    div.className = 'form-row';
+    div.id = 'stockEntry' + stockEntryCount;
+    div.innerHTML = `<input class="form-input" type="number" placeholder="Shares" id="stockQty${stockEntryCount}" value="0"> <input class="form-input" type="number" placeholder="Price" id="stockPrice${stockEntryCount}" value="0">`;
+    document.getElementById('stockEntries').appendChild(div);
+};
+
+window.calcStockAverage = function() {
+    let totalShares = 0, totalCost = 0;
+    for (let i = 1; i <= stockEntryCount; i++) {
+        const qty = parseFloat(document.getElementById('stockQty' + i)?.value) || 0;
+        const price = parseFloat(document.getElementById('stockPrice' + i)?.value) || 0;
+        if (qty > 0 && price > 0) {
+            totalShares += qty;
+            totalCost += qty * price;
+        }
+    }
+    if (totalShares === 0) { alert('Enter at least one valid entry'); return; }
+    const avg = totalCost / totalShares;
+    document.getElementById('stockResVal').innerText = '₹ ' + avg.toFixed(2);
+    document.getElementById('stockResDetail').innerHTML = `Total Shares: ${totalShares}<br>Total Cost: ₹${totalCost.toFixed(2)}`;
+    document.getElementById('stockResult').style.display = 'block';
+};
+
+// Ideal Weight
+window.calcIdealWeight = function() {
+    const gender = document.getElementById('idealGender').value;
+    const height = parseFloat(document.getElementById('idealHeight').value) / 100; // convert to meters
+    if (isNaN(height) || height <= 0) { alert('Enter valid height'); return; }
+    let ideal;
+    if (gender === 'male') ideal = 50 + 0.9 * (height * 100 - 152);
+    else ideal = 45.5 + 0.9 * (height * 100 - 152);
+    document.getElementById('idealResVal').innerText = ideal.toFixed(1) + ' kg';
+    document.getElementById('idealResDetail').innerHTML = `Based on Devine formula`;
+    document.getElementById('idealResult').style.display = 'block';
+};
+
+// Body Fat %
+window.calcBodyFat = function() {
+    const gender = document.getElementById('bfGender').value;
+    const age = parseFloat(document.getElementById('bfAge').value);
+    const bmi = parseFloat(document.getElementById('bfBmi').value);
+    if (isNaN(age) || isNaN(bmi) || age <= 0 || bmi <= 0) { alert('Enter valid numbers'); return; }
+    let bf;
+    if (gender === 'male') bf = 1.20 * bmi + 0.23 * age - 16.2;
+    else bf = 1.20 * bmi + 0.23 * age - 5.4;
+    bf = Math.max(5, Math.min(bf, 50)); // clamp
+    document.getElementById('bfResVal').innerText = bf.toFixed(1) + ' %';
+    let cat = '';
+    if (gender === 'male') {
+        if (bf < 6) cat = 'Essential fat';
+        else if (bf < 14) cat = 'Athletic';
+        else if (bf < 18) cat = 'Fitness';
+        else if (bf < 25) cat = 'Average';
+        else cat = 'Obese';
+    } else {
+        if (bf < 14) cat = 'Essential fat';
+        else if (bf < 21) cat = 'Athletic';
+        else if (bf < 25) cat = 'Fitness';
+        else if (bf < 32) cat = 'Average';
+        else cat = 'Obese';
+    }
+    document.getElementById('bfResDetail').innerHTML = `Category: ${cat}`;
+    document.getElementById('bfResult').style.display = 'block';
+};
+
+// Water Intake
+window.calcWater = function() {
+    const weight = parseFloat(document.getElementById('waterWeight').value);
+    const activity = parseFloat(document.getElementById('waterActivity').value);
+    if (isNaN(weight) || weight <= 0) { alert('Enter valid weight'); return; }
+    const water = weight * 0.033 * activity;
+    document.getElementById('waterResVal').innerText = water.toFixed(1) + ' liters';
+    document.getElementById('waterResDetail').innerHTML = `≈ ${Math.round(water * 1000 / 250)} glasses (250ml)`;
+    document.getElementById('waterResult').style.display = 'block';
+};
+
+// Pregnancy Due Date
+window.calcDueDate = function() {
+    const lmp = new Date(document.getElementById('pregnancyLmp').value);
+    const cycle = parseFloat(document.getElementById('pregnancyCycle').value);
+    if (isNaN(lmp.getTime()) || isNaN(cycle)) { alert('Enter valid date and cycle'); return; }
+    const due = new Date(lmp);
+    due.setDate(due.getDate() + 280 + (cycle - 28));
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('pregnancyResVal').innerText = due.toLocaleDateString('en-IN', options);
+    const today = new Date();
+    const diff = Math.ceil((due - today) / (1000*60*60*24));
+    document.getElementById('pregnancyResDetail').innerHTML = `${diff} days remaining`;
+    document.getElementById('pregnancyResult').style.display = 'block';
+};
+
+// Ovulation Calculator
+window.calcOvulation = function() {
+    const lmp = new Date(document.getElementById('ovulationLmp').value);
+    const cycle = parseFloat(document.getElementById('ovulationCycle').value);
+    if (isNaN(lmp.getTime()) || isNaN(cycle)) { alert('Enter valid date and cycle'); return; }
+    const ovulation = new Date(lmp);
+    ovulation.setDate(ovulation.getDate() + (cycle - 14));
+    const fertileStart = new Date(ovulation);
+    fertileStart.setDate(fertileStart.getDate() - 5);
+    const fertileEnd = new Date(ovulation);
+    fertileEnd.setDate(fertileEnd.getDate() + 1);
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    document.getElementById('ovulationResVal').innerText = ovulation.toLocaleDateString('en-IN', options);
+    document.getElementById('ovulationResDetail').innerHTML = `Fertile window: ${fertileStart.toLocaleDateString('en-IN', options)} - ${fertileEnd.toLocaleDateString('en-IN', options)}`;
+    document.getElementById('ovulationResult').style.display = 'block';
+};
+
+// Date Difference
+window.calcDateDiff = function() {
+    const start = new Date(document.getElementById('dateStart').value);
+    const end = new Date(document.getElementById('dateEnd').value);
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) { alert('Select both dates'); return; }
+    const diff = Math.abs(end - start);
+    const days = Math.floor(diff / (1000*60*60*24));
+    const years = Math.floor(days / 365);
+    const months = Math.floor((days % 365) / 30);
+    const remDays = days % 30;
+    document.getElementById('dateDiffResVal').innerText = `${years} years, ${months} months, ${remDays} days`;
+    document.getElementById('dateDiffResDetail').innerHTML = `Total days: ${days}`;
+    document.getElementById('dateDiffResult').style.display = 'block';
+};
+
+// Workday Calculator
+window.calcWorkdays = function() {
+    const start = new Date(document.getElementById('workStart').value);
+    const end = new Date(document.getElementById('workEnd').value);
+    const excludeWeekends = document.getElementById('workExcludeWeekends').checked;
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) { alert('Select both dates'); return; }
+    let count = 0;
+    let current = new Date(start);
+    while (current <= end) {
+        const day = current.getDay();
+        if (!excludeWeekends || (day !== 0 && day !== 6)) count++;
+        current.setDate(current.getDate() + 1);
+    }
+    document.getElementById('workResVal').innerText = count + ' days';
+    document.getElementById('workResDetail').innerHTML = `From ${start.toLocaleDateString()} to ${end.toLocaleDateString()}`;
+    document.getElementById('workResult').style.display = 'block';
+};
+
+// Time Calculator
+let timeResult = 0;
+window.timeAdd = function() {
+    const h = parseFloat(document.getElementById('timeHours').value) || 0;
+    const m = parseFloat(document.getElementById('timeMins').value) || 0;
+    const s = parseFloat(document.getElementById('timeSecs').value) || 0;
+    timeResult += h * 3600 + m * 60 + s;
+    displayTime();
+};
+window.timeSubtract = function() {
+    const h = parseFloat(document.getElementById('timeHours').value) || 0;
+    const m = parseFloat(document.getElementById('timeMins').value) || 0;
+    const s = parseFloat(document.getElementById('timeSecs').value) || 0;
+    timeResult -= h * 3600 + m * 60 + s;
+    displayTime();
+};
+function displayTime() {
+    const abs = Math.abs(timeResult);
+    const hours = Math.floor(abs / 3600);
+    const mins = Math.floor((abs % 3600) / 60);
+    const secs = abs % 60;
+    document.getElementById('timeResVal').innerText = `${timeResult < 0 ? '-' : ''}${hours}h ${mins}m ${secs}s`;
+    document.getElementById('timeResDetail').innerHTML = `Total seconds: ${timeResult}`;
+    document.getElementById('timeResult').style.display = 'block';
+}
+
+// Cooking Converter
+window.convertCooking = function() {
+    const val = parseFloat(document.getElementById('cookVal').value);
+    const from = document.getElementById('cookFrom').value;
+    const to = document.getElementById('cookTo').value;
+    if (isNaN(val)) { alert('Enter value'); return; }
+    // Base unit is ml
+    const factors = { cup: 236.588, tbsp: 14.7868, tsp: 4.92892, ml: 1, gram: 1 };
+    const base = val * factors[from];
+    const result = base / factors[to];
+    document.getElementById('cookResVal').innerText = result.toFixed(2) + ' ' + to;
+    document.getElementById('cookResDetail').innerHTML = `${val} ${from} = ${result.toFixed(2)} ${to}`;
+    document.getElementById('cookResult').style.display = 'block';
+};
+
+// Shoe Size
+window.convertShoe = function() {
+    const cm = parseFloat(document.getElementById('shoeCm').value);
+    const gender = document.getElementById('shoeGender').value;
+    if (isNaN(cm) || cm <= 0) { alert('Enter foot length in cm'); return; }
+    const usMen = Math.round((cm - 22) / 0.847 - 1);
+    const usWomen = Math.round((cm - 22) / 0.847 + 1);
+    const uk = Math.round((cm - 22) / 0.847 - 1.5);
+    const eu = Math.round(cm / 0.667);
+    document.getElementById('shoeResVal').innerText = `US ${gender === 'men' ? usMen : usWomen}`;
+    document.getElementById('shoeResDetail').innerHTML = `UK: ${uk}<br>EU: ${eu}<br>CM: ${cm}`;
+    document.getElementById('shoeResult').style.display = 'block';
+};
+
+// Ring Size
+window.convertRing = function() {
+    const mm = parseFloat(document.getElementById('ringMm').value);
+    const circ = parseFloat(document.getElementById('ringCirc').value);
+    let diameter = mm;
+    if (!isNaN(circ) && circ > 0) diameter = circ / Math.PI;
+    if (isNaN(diameter) || diameter <= 0) { alert('Enter either diameter or circumference'); return; }
+    const us = Math.round((diameter - 12.7) / 0.8);
+    const uk = Math.round((diameter - 11.7) / 0.8);
+    const india = Math.round((diameter - 11.7) / 0.8);
+    document.getElementById('ringResVal').innerText = `US: ${us}`;
+    document.getElementById('ringResDetail').innerHTML = `UK: ${uk}<br>India: ${india}<br>Diameter: ${diameter.toFixed(1)} mm`;
+    document.getElementById('ringResult').style.display = 'block';
+};
+
+// Clothing Size
+window.convertClothing = function() {
+    const chest = parseFloat(document.getElementById('clothingChest').value);
+    const waist = parseFloat(document.getElementById('clothingWaist').value);
+    if (isNaN(chest) || chest <= 0) { alert('Enter chest measurement'); return; }
+    let size = '';
+    if (chest < 34) size = 'XS';
+    else if (chest < 38) size = 'S';
+    else if (chest < 42) size = 'M';
+    else if (chest < 46) size = 'L';
+    else if (chest < 50) size = 'XL';
+    else size = 'XXL';
+    document.getElementById('clothingResVal').innerText = size;
+    let detail = `Chest: ${chest}"`;
+    if (!isNaN(waist) && waist > 0) detail += `<br>Waist: ${waist}"`;
+    document.getElementById('clothingResDetail').innerHTML = detail;
+    document.getElementById('clothingResult').style.display = 'block';
+};
+
+// GPA/Percentage
+window.calcGPA = function() {
+    const obtained = parseFloat(document.getElementById('gpaObtained').value);
+    const total = parseFloat(document.getElementById('gpaTotal').value);
+    if (isNaN(obtained) || isNaN(total) || total <= 0) { alert('Enter valid numbers'); return; }
+    const percent = (obtained / total) * 100;
+    const gpa = (percent / 100) * 4; // simplified
+    document.getElementById('gpaResVal').innerText = percent.toFixed(2) + '%';
+    document.getElementById('gpaResDetail').innerHTML = `GPA (4.0 scale): ${gpa.toFixed(2)}`;
+    document.getElementById('gpaResult').style.display = 'block';
+};
+
+// Attendance Calculator
+window.calcAttendance = function() {
+    const total = parseFloat(document.getElementById('attTotal').value);
+    const attended = parseFloat(document.getElementById('attAttended').value);
+    const required = parseFloat(document.getElementById('attRequired').value);
+    if (isNaN(total) || isNaN(attended) || isNaN(required) || total <= 0) { alert('Enter valid numbers'); return; }
+    const current = (attended / total) * 100;
+    const needToAttend = Math.ceil((required * total / 100) - attended);
+    document.getElementById('attResVal').innerText = current.toFixed(2) + '%';
+    let detail = `Required: ${required}%<br>`;
+    if (needToAttend > 0) detail += `Need to attend ${needToAttend} more classes`;
+    else detail += `You're safe! Can bunk ${-needToAttend} classes`;
+    document.getElementById('attResDetail').innerHTML = detail;
+    document.getElementById('attResult').style.display = 'block';
+};
+
+// Salary Converter
+window.convertSalary = function() {
+    const amount = parseFloat(document.getElementById('salaryAmount').value);
+    const from = document.getElementById('salaryFrom').value;
+    const to = document.getElementById('salaryTo').value;
+    const hours = parseFloat(document.getElementById('salaryHours').value) || 8;
+    const days = parseFloat(document.getElementById('salaryDays').value) || 5;
+    if (isNaN(amount) || amount < 0) { alert('Enter valid amount'); return; }
+    let yearly = amount;
+    if (from === 'hourly') yearly = amount * hours * days * 52;
+    else if (from === 'daily') yearly = amount * days * 52;
+    else if (from === 'monthly') yearly = amount * 12;
+    
+    let result = yearly;
+    if (to === 'hourly') result = yearly / (hours * days * 52);
+    else if (to === 'daily') result = yearly / (days * 52);
+    else if (to === 'monthly') result = yearly / 12;
+    
+    document.getElementById('salaryResVal').innerText = result.toFixed(2);
+    document.getElementById('salaryResDetail').innerHTML = `Yearly: ₹${yearly.toFixed(2)}`;
+    document.getElementById('salaryResult').style.display = 'block';
+};
+
+// Tip Calculator
+window.calcTip = function() {
+    const bill = parseFloat(document.getElementById('tipBill').value);
+    const percent = parseFloat(document.getElementById('tipPercent').value);
+    const people = parseFloat(document.getElementById('tipPeople').value);
+    if (isNaN(bill) || isNaN(percent) || isNaN(people) || bill <= 0 || people <= 0) { alert('Enter valid numbers'); return; }
+    const tip = bill * percent / 100;
+    const total = bill + tip;
+    const perPerson = total / people;
+    document.getElementById('tipResVal').innerText = '₹ ' + perPerson.toFixed(2);
+    document.getElementById('tipResDetail').innerHTML = `Tip: ₹${tip.toFixed(2)}<br>Total: ₹${total.toFixed(2)}`;
+    document.getElementById('tipResult').style.display = 'block';
+};
+
+// Fuel Cost
+window.calcFuel = function() {
+    const dist = parseFloat(document.getElementById('fuelDist').value);
+    const eff = parseFloat(document.getElementById('fuelEfficiency').value);
+    const price = parseFloat(document.getElementById('fuelPrice').value);
+    if (isNaN(dist) || isNaN(eff) || isNaN(price) || dist <= 0 || eff <= 0 || price <= 0) { alert('Enter valid numbers'); return; }
+    const fuel = dist / eff;
+    const cost = fuel * price;
+    document.getElementById('fuelResVal').innerText = '₹ ' + cost.toFixed(2);
+    document.getElementById('fuelResDetail').innerHTML = `Fuel needed: ${fuel.toFixed(2)} liters`;
+    document.getElementById('fuelResult').style.display = 'block';
+};
+
+// Electricity Bill
+window.calcElectricity = function() {
+    const units = parseFloat(document.getElementById('elecUnits').value);
+    const rate = parseFloat(document.getElementById('elecRate').value);
+    const fixed = parseFloat(document.getElementById('elecFixed').value) || 0;
+    if (isNaN(units) || isNaN(rate) || units < 0 || rate < 0) { alert('Enter valid numbers'); return; }
+    const total = units * rate + fixed;
+    document.getElementById('elecResVal').innerText = '₹ ' + total.toFixed(2);
+    document.getElementById('elecResDetail').innerHTML = `Units: ${units}<br>Rate: ₹${rate}/unit<br>Fixed: ₹${fixed}`;
+    document.getElementById('elecResult').style.display = 'block';
+};
+
+// Paint Calculator
+window.calcPaint = function() {
+    const l = parseFloat(document.getElementById('paintLength').value);
+    const w = parseFloat(document.getElementById('paintWidth').value);
+    const h = parseFloat(document.getElementById('paintHeight').value);
+    const doors = parseFloat(document.getElementById('paintDoors').value) || 0;
+    const windows = parseFloat(document.getElementById('paintWindows').value) || 0;
+    const coverage = parseFloat(document.getElementById('paintCoverage').value) || 11;
+    if (isNaN(l) || isNaN(w) || isNaN(h) || l <= 0 || w <= 0 || h <= 0) { alert('Enter valid room dimensions'); return; }
+    const wallArea = 2 * (l + w) * h;
+    const doorArea = doors * 1.5; // avg door size
+    const windowArea = windows * 1; // avg window size
+    const netArea = Math.max(0, wallArea - doorArea - windowArea);
+    const paintLiters = netArea / coverage;
+    document.getElementById('paintResVal').innerText = paintLiters.toFixed(2) + ' liters';
+    document.getElementById('paintResDetail').innerHTML = `Wall area: ${wallArea.toFixed(2)} m²<br>Net area: ${netArea.toFixed(2)} m²`;
+    document.getElementById('paintResult').style.display = 'block';
+};
+
+// ========== SIP/EMI/BMI/AGE functions (existing) ==========
+window.calcSIP = function() {
+    const P = parseFloat(document.getElementById('sipAmount').value);
+    const r = parseFloat(document.getElementById('sipRate').value) / 100 / 12;
+    const n = parseFloat(document.getElementById('sipYears').value) * 12;
+    if (isNaN(P) || isNaN(r) || isNaN(n) || P <= 0 || r <= 0 || n <= 0) { alert('Please fill all fields'); return; }
+    const M = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+    const invested = P * n;
+    const returns = M - invested;
+    document.getElementById('sipResVal').innerText = '₹ ' + M.toFixed(2);
+    document.getElementById('sipResDetail').innerHTML = `Invested: ₹${invested.toFixed(2)}<br>Returns: ₹${returns.toFixed(2)}`;
+    document.getElementById('sipResult').style.display = 'block';
+    
+    const ctx = document.getElementById('sipChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Invested', 'Returns'],
+            datasets: [{
+                data: [invested, returns],
+                backgroundColor: ['#f59e0b', '#3b82f6']
+            }]
+        }
+    });
+};
+
+window.calcStepUpSIP = function() {
+    let P = parseFloat(document.getElementById('stepSipAmount').value);
+    const inc = parseFloat(document.getElementById('stepSipIncrement').value) / 100;
+    const r = parseFloat(document.getElementById('stepSipRate').value) / 100 / 12;
+    const years = parseFloat(document.getElementById('stepSipYears').value);
+    if (isNaN(P) || isNaN(inc) || isNaN(r) || isNaN(years) || P <= 0 || years <= 0) { alert('Please fill all fields'); return; }
+    let total = 0;
+    let months = years * 12;
+    let invested = 0;
+    for (let i = 0; i < months; i++) {
+        total = total * (1 + r) + P;
+        invested += P;
+        if ((i+1) % 12 === 0 && i < months-1) P = P * (1 + inc);
+    }
+    const returns = total - invested;
+    document.getElementById('stepSipResVal').innerText = '₹ ' + total.toFixed(2);
+    document.getElementById('stepSipResDetail').innerHTML = `Invested: ₹${invested.toFixed(2)}<br>Returns: ₹${returns.toFixed(2)}`;
+    document.getElementById('stepSipResult').style.display = 'block';
+};
+
+window.calcEMI = function() {
+    const P = parseFloat(document.getElementById('emiAmount').value);
+    const r = parseFloat(document.getElementById('emiRate').value) / 100 / 12;
+    const n = parseFloat(document.getElementById('emiMonths').value);
+    if (isNaN(P) || isNaN(r) || isNaN(n) || P <= 0 || r <= 0 || n <= 0) { alert('Please fill all fields'); return; }
+    const emi = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+    const total = emi * n;
+    const interest = total - P;
+    document.getElementById('emiResVal').innerText = '₹ ' + emi.toFixed(2);
+    document.getElementById('emiResDetail').innerHTML = `Principal: ₹${P.toFixed(2)}<br>Interest: ₹${interest.toFixed(2)}<br>Total: ₹${total.toFixed(2)}`;
+    document.getElementById('emiResult').style.display = 'block';
+    
+    const ctx = document.getElementById('emiChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Principal', 'Interest'],
+            datasets: [{
+                data: [P, interest],
+                backgroundColor: ['#22c55e', '#ef4444']
+            }]
+        }
+    });
+};
+
+window.calcBMI = function() {
+    const h = parseFloat(document.getElementById('bmiHeight').value) / 100;
+    const w = parseFloat(document.getElementById('bmiWeight').value);
+    if (isNaN(h) || isNaN(w) || h <= 0 || w <= 0) { alert('Enter valid height and weight'); return; }
+    const bmi = w / (h * h);
+    let cat = '';
+    if (bmi < 18.5) cat = 'Underweight';
+    else if (bmi < 25) cat = 'Normal weight';
+    else if (bmi < 30) cat = 'Overweight';
+    else cat = 'Obese';
+    document.getElementById('bmiResVal').innerText = bmi.toFixed(1);
+    document.getElementById('bmiResDetail').innerHTML = `Category: <strong>${cat}</strong>`;
+    document.getElementById('bmiResult').style.display = 'block';
+};
+
+window.calcAge = function() {
+    const dob = new Date(document.getElementById('dob').value);
+    const asOn = document.getElementById('asOnDate').value ? new Date(document.getElementById('asOnDate').value) : new Date();
+    if (isNaN(dob)) { alert('Enter valid date of birth'); return; }
+    let years = asOn.getFullYear() - dob.getFullYear();
+    let months = asOn.getMonth() - dob.getMonth();
+    let days = asOn.getDate() - dob.getDate();
+    if (days < 0) {
+        months--;
+        days += new Date(asOn.getFullYear(), asOn.getMonth(), 0).getDate();
+    }
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+    const totalDays = Math.floor((asOn - dob) / (1000*60*60*24));
+    document.getElementById('ageResVal').innerText = `${years} years, ${months} months, ${days} days`;
+    document.getElementById('ageResDetail').innerHTML = `Total days: ${totalDays}<br>Total months: ${Math.floor(totalDays/30.44)}`;
+    document.getElementById('ageResult').style.display = 'block';
+};
+
 // ========== SIDE MENU TOGGLE ==========
 const menuToggle = document.getElementById('menuToggle');
 const sideMenu = document.getElementById('sideMenu');
@@ -1158,8 +2799,19 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// ========== THEME SWITCHING (FULLY FIXED) ==========
-let currentTheme = localStorage.getItem('theme') || 'dark';
+// ========== PAGE NAVIGATION FOR MENU ITEMS ==========
+document.querySelectorAll('.menu-item[data-page]').forEach(item => {
+    item.addEventListener('click', () => {
+        const pageId = item.dataset.page;
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        const targetPage = document.getElementById(`page-${pageId}`);
+        if (targetPage) targetPage.classList.add('active');
+        document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+        closeMenuFn();
+    });
+});
+
+// ========== THEME SWITCHING ==========
 setTheme(currentTheme);
 
 document.querySelectorAll('.theme-btn').forEach(btn => {
@@ -1177,74 +2829,29 @@ function setTheme(theme) {
         root.style.setProperty('--bg', '#0a0e1a');
         root.style.setProperty('--surface', '#111827');
         root.style.setProperty('--card', '#151d2e');
-        root.style.setProperty('--card-alt', '#1a2540');
-        root.style.setProperty('--input', '#0c1220');
-        root.style.setProperty('--border', '#253352');
-        root.style.setProperty('--border-light', '#2e4068');
-        root.style.setProperty('--accent', '#3b82f6');
-        root.style.setProperty('--accent-glow', 'rgba(59,130,246,.35)');
-        root.style.setProperty('--accent-dim', '#1e3a8a');
-        root.style.setProperty('--gold', '#f59e0b');
-        root.style.setProperty('--gold-dim', '#92400e');
-        root.style.setProperty('--teal', '#14b8a6');
-        root.style.setProperty('--teal-dim', '#0f766e');
-        root.style.setProperty('--rose', '#f43f5e');
-        root.style.setProperty('--rose-dim', '#9f1239');
         root.style.setProperty('--text', '#e2e8f0');
         root.style.setProperty('--text-sec', '#94a3b8');
-        root.style.setProperty('--text-dim', '#64748b');
-        root.style.setProperty('--white', '#ffffff');
-        root.style.setProperty('--shadow', 'rgba(0,0,0,.5)');
-        root.style.setProperty('--success', '#22c55e');
-        root.style.setProperty('--error', '#ef4444');
+        root.style.setProperty('--border', '#253352');
+        root.removeAttribute('data-theme');
     } else if (theme === 'light') {
         root.style.setProperty('--bg', '#f1f5f9');
         root.style.setProperty('--surface', '#ffffff');
         root.style.setProperty('--card', '#e2e8f0');
-        root.style.setProperty('--card-alt', '#d1d5db');
-        root.style.setProperty('--input', '#ffffff');
-        root.style.setProperty('--border', '#cbd5e1');
-        root.style.setProperty('--border-light', '#94a3b8');
-        root.style.setProperty('--accent', '#2563eb');
-        root.style.setProperty('--accent-glow', 'rgba(37,99,235,0.2)');
-        root.style.setProperty('--accent-dim', '#3b82f6');
-        root.style.setProperty('--gold', '#b45309');
-        root.style.setProperty('--gold-dim', '#92400e');
-        root.style.setProperty('--teal', '#0d9488');
-        root.style.setProperty('--teal-dim', '#14b8a6');
-        root.style.setProperty('--rose', '#e11d48');
-        root.style.setProperty('--rose-dim', '#f43f5e');
         root.style.setProperty('--text', '#0f172a');
         root.style.setProperty('--text-sec', '#334155');
-        root.style.setProperty('--text-dim', '#64748b');
-        root.style.setProperty('--white', '#000000');
-        root.style.setProperty('--shadow', 'rgba(0,0,0,0.1)');
-        root.style.setProperty('--success', '#16a34a');
-        root.style.setProperty('--error', '#dc2626');
+        root.style.setProperty('--border', '#cbd5e1');
+        root.removeAttribute('data-theme');
     } else if (theme === 'original') {
         root.style.setProperty('--bg', '#0b1a2e');
         root.style.setProperty('--surface', '#0f2a40');
         root.style.setProperty('--card', '#123b54');
-        root.style.setProperty('--card-alt', '#1e4b6e');
-        root.style.setProperty('--input', '#0c1a2e');
-        root.style.setProperty('--border', '#1e4b6e');
-        root.style.setProperty('--border-light', '#2e5f82');
-        root.style.setProperty('--accent', '#0284c7');
-        root.style.setProperty('--accent-glow', 'rgba(2,132,199,0.35)');
-        root.style.setProperty('--accent-dim', '#0369a1');
-        root.style.setProperty('--gold', '#f59e0b');
-        root.style.setProperty('--gold-dim', '#b45309');
-        root.style.setProperty('--teal', '#14b8a6');
-        root.style.setProperty('--teal-dim', '#0f766e');
-        root.style.setProperty('--rose', '#f43f5e');
-        root.style.setProperty('--rose-dim', '#9f1239');
         root.style.setProperty('--text', '#e0f2fe');
         root.style.setProperty('--text-sec', '#b0c4de');
-        root.style.setProperty('--text-dim', '#7e9bb5');
-        root.style.setProperty('--white', '#ffffff');
-        root.style.setProperty('--shadow', 'rgba(0,0,0,0.5)');
-        root.style.setProperty('--success', '#22c55e');
-        root.style.setProperty('--error', '#ef4444');
+        root.style.setProperty('--border', '#1e4b6e');
+        root.style.setProperty('--accent', '#0284c7');
+        root.removeAttribute('data-theme');
+    } else if (theme === 'ocean') {
+        root.setAttribute('data-theme', 'ocean');
     }
     updateActiveThemeBtn(theme);
 }
@@ -1301,123 +2908,6 @@ document.addEventListener('mousedown', (e) => {
     if (!('ontouchstart' in window)) handleInteraction(e);
 });
 
-// ========== PAGE NAVIGATION FOR MENU ITEMS ==========
-document.querySelectorAll('.menu-item[data-page]').forEach(item => {
-    item.addEventListener('click', () => {
-        const pageId = item.dataset.page;
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(`page-${pageId}`).classList.add('active');
-        document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
-        closeMenuFn();
-    });
-});
-
-// ========== SIP, EMI, BMI, AGE, STEP-UP functions ==========
-window.calcSIP = function() {
-    const P = parseFloat(document.getElementById('sipAmount').value);
-    const r = parseFloat(document.getElementById('sipRate').value) / 100 / 12;
-    const n = parseFloat(document.getElementById('sipYears').value) * 12;
-    if (isNaN(P) || isNaN(r) || isNaN(n) || P <= 0 || r <= 0 || n <= 0) {
-        alert('Please fill all fields with positive numbers');
-        return;
-    }
-    const M = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
-    const invested = P * n;
-    const returns = M - invested;
-    document.getElementById('sipResVal').innerText = '₹ ' + M.toFixed(2);
-    document.getElementById('sipResDetail').innerHTML =
-        `Total Invested: ₹ ${invested.toFixed(2)}<br>` +
-        `Est. Returns: ₹ ${returns.toFixed(2)}<br>` +
-        `Maturity: ₹ ${M.toFixed(2)}`;
-    document.getElementById('sipResult').style.display = 'block';
-};
-
-window.calcStepUpSIP = function() {
-    let P = parseFloat(document.getElementById('stepSipAmount').value);
-    const inc = parseFloat(document.getElementById('stepSipIncrement').value) / 100;
-    const r = parseFloat(document.getElementById('stepSipRate').value) / 100 / 12;
-    const years = parseFloat(document.getElementById('stepSipYears').value);
-    if (isNaN(P) || isNaN(inc) || isNaN(r) || isNaN(years) || P <= 0 || years <= 0) {
-        alert('Please fill all fields with positive numbers');
-        return;
-    }
-    let total = 0;
-    let months = years * 12;
-    for (let i = 0; i < months; i++) {
-        total = total * (1 + r) + P;
-        if ((i+1) % 12 === 0) P = P * (1 + inc);
-    }
-    const invested = P * months;
-    const returns = total - invested;
-    document.getElementById('stepSipResVal').innerText = '₹ ' + total.toFixed(2);
-    document.getElementById('stepSipResDetail').innerHTML =
-        `Total Invested: approx ₹ ${invested.toFixed(2)}<br>` +
-        `Est. Returns: ₹ ${returns.toFixed(2)}<br>` +
-        `Maturity: ₹ ${total.toFixed(2)}`;
-    document.getElementById('stepSipResult').style.display = 'block';
-};
-
-window.calcEMI = function() {
-    const P = parseFloat(document.getElementById('emiAmount').value);
-    const r = parseFloat(document.getElementById('emiRate').value) / 100 / 12;
-    const n = parseFloat(document.getElementById('emiMonths').value);
-    if (isNaN(P) || isNaN(r) || isNaN(n) || P <= 0 || r <= 0 || n <= 0) {
-        alert('Please fill all fields with positive numbers');
-        return;
-    }
-    const emi = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
-    const total = emi * n;
-    const interest = total - P;
-    document.getElementById('emiResVal').innerText = '₹ ' + emi.toFixed(2);
-    document.getElementById('emiResDetail').innerHTML =
-        `Principal: ₹ ${P.toFixed(2)}<br>` +
-        `Total Interest: ₹ ${interest.toFixed(2)}<br>` +
-        `Total Payment: ₹ ${total.toFixed(2)}`;
-    document.getElementById('emiResult').style.display = 'block';
-};
-
-window.calcBMI = function() {
-    const h = parseFloat(document.getElementById('bmiHeight').value) / 100;
-    const w = parseFloat(document.getElementById('bmiWeight').value);
-    if (isNaN(h) || isNaN(w) || h <= 0 || w <= 0) {
-        alert('Please enter valid height and weight');
-        return;
-    }
-    const bmi = w / (h * h);
-    let cat = '';
-    if (bmi < 18.5) cat = 'Underweight';
-    else if (bmi < 25) cat = 'Normal weight';
-    else if (bmi < 30) cat = 'Overweight';
-    else cat = 'Obese';
-    document.getElementById('bmiResVal').innerText = bmi.toFixed(1);
-    document.getElementById('bmiResDetail').innerHTML = `Category: <strong>${cat}</strong>`;
-    document.getElementById('bmiResult').style.display = 'block';
-};
-
-window.calcAge = function() {
-    const dob = new Date(document.getElementById('dob').value);
-    const asOn = document.getElementById('asOnDate').value ? new Date(document.getElementById('asOnDate').value) : new Date();
-    if (isNaN(dob)) {
-        alert('Please enter a valid date of birth');
-        return;
-    }
-    let years = asOn.getFullYear() - dob.getFullYear();
-    let months = asOn.getMonth() - dob.getMonth();
-    let days = asOn.getDate() - dob.getDate();
-    if (days < 0) {
-        months--;
-        days += new Date(asOn.getFullYear(), asOn.getMonth(), 0).getDate();
-    }
-    if (months < 0) {
-        years--;
-        months += 12;
-    }
-    document.getElementById('ageResVal').innerText = `${years} years, ${months} months, ${days} days`;
-    document.getElementById('ageResDetail').innerHTML =
-        `Total days: ${Math.floor((asOn - dob) / (1000*60*60*24))}`;
-    document.getElementById('ageResult').style.display = 'block';
-};
-
 // ========== CONTACT MODAL ==========
 const contactBtn = document.getElementById('contactBtn');
 const contactModal = document.getElementById('contactModal');
@@ -1454,66 +2944,182 @@ document.getElementById('shareBtn').addEventListener('click', () => {
     closeMenuFn();
 });
 
-// ========== PWA INSTALL FEATURE ==========
-let deferredPrompt;
-const installBtn = document.getElementById('installBtn');
-const installMenuItem = document.getElementById('installMenuItem');
-const installBanner = document.getElementById('installBanner');
-const closeBanner = document.getElementById('closeBanner');
+// ========== SHARE RESULT FUNCTION ==========
+window.shareResult = function(elementId) {
+    const val = document.getElementById(elementId).innerText;
+    if (navigator.share) {
+        navigator.share({ title: 'Calculation Result', text: val });
+    } else {
+        navigator.clipboard.writeText(val).then(() => alert('Result copied to clipboard!'));
+    }
+};
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    // Show banner after 2 seconds
-    setTimeout(() => {
-        installBanner.classList.add('show');
-    }, 2000);
-});
+// ========== CHATBOT ==========
+const chatMessages = document.getElementById('chatMessages');
+const questionSelect = document.getElementById('questionSelect');
+const chatCustomQuestion = document.getElementById('chatCustomQuestion');
 
-function installApp() {
-    if (!deferredPrompt) {
-        alert('App already installed or not installable');
+window.askSelectedQuestion = function() {
+    let question = questionSelect.value;
+    let questionText = '';
+    if (question) {
+        questionText = questionSelect.options[questionSelect.selectedIndex].text;
+    } else if (chatCustomQuestion.value.trim()) {
+        questionText = chatCustomQuestion.value.trim();
+        question = 'custom';
+    } else {
+        alert('कृपया एक प्रश्न चुनें या लिखें!');
         return;
     }
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-            console.log('User accepted install');
-        }
-        deferredPrompt = null;
-        installBanner.classList.remove('show');
-    });
+    
+    addChatMessage(questionText, 'user');
+    const typingId = showChatTyping();
+    
+    setTimeout(() => {
+        const answer = generateAnswer(question, questionText);
+        removeChatTyping(typingId);
+        addChatMessage(answer, 'bot');
+    }, 600);
+};
+
+function addChatMessage(text, sender) {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `chat-message ${sender}`;
+    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    msgDiv.innerHTML = `
+        <div class="message-bubble">${text}</div>
+        <div class="message-time">${time}</div>
+    `;
+    chatMessages.appendChild(msgDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-installBtn.addEventListener('click', installApp);
-installMenuItem.addEventListener('click', () => {
-    closeMenuFn();
-    installApp();
-});
+function showChatTyping() {
+    const id = 'typing-' + Date.now();
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'chat-message bot';
+    typingDiv.id = id;
+    typingDiv.innerHTML = `<div class="message-bubble">टाइपिंग...</div>`;
+    chatMessages.appendChild(typingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    return id;
+}
 
-closeBanner.addEventListener('click', () => {
-    installBanner.classList.remove('show');
-});
+function removeChatTyping(id) {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+}
 
-// Hide banner if app already installed
-window.addEventListener('appinstalled', () => {
-    deferredPrompt = null;
-    installBanner.classList.remove('show');
-});
+function generateAnswer(key, customText = '') {
+    const answers = {
+        'sip_kya': '📈 **SIP (सिस्टमैटिक इन्वेस्टमेंट प्लान)** एक निवेश योजना है जिसमें आप हर महीने एक निश्चित राशि म्यूचुअल फंड में निवेश करते हैं। इससे आपको रुपया कॉस्ट एवरेजिंग और कंपाउंडिंग का लाभ मिलता है।',
+        'sip_formula': '📐 **SIP फॉर्मूला:** M = P × ((1 + r)^n - 1) / r × (1 + r)\n\nजहाँ:\nM = परिपक्वता राशि\nP = मासिक निवेश\nr = मासिक ब्याज दर (वार्षिक/12)\nn = कुल महीने',
+        'sip_example': '📊 **SIP उदाहरण:** ₹5000/माह, 12% वार्षिक, 10 साल\nकुल निवेश: ₹6,00,000\nअनुमानित रिटर्न: ₹5,60,000\nपरिपक्वता राशि: ₹11,60,000',
+        'sip_benefits': '💡 **SIP के फायदे:**\n• छोटी रकम से शुरुआत\n• रुपया कॉस्ट एवरेजिंग\n• कंपाउंडिंग का लाभ\n• अनुशासित निवेश की आदत\n• लंबी अवधि में बड़ा कोष',
+        'sip_vs_lumpsum': '⚖️ **SIP और लम्पसम में अंतर:**\nSIP में धीरे-धीरे निवेश होता है, जोखिम कम। लम्पसम में एक साथ पूरी रकम निवेश होती है, ज्यादा रिटर्न की संभावना लेकिन ज्यादा जोखिम।',
+        'sip_stepup': '🔝 **स्टेप-अप SIP** में आप हर साल अपनी SIP रकम बढ़ा सकते हैं (जैसे 10% सालाना)। इससे लंबी अवधि में काफी बड़ा कोष बनता है।',
+        'sip_tax': '💰 **SIP पर टैक्स:** इक्विटी SIP पर LTCG टैक्स ₹1 लाख से अधिक के लाभ पर 10% लगता है। डेट SIP पर इंडेक्सेशन के साथ टैक्स लगता है।',
+        'sip_risk': '⚠️ **SIP में जोखिम:** SIP में जोखिम बाजार के उतार-चढ़ाव पर निर्भर करता है। लंबी अवधि में जोखिम कम हो जाता है।',
+        'sip_how_to_start': '📝 **SIP कैसे शुरू करें:**\n1. पैन कार्ड और बैंक खाता रखें\n2. KYC पूरा करें\n3. म्यूचुअल फंड चुनें\n4. ऑनलाइन आवेदन करें',
+        'sip_best_for': '🎯 **SIP किसके लिए सबसे अच्छा है:** नियमित आय वाले लोग, लंबी अवधि के निवेशक, रिटायरमेंट प्लानिंग करने वाले, बच्चों की पढ़ाई के लिए बचत करने वाले।',
+        
+        // EMI Answers
+        'emi_kya': '💰 **EMI (एक्वेटेड मंथली इंस्टॉलमेंट)** वह मासिक किस्त है जो आप बैंक को ऋण चुकाने के लिए देते हैं। इसमें मूलधन और ब्याज दोनों शामिल होते हैं।',
+        'emi_formula': '📐 **EMI फॉर्मूला:** EMI = [P × r × (1+r)^n] / [(1+r)^n - 1]\n\nजहाँ:\nP = ऋण राशि\nr = मासिक ब्याज दर (वार्षिक/12)\nn = महीनों की संख्या',
+        'emi_example': '📊 **EMI उदाहरण:** ₹5,00,000 ऋण, 9.5% ब्याज, 5 साल (60 महीने)\nमासिक EMI: ₹10,500\nकुल ब्याज: ₹1,30,000\nकुल भुगतान: ₹6,30,000',
+        'emi_calculation': '🧮 **EMI कैलकुलेशन:** EMI = [P × r × (1+r)^n] / [(1+r)^n - 1]\nहमारा EMI कैलकुलेटर यह फॉर्मूला अपने आप लगा देता है।',
+        'emi_amortization': '📊 **अमोर्टाइजेशन** एक तालिका है जो दिखाती है कि हर EMI में से कितना मूलधन और कितना ब्याज जाता है। शुरू में ब्याज हिस्सा ज्यादा होता है, धीरे-धीरे मूलधन हिस्सा बढ़ता है।',
+        'emi_interest_principal': '💵 **EMI में ब्याज और मूलधन:** शुरू के महीनों में ब्याज का हिस्सा ज्यादा होता है। आखिरी महीनों में मूलधन का हिस्सा ज्यादा होता है।',
+        'emi_prepayment': '💰 **प्रीपेमेंट करने से फायदा:** प्रीपेमेंट से ब्याज का बोझ कम होता है और ऋण जल्दी खत्म होता है।',
+        'emi_loan_tenure': '📅 **लोन टेन्योर** वह अवधि है जिसमें आप ऋण चुकाते हैं। लंबी टेन्योर से EMI कम होती है लेकिन कुल ब्याज ज्यादा लगता है।',
+        'emi_flat_vs_reducing': '⚖️ **फ्लैट ब्याज** में पूरी अवधि के लिए मूलधन पर ब्याज लगता है। **रिड्यूसिंग ब्याज** में शेष मूलधन पर ब्याज लगता है, जो सस्ता होता है।',
+        
+        // BMI Answers
+        'bmi_kya': '⚖️ **BMI (बॉडी मास इंडेक्स)** आपके शरीर में वसा का माप है। यह वजन और ऊंचाई के अनुपात से निकाला जाता है।',
+        'bmi_formula': '📐 **BMI फॉर्मूला:** BMI = वजन (kg) / (ऊंचाई (m))²\n\nउदाहरण: वजन 70kg, ऊंचाई 1.7m\nBMI = 70 / (1.7×1.7) = 24.2',
+        'bmi_range': '📊 **BMI श्रेणियाँ:**\n• कम वजन: < 18.5\n• सामान्य: 18.5 – 24.9\n• अधिक वजन: 25 – 29.9\n• मोटापा: ≥ 30',
+        'bmi_example': '📊 **BMI उदाहरण:**\n1.7m ऊंचाई, 50kg वजन → BMI 17.3 (कम वजन)\n1.7m ऊंचाई, 65kg वजन → BMI 22.5 (सामान्य)\n1.7m ऊंचाई, 80kg वजन → BMI 27.7 (अधिक वजन)',
+        'bmi_healthy': '💪 **हेल्दी BMI:** 18.5 से 24.9 के बीच। यह दर्शाता है कि आपका वजन आपकी ऊंचाई के अनुपात में सही है।',
+        'bmi_underweight': '⚠️ **कम वजन (Underweight):** BMI < 18.5। इससे कुपोषण, कमजोरी और रोग प्रतिरोधक क्षमता कम हो सकती है।',
+        'bmi_overweight': '⚠️ **अधिक वजन (Overweight):** BMI 25-29.9। इससे डायबिटीज, हृदय रोग का खतरा बढ़ सकता है।',
+        'bmi_obese': '⚠️ **मोटापा (Obese):** BMI ≥ 30। इससे गंभीर स्वास्थ्य समस्याएं हो सकती हैं। डॉक्टर से सलाह लें।',
+        'bmi_children': '👶 **बच्चों का BMI:** बच्चों के लिए BMI उम्र और लिंग के अनुसार percentile में मापा जाता है। हमारा कैलकुलेटर वयस्कों के लिए है।',
+        
+        // Age Calculator Answers
+        'age_kya': '📅 **आयु कैलकुलेटर** आपकी सही आयु वर्ष, महीने और दिनों में निकालता है। यह जन्म तिथि और किसी अन्य तिथि के बीच अंतर बताता है।',
+        'age_example': '📊 **आयु गणना उदाहरण:**\nजन्म: 15 अगस्त 1995\nआज: 6 मार्च 2026\nआयु: 30 वर्ष, 6 महीने, 19 दिन\nकुल दिन: 11,150 दिन',
+        'age_accuracy': '🎯 **आयु कैलकुलेटर** बिल्कुल सटीक है। यह लीप ईयर और महीनों के अलग-अलग दिनों का ध्यान रखता है।',
+        'age_total_days': '📊 **कुल दिनों की गणना:** जन्म तिथि से आज तक के कुल दिन। यह उम्र का सटीक माप है।',
+        'age_future_date': '🔮 **भविष्य की तारीख पर आयु:** "As on Date" में भविष्य की कोई तारीख डालें। कैलकुलेटर उस दिन आपकी आयु बता देगा।',
+        
+        // Fabric Answers
+        'fabric_gsm_kya': '📏 **GSM (ग्राम प्रति वर्ग मीटर)** कपड़े की मोटाई और गुणवत्ता का माप है। जितना ज्यादा GSM, उतना ही मोटा और भारी कपड़ा।',
+        'fabric_gsm_range': '📊 **GSM रेंज और उपयोग:**\n• <80: वॉयल, शिफॉन (साड़ी, दुपट्टा)\n• 80-150: शर्ट, ड्रेस\n• 150-250: कुर्ता, बेडशीट\n• 250-400: डेनिम, कैनवास (जींस, बैग)\n• >400: असबाब, पर्दे',
+        'fabric_meter_calc': '📏 **मीटर कैलकुलेटर** सूत्र: लंबाई (मी) = [वजन (kg) × 1000] / [GSM × चौड़ाई (मी)]\nउदाहरण: GSM 150, चौड़ाई 150cm, वजन 5kg → लंबाई = 22.22 मी',
+        'fabric_weight_calc': '⚖️ **वेट कैलकुलेटर** सूत्र: वजन (g) = GSM × लंबाई (मी) × चौड़ाई (मी)\nउदाहरण: GSM 150, लंबाई 10मी, चौड़ाई 150cm → वजन = 2250g (2.25kg)',
+        'fabric_requirement': '📋 **फैब्रिक रिक्वायरमेंट (54" चौड़ाई):**\n• 3-सीटर सोफा कवर: 12 मी\n• 2-सीटर सोफा कवर: 8.5 मी\n• कुर्सी कवर: 3 मी\n• कुशन कवर: 0.5 मी\n• पर्दा: 4.5 मी\n• सिंगल बेडशीट: 4.5 मी\n• डबल बेडशीट: 6.5 मी\n• तकिया कवर: 0.55 मी',
+        'fabric_sofa_cover': '🛋️ **सोफा कवर के लिए कपड़ा:**\n3-सीटर: 12 मीटर (54" चौड़ाई)\n2-सीटर: 8.5 मीटर (54" चौड़ाई)',
+        'fabric_bedsheet': '🛏️ **बेडशीट के लिए कपड़ा:**\nसिंगल: 4.5 मीटर\nडबल: 6.5 मीटर (54" चौड़ाई)',
+        'fabric_curtain': '🪟 **पर्दे के लिए कपड़ा:** एक खिड़की के लिए 4.5 मीटर (54" चौड़ाई)',
+        'fabric_width_effect': '📏 **कपड़े की चौड़ाई का असर:** चौड़ाई जितनी ज्यादा, उतना ही कम मीटर लगता है। उदाहरण: 3-सीटर कवर के लिए 44" पर 14 मी, 54" पर 12 मी, 60" पर 10 मी लगता है।',
+        'fabric_cotton_gsm': '🌿 **कॉटन का GSM:** 100-200 के बीच। हल्के कॉटन 100-150, मोटे कॉटन 150-200।',
+        'fabric_silk_gsm': '✨ **सिल्क का GSM:** 30-120 के बीच। हल्की सिल्क 30-70, भारी सिल्क 70-120।',
+        'fabric_denim_gsm': '👖 **डेनिम का GSM:** 200-400 के बीच। हल्का डेनिम 200-300, भारी डेनिम 300-400।',
+        
+        // Foam Answers
+        'foam_density_kya': '📦 **फोम डेंसिटी** फोम की गुणवत्ता और मजबूती का माप है। इसे kg/m³ में मापा जाता है। डेंसिटी = वजन (kg) / आयतन (m³)',
+        'foam_density_formula': '📐 **फोम डेंसिटी फॉर्मूला:** डेंसिटी (kg/m³) = वजन (kg) / (लंबाई(m) × चौड़ाई(m) × मोटाई(m))',
+        'foam_density_range': '📊 **डेंसिटी रेंज:**\n• नरम (16-24): गद्दे\n• मध्यम (24-35): कुशन\n• मजबूत (35-50): सोफा\n• उच्च (50-80): ऑटो सीट\n• रीबॉन्डेड (80-150): फर्शिंग',
+        'foam_compare': '⚖️ **फोम कंपेयर:** लंबाई, चौड़ाई, डेंसिटी डालें। फिर लोकल और ब्रांडेड रेट डालें। यह बताएगा कि प्रति मिमी में कौन सा सस्ता है।',
+        'foam_mattress': '🛏️ **गद्दे के लिए डेंसिटी:** 16-35 kg/m³। नरम गद्दे के लिए 16-24, मध्यम के लिए 24-35।',
+        'foam_cushion': '🛋️ **कुशन के लिए डेंसिटी:** 24-35 kg/m³। यह आरामदायक और टिकाऊ होता है।',
+        'foam_sofa': '🪑 **सोफे के लिए डेंसिटी:** 35-50 kg/m³। यह मजबूत और लंबे समय तक चलने वाला होता है।',
+        'foam_car_seat': '🚗 **कार सीट के लिए डेंसिटी:** 50-80 kg/m³। यह उच्च घनत्व वाला फोम होता है जो ज्यादा टिकाऊ होता है।',
+        'foam_quality': '💡 **फोम की गुणवत्ता:** अच्छे फोम में डेंसिटी ज्यादा होती है। दबाने पर तुरंत वापस आ जाता है। पीला नहीं पड़ता।',
+        
+        // Unit Converter Answers
+        'unit_converter_kya': '🔄 **यूनिट कन्वर्टर** लंबाई, वजन, आयतन, फैब्रिक और तापमान की इकाइयों को परिवर्तित करता है।',
+        'unit_length': '📏 **लंबाई रूपांतरण:**\n1 मीटर = 3.28 फीट\n1 फीट = 30.48 सेमी\n1 इंच = 2.54 सेमी\n1 गज = 0.9144 मीटर\n1 मील = 1.609 किमी',
+        'unit_weight': '⚖️ **वजन रूपांतरण:**\n1 किग्रा = 2.2046 पाउंड\n1 पाउंड = 453.6 ग्राम\n1 औंस = 28.35 ग्राम\n1 क्विंटल = 100 किग्रा\n1 टन = 1000 किग्रा',
+        'unit_temperature': '🌡️ **तापमान रूपांतरण:**\nसेल्सियस से फ़ारेनहाइट: (°C × 9/5) + 32\nफ़ारेनहाइट से सेल्सियस: (°F - 32) × 5/9\nसेल्सियस से केल्विन: °C + 273.15',
+        'unit_volume': '🧪 **आयतन रूपांतरण:**\n1 लीटर = 1000 मिलीलीटर\n1 गैलन = 3.785 लीटर\n1 क्वार्ट = 0.946 लीटर\n1 पिंट = 0.473 लीटर',
+        'unit_fabric': '📏 **फैब्रिक यूनिट:**\n1 मीटर = 1.0936 गज\n1 गज = 0.9144 मीटर\n1 फीट = 0.3048 मीटर',
+        'unit_meter_to_feet': '📏 1 मीटर = 3.28084 फीट। मीटर को फीट में बदलने के लिए 3.28 से गुणा करें।',
+        'unit_feet_to_meter': '📏 1 फीट = 0.3048 मीटर। फीट को मीटर में बदलने के लिए 0.3048 से गुणा करें।',
+        'unit_inch_to_cm': '📏 1 इंच = 2.54 सेंटीमीटर। इंच को सेंटीमीटर में बदलने के लिए 2.54 से गुणा करें।',
+        'unit_kg_to_pound': '⚖️ 1 किलोग्राम = 2.20462 पाउंड। किलो को पाउंड में बदलने के लिए 2.2046 से गुणा करें।',
+        'unit_celsius_to_fahrenheit': '🌡️ °F = (°C × 9/5) + 32। उदाहरण: 25°C = (25 × 9/5) + 32 = 77°F',
+        
+        // Scientific Calculator Answers
+        'sci_trig': '🧮 **त्रिकोणमिति फलन:**\nsin(θ) - ज्या\ncos(θ) - कोज्या\ntan(θ) - स्पर्शज्या\nकोण θ डिग्री में। उदाहरण: sin(30°) = 0.5',
+        'sci_log': '📐 **लघुगणक:**\nlog(x) - आधार 10 लघुगणक\nln(x) - प्राकृतिक लघुगणक\nउदाहरण: log(100) = 2, ln(e) = 1',
+        'sci_power': '🔢 **घातांक:**\nx^y - x की घात y\n√x - वर्गमूल\n∛x - घनमूल\nउदाहरण: 2^3 = 8, √16 = 4, ∛27 = 3',
+        'sci_constants': 'π (पाई) ≈ 3.14159, e (यूलर संख्या) ≈ 2.71828। गणितीय गणनाओं में उपयोगी।',
+        'sci_factorial': '! **(फैक्टोरियल):** n! = n × (n-1) × (n-2) × ... × 1\nउदाहरण: 5! = 5×4×3×2×1 = 120',
+        'sci_abs': '|x| **(एब्सोल्यूट वैल्यू):** किसी संख्या का धनात्मक मान। |5| = 5, |-5| = 5',
+        
+        // App Features Answers
+        'app_theme': '🎨 **थीम बदलना:** मेन्यू (☰) खोलें → Theme options में से डार्क, लाइट या ओरिजिनल चुनें।',
+        'app_sound': '🔊 **क्लिक साउंड:** मेन्यू (☰) खोलें → Sound options में से टिक, क्लिक, बीप या साइलेंट चुनें।',
+        'app_history': '📜 **हिस्ट्री एक्सपोर्ट:** हिस्ट्री पेज में जाएं। CSV, JSON, TXT या PDF में एक्सपोर्ट कर सकते हैं।',
+        'app_contact': '📞 **संपर्क:** फ़ोन: +91 98765 43210, ईमेल: fardip@example.com, वेबसाइट: https://fardipthakre.github.io/FT/',
+        'app_features': '🤖 **ऐप में कैलकुलेटर:** SIP, Step-up SIP, EMI, BMI, आयु, फैब्रिक मास्टर (GSM, मीटर, वजन, रिक्वायरमेंट), फोम डेंसिटी, फोम कंपेयर, यूनिट कन्वर्टर, साइंटिफिक कैलकुलेटर, हिस्ट्री एक्सपोर्ट।',
+        // Add more answers as needed
+    };
+    
+    if (key === 'custom') {
+        return `आपने पूछा: "${customText}"\n\nहमारे पास इस सवाल का जवाब तैयार नहीं है, कृपया किसी अन्य विकल्प का चयन करें।`;
+    }
+    return answers[key] || '❓ क्षमा करें, इस प्रश्न का उत्तर उपलब्ध नहीं है। कृपया कोई अन्य विकल्प चुनें।';
+}
 
-// ========== TAB CLICK HANDLING ==========
-document.querySelectorAll('.tab-item').forEach(tab => {
-    tab.addEventListener('click', () => {
-        const pageId = tab.dataset.page;
-        document.querySelectorAll('.page').forEach(p => {
-            if (p.id !== 'page-' + pageId) p.classList.remove('active');
-        });
-    });
-});
+// ========== GUEST MODE ==========
+// Add a guest mode toggle in menu if desired
 
+// ========== INIT ==========
+updateHistoryPage();
 updateActiveThemeBtn(currentTheme);
 
-// ========== SERVICE WORKER REGISTRATION ==========
 if('serviceWorker' in navigator){
     window.addEventListener('load', function(){
         navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed:', err));
