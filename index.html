@@ -464,7 +464,8 @@
         <button class="menu-item" data-page="foam_compare">⚖️ Foam Compare</button>
         <button class="menu-item" data-page="fabriccost">💰 Fabric Cost Estimator</button>
         <button class="menu-item" data-page="bulkfabric">📦 Bulk Fabric Order</button>
-
+        <button class="menu-item" data-page="plywood">🪵 Plywood Calculator</button>
+        
         <div class="menu-divider"></div>
 
         <!-- AI Assistant -->
@@ -1587,7 +1588,156 @@
             </div>
         </div>
     </div>
+<!-- ========== PLYWOOD CALCULATOR PAGE ========== -->
+<div class="page" id="page-plywood">
+    <!-- शीट गणना कार्ड -->
+    <div class="form-card">
+        <div class="form-title">
+            <div class="icon" style="background:var(--accent-glow);color:var(--accent)">📐</div>
+            शीट गणना (Sheet Calculation)
+        </div>
+        <div class="form-label">लंबाई (फुट)</div>
+        <input class="form-input" type="number" id="ply_length" value="8" step="0.1">
+        <div class="form-label">चौड़ाई (फुट)</div>
+        <input class="form-input" type="number" id="ply_width" value="4" step="0.1">
+        <div class="form-label">कुल क्षेत्रफल (वर्ग फुट)</div>
+        <input class="form-input" type="number" id="ply_total_area" value="320" step="1">
+        <div class="form-label">अपव्यय प्रतिशत (%)</div>
+        <input class="form-input" type="number" id="ply_waste" value="5" step="0.1">
+        <button class="form-btn primary" onclick="plywood_calcSheets()">गणना करें</button>
+        <div class="result-box" id="ply_sheet_result" style="display:none">
+            <div class="result-val" id="ply_sheet_val"></div>
+            <div class="result-detail" id="ply_sheet_detail"></div>
+        </div>
+    </div>
 
+    <!-- लागत और मूल्य कार्ड -->
+    <div class="form-card">
+        <div class="form-title">
+            <div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">💰</div>
+            लागत और मूल्य (Cost & Pricing)
+        </div>
+        <div class="form-label">कच्चा माल लागत (₹ प्रति शीट)</div>
+        <input class="form-input" type="number" id="ply_raw_cost" value="800" step="10">
+        <div class="form-label">उत्पादन लागत (₹ प्रति शीट)</div>
+        <input class="form-input" type="number" id="ply_prod_cost" value="300" step="10">
+        <div class="form-label">ओवरहेड (₹ प्रति शीट)</div>
+        <input class="form-input" type="number" id="ply_overhead" value="150" step="10">
+        <div class="form-label">वांछित लाभ मार्जिन (%)</div>
+        <input class="form-input" type="number" id="ply_margin" value="20" step="1">
+        <button class="form-btn gold" onclick="plywood_calcCost()">मूल्य निकालें</button>
+        <div class="result-box" id="ply_cost_result" style="display:none">
+            <div class="result-val" id="ply_cost_val"></div>
+            <div class="result-detail" id="ply_cost_detail"></div>
+        </div>
+    </div>
+
+    <!-- सामग्री खपत कार्ड -->
+    <div class="form-card">
+        <div class="form-title">
+            <div class="icon" style="background:rgba(20,184,166,.2);color:var(--teal)">🧪</div>
+            सामग्री खपत (Material Consumption)
+        </div>
+        <div class="form-label">शीट की मोटाई (mm)</div>
+        <select class="form-select" id="ply_thickness">
+            <option value="4">4 mm (3 परत)</option>
+            <option value="6">6 mm (5 परत)</option>
+            <option value="9">9 mm (7 परत)</option>
+            <option value="12" selected>12 mm (9 परत)</option>
+            <option value="16">16 mm (11 परत)</option>
+            <option value="19">19 mm (13 परत)</option>
+        </select>
+        <div class="form-label">शीट का आकार (वर्ग फुट)</div>
+        <select class="form-select" id="ply_sheet_size">
+            <option value="32" selected>8x4 (32 वर्ग फुट)</option>
+            <option value="24">6x4 (24 वर्ग फुट)</option>
+            <option value="18">6x3 (18 वर्ग फुट)</option>
+            <option value="16">4x4 (16 वर्ग फुट)</option>
+        </select>
+        <div class="form-label">शीटों की संख्या</div>
+        <input class="form-input" type="number" id="ply_qty" value="100" step="1">
+        <div class="form-label">गोंद खपत दर (ग्राम/वर्ग फुट)</div>
+        <input class="form-input" type="number" id="ply_glue_rate" value="40" step="1">
+        <button class="form-btn teal" onclick="plywood_calcMaterial()">खपत निकालें</button>
+        <div class="result-box" id="ply_material_result" style="display:none">
+            <div class="result-val" id="ply_material_val"></div>
+            <div class="result-detail" id="ply_material_detail"></div>
+        </div>
+    </div>
+
+    <!-- इन्वेंटरी कार्ड -->
+    <div class="form-card">
+        <div class="form-title">
+            <div class="icon" style="background:var(--accent-glow);color:var(--accent)">📦</div>
+            इन्वेंटरी मूल्यांकन (Inventory)
+        </div>
+        <div class="form-row">
+            <div><div class="form-label">मोटाई 1 (mm)</div><input class="form-input" type="number" id="ply_inv_thick1" value="12"></div>
+            <div><div class="form-label">संख्या</div><input class="form-input" type="number" id="ply_inv_qty1" value="50"></div>
+        </div>
+        <div class="form-label">लागत प्रति शीट (₹)</div>
+        <input class="form-input" type="number" id="ply_inv_cost1" value="1200">
+        <div class="form-row" style="margin-top:10px;">
+            <div><div class="form-label">मोटाई 2 (mm)</div><input class="form-input" type="number" id="ply_inv_thick2" value="6"></div>
+            <div><div class="form-label">संख्या</div><input class="form-input" type="number" id="ply_inv_qty2" value="30"></div>
+        </div>
+        <div class="form-label">लागत प्रति शीट (₹)</div>
+        <input class="form-input" type="number" id="ply_inv_cost2" value="650">
+        <button class="form-btn primary" onclick="plywood_calcInventory()">गणना करें</button>
+        <div class="result-box" id="ply_inventory_result" style="display:none">
+            <div class="result-val" id="ply_inventory_val"></div>
+            <div class="result-detail" id="ply_inventory_detail"></div>
+        </div>
+    </div>
+
+    <!-- वित्तीय कार्ड -->
+    <div class="form-card">
+        <div class="form-title">
+            <div class="icon" style="background:rgba(245,158,11,.2);color:var(--gold)">📊</div>
+            वित्तीय विश्लेषण (Financial)
+        </div>
+        <div class="form-label">स्थिर लागत (₹ प्रति माह)</div>
+        <input class="form-input" type="number" id="ply_fixed_cost" value="50000">
+        <div class="form-label">परिवर्तनीय लागत (₹ प्रति शीट)</div>
+        <input class="form-input" type="number" id="ply_var_cost" value="1100">
+        <div class="form-label">बिक्री मूल्य (₹ प्रति शीट)</div>
+        <input class="form-input" type="number" id="ply_sell_price" value="1500">
+        <div class="form-label">निवेश (₹) - ROI के लिए</div>
+        <input class="form-input" type="number" id="ply_investment" value="500000">
+        <button class="form-btn gold" onclick="plywood_calcFinancial()">गणना करें</button>
+        <div class="result-box" id="ply_financial_result" style="display:none">
+            <div class="result-val" id="ply_financial_val"></div>
+            <div class="result-detail" id="ply_financial_detail"></div>
+        </div>
+    </div>
+
+    <!-- इकाई रूपांतरण कार्ड -->
+    <div class="form-card">
+        <div class="form-title">
+            <div class="icon" style="background:rgba(34,197,94,.2);color:var(--success)">🔄</div>
+            इकाई रूपांतरण (Unit Converter)
+        </div>
+        <div class="unit-pills" id="plywoodUnitPills">
+            <button class="unit-pill active" data-cat="length">लंबाई</button>
+            <button class="unit-pill" data-cat="area">क्षेत्रफल</button>
+            <button class="unit-pill" data-cat="volume">आयतन</button>
+        </div>
+        <div class="form-label">मान</div>
+        <input class="form-input" type="number" id="ply_conv_val" value="1" step="any">
+        <div class="form-row" style="margin-top:12px">
+            <div><div class="form-label">से</div><select class="form-select" id="ply_conv_from"></select></div>
+            <div style="flex:0; padding-bottom:6px; align-self:flex-end;">
+                <button class="swap-btn" onclick="plywood_swapUnits()">⇄</button>
+            </div>
+            <div><div class="form-label">में</div><select class="form-select" id="ply_conv_to"></select></div>
+        </div>
+        <button class="form-btn primary" onclick="plywood_convertUnit()">रूपांतरण करें</button>
+        <div class="result-box" id="ply_conv_result" style="display:none">
+            <div class="result-val" id="ply_conv_val"></div>
+            <div class="result-detail" id="ply_conv_detail"></div>
+        </div>
+    </div>
+</div>
 </div> <!-- main close -->
 
 <!-- Social Footer -->
@@ -1607,6 +1757,7 @@
     <button class="tab-item" data-page="foam"><div class="tab-icon">&#9679;</div><div class="tab-label">Foam</div></button>
     <button class="tab-item" data-page="foam_compare"><div class="tab-icon">⚖️</div><div class="tab-label">Foam Compare</div></button>
     <button class="tab-item" data-page="fabric"><div class="tab-icon">&#9733;</div><div class="tab-label">Fabric</div></button>
+    <button class="tab-item" data-page="plywood"><div class="tab-icon">🪵</div><div class="tab-label">Plywood</div></button>
 </nav>
 
 <!-- CONTACT MODAL -->
@@ -3125,6 +3276,164 @@ if('serviceWorker' in navigator){
         navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed:', err));
     });
 }
+</script>
+<script>
+// ========== PLYWOOD CALCULATOR FUNCTIONS ==========
+// शीट गणना
+window.plywood_calcSheets = function() {
+    const len = parseFloat(document.getElementById('ply_length').value) || 0;
+    const wid = parseFloat(document.getElementById('ply_width').value) || 0;
+    const totalArea = parseFloat(document.getElementById('ply_total_area').value) || 0;
+    const waste = parseFloat(document.getElementById('ply_waste').value) || 0;
+    if (len <= 0 || wid <= 0 || totalArea <= 0) { alert('सही मान दर्ज करें'); return; }
+    const sheetArea = len * wid;
+    const sheetsWithoutWaste = totalArea / sheetArea;
+    const sheetsWithWaste = sheetsWithoutWaste * (1 + waste / 100);
+    const sheetsRounded = Math.ceil(sheetsWithWaste);
+    document.getElementById('ply_sheet_val').innerHTML = 
+        `कुल शीट: ${sheetsRounded}`;
+    document.getElementById('ply_sheet_detail').innerHTML = 
+        `एक शीट का क्षेत्रफल: ${sheetArea.toFixed(2)} वर्ग फुट<br>` +
+        `अपव्यय सहित: ${sheetsWithWaste.toFixed(2)} शीट`;
+    document.getElementById('ply_sheet_result').style.display = 'block';
+};
+
+// लागत गणना
+window.plywood_calcCost = function() {
+    const raw = parseFloat(document.getElementById('ply_raw_cost').value) || 0;
+    const prod = parseFloat(document.getElementById('ply_prod_cost').value) || 0;
+    const overhead = parseFloat(document.getElementById('ply_overhead').value) || 0;
+    const margin = parseFloat(document.getElementById('ply_margin').value) || 0;
+    const totalCost = raw + prod + overhead;
+    const sellingPrice = totalCost * (1 + margin / 100);
+    const pricePerSqft = sellingPrice / 32; // assuming 8x4 sheet
+    document.getElementById('ply_cost_val').innerHTML = 
+        `बिक्री मूल्य: ₹${sellingPrice.toFixed(2)}`;
+    document.getElementById('ply_cost_detail').innerHTML = 
+        `कुल लागत: ₹${totalCost.toFixed(2)}<br>` +
+        `प्रति वर्ग फुट: ₹${pricePerSqft.toFixed(2)}`;
+    document.getElementById('ply_cost_result').style.display = 'block';
+};
+
+// सामग्री खपत
+window.plywood_calcMaterial = function() {
+    const thick = parseFloat(document.getElementById('ply_thickness').value);
+    const sheetSize = parseFloat(document.getElementById('ply_sheet_size').value);
+    const qty = parseFloat(document.getElementById('ply_qty').value) || 0;
+    const glueRate = parseFloat(document.getElementById('ply_glue_rate').value) || 0;
+    if (qty <= 0) { alert('शीटों की संख्या सही दर्ज करें'); return; }
+    const plies = Math.round(thick / 1.5 + 1);
+    const totalArea = sheetSize * qty;
+    const glueKg = (totalArea * glueRate) / 1000;
+    document.getElementById('ply_material_val').innerHTML = 
+        `गोंद की खपत: ${glueKg.toFixed(2)} kg`;
+    document.getElementById('ply_material_detail').innerHTML = 
+        `विनियर परतें: ${plies}<br>` +
+        `कुल क्षेत्रफल: ${totalArea.toFixed(2)} वर्ग फुट`;
+    document.getElementById('ply_material_result').style.display = 'block';
+};
+
+// इन्वेंटरी
+window.plywood_calcInventory = function() {
+    const thick1 = parseFloat(document.getElementById('ply_inv_thick1').value) || 0;
+    const qty1 = parseFloat(document.getElementById('ply_inv_qty1').value) || 0;
+    const cost1 = parseFloat(document.getElementById('ply_inv_cost1').value) || 0;
+    const thick2 = parseFloat(document.getElementById('ply_inv_thick2').value) || 0;
+    const qty2 = parseFloat(document.getElementById('ply_inv_qty2').value) || 0;
+    const cost2 = parseFloat(document.getElementById('ply_inv_cost2').value) || 0;
+
+    const thicknessFt1 = thick1 / 304.8;
+    const thicknessFt2 = thick2 / 304.8;
+    const volume1 = 32 * thicknessFt1 * qty1;
+    const volume2 = 32 * thicknessFt2 * qty2;
+    const totalVolumeCft = volume1 + volume2;
+    const totalVolumeCbm = totalVolumeCft * 0.0283168;
+    const totalValue = (qty1 * cost1) + (qty2 * cost2);
+
+    document.getElementById('ply_inventory_val').innerHTML = 
+        `कुल मूल्य: ₹${totalValue.toFixed(2)}`;
+    document.getElementById('ply_inventory_detail').innerHTML = 
+        `कुल शीट: ${qty1 + qty2}<br>` +
+        `आयतन: ${totalVolumeCft.toFixed(2)} cft (${totalVolumeCbm.toFixed(2)} cbm)`;
+    document.getElementById('ply_inventory_result').style.display = 'block';
+};
+
+// वित्तीय
+window.plywood_calcFinancial = function() {
+    const fixed = parseFloat(document.getElementById('ply_fixed_cost').value) || 0;
+    const varCost = parseFloat(document.getElementById('ply_var_cost').value) || 0;
+    const sellPrice = parseFloat(document.getElementById('ply_sell_price').value) || 0;
+    const investment = parseFloat(document.getElementById('ply_investment').value) || 0;
+
+    const contribution = sellPrice - varCost;
+    const bepUnits = contribution > 0 ? fixed / contribution : 0;
+    const bepRupees = bepUnits * sellPrice;
+    // assume 200 sheets/month for ROI
+    const monthlyProfit = (200 * contribution) - fixed;
+    const annualProfit = monthlyProfit * 12;
+    const roi = investment > 0 ? (annualProfit / investment) * 100 : 0;
+
+    document.getElementById('ply_financial_val').innerHTML = 
+        `BEP: ${Math.ceil(bepUnits)} शीट/माह`;
+    document.getElementById('ply_financial_detail').innerHTML = 
+        `BEP (₹): ₹${bepRupees.toFixed(2)}<br>` +
+        `ROI (200 शीट/माह पर): ${roi.toFixed(2)}%`;
+    document.getElementById('ply_financial_result').style.display = 'block';
+};
+
+// ===== प्लाईवुड यूनिट कन्वर्टर =====
+const plywoodUnitData = {
+    length: { units: ['Meter', 'Feet', 'Inch', 'CM'], factors: { Meter:1, Feet:0.3048, Inch:0.0254, CM:0.01 } },
+    area: { units: ['Sq Meter', 'Sq Feet', 'Sq Inch', 'Sq CM'], factors: { 'Sq Meter':1, 'Sq Feet':0.092903, 'Sq Inch':0.00064516, 'Sq CM':0.0001 } },
+    volume: { units: ['Cubic Meter', 'Cubic Feet', 'Cubic Inch', 'Liter'], factors: { 'Cubic Meter':1, 'Cubic Feet':0.0283168, 'Cubic Inch':1.6387e-5, 'Liter':0.001 } }
+};
+
+let plywoodCurrentCat = 'length';
+
+function plywood_populateUnits() {
+    const from = document.getElementById('ply_conv_from');
+    const to = document.getElementById('ply_conv_to');
+    if (!from || !to) return;
+    const units = plywoodUnitData[plywoodCurrentCat].units;
+    from.innerHTML = units.map((u,i) => `<option value="${u}" ${i===0?'selected':''}>${u}</option>`).join('');
+    to.innerHTML = units.map((u,i) => `<option value="${u}" ${i===1?'selected':''}>${u}</option>`).join('');
+}
+
+// कैटेगरी पिल्स
+document.querySelectorAll('#plywoodUnitPills .unit-pill').forEach(pill => {
+    pill.addEventListener('click', function() {
+        document.querySelectorAll('#plywoodUnitPills .unit-pill').forEach(p => p.classList.remove('active'));
+        this.classList.add('active');
+        plywoodCurrentCat = this.dataset.cat;
+        plywood_populateUnits();
+        document.getElementById('ply_conv_result').style.display = 'none';
+    });
+});
+
+window.plywood_convertUnit = function() {
+    const val = parseFloat(document.getElementById('ply_conv_val').value);
+    if (isNaN(val)) return;
+    const from = document.getElementById('ply_conv_from').value;
+    const to = document.getElementById('ply_conv_to').value;
+    const factors = plywoodUnitData[plywoodCurrentCat].factors;
+    const base = val * factors[from];
+    const result = base / factors[to];
+    document.getElementById('ply_conv_val').innerText = result.toFixed(6) + ' ' + to;
+    document.getElementById('ply_conv_detail').innerHTML = `${val} ${from} = ${result.toFixed(6)} ${to}`;
+    document.getElementById('ply_conv_result').style.display = 'block';
+};
+
+window.plywood_swapUnits = function() {
+    const from = document.getElementById('ply_conv_from');
+    const to = document.getElementById('ply_conv_to');
+    const temp = from.value;
+    from.value = to.value;
+    to.value = temp;
+    plywood_convertUnit();
+};
+
+// Initialize plywood unit converter on page load
+plywood_populateUnits();
 </script>
 </body>
 </html>
