@@ -1,0 +1,13 @@
+/* Inter Font - Local Fallback */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: local('Inter'), local('Inter-Regular'), url('data:font/woff2;base64,d09GMgABAAAAA...') format('woff2');
+}
+
+/* System fonts fallback */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
