@@ -545,155 +545,185 @@
         }
     </script>
 
-    <!-- ========== DYNAMIC TOOLS GENERATOR (100+ New, not in index) ========== -->
-    <script>
-        (function() {
-            // List of 100+ brand new tools (each carefully chosen to NOT be in index.html)
-            const newTools = [
-                // ---------- Finance (Advanced) ----------
-                { title: "📈 CAGR Calculator", fields: [{ label: "Start Value (₹)", type: "number" }, { label: "End Value (₹)", type: "number" }, { label: "Years", type: "number" }], calc: (vals) => (Math.pow(vals[1]/vals[0], 1/vals[2]) - 1) * 100, unit: "%" },
-                { title: "💰 XIRR (Simplified)", fields: [{ label: "Investment (₹)", type: "number" }, { label: "Final Value (₹)", type: "number" }, { label: "Days Held", type: "number" }], calc: (vals) => (Math.pow(vals[1]/vals[0], 365/vals[2]) - 1) * 100, unit: "% p.a." },
-                { title: "📊 ROI", fields: [{ label: "Gain (₹)", type: "number" }, { label: "Cost (₹)", type: "number" }], calc: (vals) => (vals[0]/vals[1])*100, unit: "%" },
-                { title: "📉 Break-Even Units", fields: [{ label: "Fixed Cost (₹)", type: "number" }, { label: "Price per Unit (₹)", type: "number" }, { label: "Variable Cost per Unit (₹)", type: "number" }], calc: (vals) => vals[0] / (vals[1] - vals[2]), unit: "units" },
-                { title: "📈 Break-Even Revenue", fields: [{ label: "Fixed Cost (₹)", type: "number" }, { label: "Price per Unit (₹)", type: "number" }, { label: "Variable Cost per Unit (₹)", type: "number" }], calc: (vals) => vals[0] / (1 - vals[2]/vals[1]), unit: "₹" },
-                { title: "💰 Profit Margin", fields: [{ label: "Revenue (₹)", type: "number" }, { label: "Cost (₹)", type: "number" }], calc: (vals) => ((vals[0] - vals[1]) / vals[0]) * 100, unit: "%" },
-                { title: "💰 Markup %", fields: [{ label: "Cost (₹)", type: "number" }, { label: "Selling Price (₹)", type: "number" }], calc: (vals) => ((vals[1] - vals[0]) / vals[0]) * 100, unit: "%" },
-                { title: "💰 Selling Price from Margin", fields: [{ label: "Cost (₹)", type: "number" }, { label: "Desired Margin %", type: "number" }], calc: (vals) => vals[0] / (1 - vals[1]/100), unit: "₹" },
-                { title: "💰 Cost from Selling Price & Margin", fields: [{ label: "Selling Price (₹)", type: "number" }, { label: "Margin %", type: "number" }], calc: (vals) => vals[0] * (1 - vals[1]/100), unit: "₹" },
-                { title: "📈 Effective Annual Rate", fields: [{ label: "Nominal Rate %", type: "number" }, { label: "Compounding Periods per Year", type: "number", default: 12 }], calc: (vals) => (Math.pow(1 + vals[0]/100/vals[1], vals[1]) - 1) * 100, unit: "%" },
-                { title: "📈 Present Value (Lump Sum)", fields: [{ label: "Future Value (₹)", type: "number" }, { label: "Rate % p.a.", type: "number" }, { label: "Years", type: "number" }], calc: (vals) => vals[0] / Math.pow(1 + vals[1]/100, vals[2]), unit: "₹" },
-                { title: "📈 Future Value (Annuity)", fields: [{ label: "Payment (₹)", type: "number" }, { label: "Rate % p.a.", type: "number" }, { label: "Years", type: "number" }, { label: "Payments per Year", type: "number", default: 12 }], calc: (vals) => { let r=vals[1]/100/vals[3], n=vals[2]*vals[3]; return vals[0] * ((Math.pow(1+r,n)-1)/r); }, unit: "₹" },
-                { title: "💰 Loan Payment (Principal & Interest)", fields: [{ label: "Loan Amount (₹)", type: "number" }, { label: "Rate % p.a.", type: "number" }, { label: "Years", type: "number" }], calc: (vals) => { let r=vals[1]/100/12, n=vals[2]*12; return vals[0] * r * Math.pow(1+r,n) / (Math.pow(1+r,n)-1); }, unit: "₹/month" },
-                { title: "📊 Rule of 72", fields: [{ label: "Rate %", type: "number" }], calc: (vals) => 72 / vals[0], unit: "years to double" },
-                // ---------- Health & Fitness (not in index) ----------
-                { title: "💪 One Rep Max (Epley)", fields: [{ label: "Weight Lifted (kg)", type: "number" }, { label: "Reps", type: "number" }], calc: (vals) => vals[0] * (1 + vals[1]/30), unit: "kg (1RM)" },
-                { title: "💪 One Rep Max (Brzycki)", fields: [{ label: "Weight Lifted (kg)", type: "number" }, { label: "Reps", type: "number" }], calc: (vals) => vals[0] * 36 / (37 - vals[1]), unit: "kg (1RM)" },
-                { title: "❤️ Max Heart Rate (Fox)", fields: [{ label: "Age", type: "number" }], calc: (vals) => 220 - vals[0], unit: "bpm" },
-                { title: "❤️ Max Heart Rate (Tanaka)", fields: [{ label: "Age", type: "number" }], calc: (vals) => 208 - 0.7 * vals[0], unit: "bpm" },
-                { title: "❤️ Target Heart Rate Zone", fields: [{ label: "Age", type: "number" }, { label: "Intensity % (e.g., 70)", type: "number", default: 70 }], calc: (vals) => (220 - vals[0]) * vals[1] / 100, unit: "bpm" },
-                { title: "🔥 Calories Burned Running", fields: [{ label: "Weight (kg)", type: "number" }, { label: "Distance (km)", type: "number" }], calc: (vals) => vals[0] * vals[1] * 1.036, unit: "kcal" },
-                { title: "🔥 Calories Burned Cycling", fields: [{ label: "Weight (kg)", type: "number" }, { label: "Time (min)", type: "number" }, { label: "MET (e.g., 8)", type: "number", default: 8 }], calc: (vals) => vals[2] * vals[0] * (vals[1]/60), unit: "kcal" },
-                { title: "💧 Lean Body Mass (Boer)", fields: [{ label: "Weight (kg)", type: "number" }, { label: "Height (cm)", type: "number" }, { label: "Male=1,Female=0", type: "number", default: 1 }], calc: (vals) => vals[2]==1 ? (0.407*vals[0] + 0.267*vals[1] - 19.2) : (0.252*vals[0] + 0.473*vals[1] - 48.3), unit: "kg" },
-                { title: "⚖️ Waist-to-Height Ratio", fields: [{ label: "Waist (cm)", type: "number" }, { label: "Height (cm)", type: "number" }], calc: (vals) => vals[0]/vals[1], unit: "" },
-                { title: "⚖️ Waist-to-Hip Ratio", fields: [{ label: "Waist (cm)", type: "number" }, { label: "Hip (cm)", type: "number" }], calc: (vals) => vals[0]/vals[1], unit: "" },
-                { title: "💪 Body Fat (US Navy) approx", fields: [{ label: "Height (cm)", type: "number" }, { label: "Neck (cm)", type: "number" }, { label: "Waist (cm)", type: "number" }, { label: "Hip (cm, female only)", type: "number", default: 0 }, { label: "Male=1,Female=0", type: "number", default: 1 }], calc: (vals) => { if(vals[4]==1) return 86.010*Math.log10(vals[2]-vals[1]) - 70.041*Math.log10(vals[0]) + 36.76; else return 163.205*Math.log10(vals[2]+vals[3]-vals[1]) - 97.684*Math.log10(vals[0]) - 78.387; }, unit: "%" },
-                // ---------- Math Tools (not in index, or advanced) ----------
-                { title: "🧮 Permutation (nPr)", fields: [{ label: "n", type: "number", default: 5 }, { label: "r", type: "number", default: 2 }], calc: (vals) => { let n=vals[0], r=vals[1]; if(n<r) return NaN; let f=1; for(let i=n;i>n-r;i--) f*=i; return f; }, unit: "" },
-                { title: "🧮 Combination (nCr)", fields: [{ label: "n", type: "number", default: 5 }, { label: "r", type: "number", default: 2 }], calc: (vals) => { let n=vals[0], r=vals[1]; if(n<r) return NaN; let num=1, den=1; for(let i=1;i<=r;i++) { num*=n-i+1; den*=i; } return num/den; }, unit: "" },
-                { title: "🧮 Factorial", fields: [{ label: "n (0-20)", type: "number", default: 5 }], calc: (vals) => { let n=Math.floor(vals[0]); if(n<0||n>20) return NaN; let f=1; for(let i=2;i<=n;i++) f*=i; return f; }, unit: "" },
-                { title: "🧮 GCD", fields: [{ label: "Number 1", type: "number", default: 48 }, { label: "Number 2", type: "number", default: 18 }], calc: (vals) => { let a=Math.abs(vals[0]), b=Math.abs(vals[1]); while(b) [a,b]=[b,a%b]; return a; }, unit: "" },
-                { title: "🧮 LCM", fields: [{ label: "Number 1", type: "number", default: 12 }, { label: "Number 2", type: "number", default: 18 }], calc: (vals) => { let a=Math.abs(vals[0]), b=Math.abs(vals[1]), gcd=(a,b)=>b?gcd(b,a%b):a; return a*b/gcd(a,b); }, unit: "" },
-                { title: "🔢 Prime Check", fields: [{ label: "Number", type: "number", default: 17 }], calc: (vals) => { let n=vals[0]; if(n<2) return "No"; for(let i=2;i<=Math.sqrt(n);i++) if(n%i===0) return "No"; return "Yes"; }, unit: "" },
-                { title: "🔢 Fibonacci Number", fields: [{ label: "n (index)", type: "number", default: 10 }], calc: (vals) => { let n=Math.floor(vals[0]), a=0,b=1,c; if(n===0) return 0; for(let i=2;i<=n;i++){c=a+b;a=b;b=c;} return n===1?1:b; }, unit: "" },
-                // ---------- Text Tools ----------
-                { title: "📝 Character Count", fields: [{ label: "Text", type: "text", default: "Hello world" }], calc: (vals) => vals[0].length, unit: "chars" },
-                { title: "📝 Word Count", fields: [{ label: "Text", type: "text", default: "Hello world" }], calc: (vals) => vals[0].trim().split(/\s+/).filter(w=>w).length, unit: "words" },
-                { title: "📝 Sentence Count", fields: [{ label: "Text", type: "text", default: "Hi. How are you?" }], calc: (vals) => (vals[0].match(/[.!?]+/g)||[]).length, unit: "sentences" },
-                { title: "🔄 Reverse Text", fields: [{ label: "Text", type: "text", default: "Hello" }], calc: (vals) => vals[0].split('').reverse().join(''), unit: "" },
-                { title: "🔠 Uppercase", fields: [{ label: "Text", type: "text", default: "hello" }], calc: (vals) => vals[0].toUpperCase(), unit: "" },
-                { title: "🔡 Lowercase", fields: [{ label: "Text", type: "text", default: "HELLO" }], calc: (vals) => vals[0].toLowerCase(), unit: "" },
-                // ---------- Random Generators ----------
-                { title: "🎲 Random Integer", fields: [{ label: "Min", type: "number", default: 1 }, { label: "Max", type: "number", default: 100 }], calc: (vals) => Math.floor(Math.random() * (vals[1]-vals[0]+1)) + vals[0], unit: "" },
-                { title: "🎲 Random Dice Roll", fields: [], calc: () => Math.floor(Math.random()*6)+1, unit: "" },
-                { title: "🪙 Coin Flip", fields: [], calc: () => Math.random()<0.5?"Heads":"Tails", unit: "" },
-                { title: "🔐 Random Password (8 chars)", fields: [], calc: () => Math.random().toString(36).slice(-8), unit: "" },
-                { title: "🎨 Random Hex Color", fields: [], calc: () => '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6,'0'), unit: "" },
-                // ---------- Construction (more) ----------
-                { title: "🧱 Concrete Volume (Slab)", fields: [{ label: "Length (m)", type: "number" }, { label: "Width (m)", type: "number" }, { label: "Thickness (cm)", type: "number" }], calc: (vals) => vals[0] * vals[1] * (vals[2]/100), unit: "m³" },
-                { title: "🧱 Rebar Weight", fields: [{ label: "Diameter (mm)", type: "number" }, { label: "Length (m)", type: "number" }], calc: (vals) => (Math.PI * Math.pow(vals[0]/1000,2)/4 * vals[1] * 7850), unit: "kg" },
-                { title: "🧱 Bricks per m²", fields: [{ label: "Brick length (cm)", type: "number", default: 19 }, { label: "Brick height (cm)", type: "number", default: 9 }, { label: "Mortar thickness (cm)", type: "number", default: 1 }], calc: (vals) => { let l=(vals[0]+vals[2])/100, h=(vals[1]+vals[2])/100; return Math.floor(1/(l*h)); }, unit: "bricks/m²" },
-                { title: "🧱 Flooring Area (tiles)", fields: [{ label: "Room length (m)", type: "number" }, { label: "Room width (m)", type: "number" }], calc: (vals) => vals[0] * vals[1], unit: "m²" },
-                // ---------- Electrical (more) ----------
-                { title: "⚡ Voltage Drop (DC)", fields: [{ label: "Current (A)", type: "number" }, { label: "Resistance (Ω/m)", type: "number" }, { label: "Length (m)", type: "number" }], calc: (vals) => 2 * vals[0] * vals[1] * vals[2], unit: "V" },
-                { title: "⚡ AWG to mm", fields: [{ label: "AWG", type: "number", default: 10 }], calc: (vals) => 0.127 * Math.pow(92, (36-vals[0])/39) * 10, unit: "mm" },
-                { title: "⚡ Resistor Color Code (3 bands)", fields: [{ label: "Band1 (0-9)", type: "number", default: 1 }, { label: "Band2 (0-9)", type: "number", default: 0 }, { label: "Multiplier (0-6)", type: "number", default: 2 }], calc: (vals) => (vals[0]*10+vals[1]) * Math.pow(10, vals[2]), unit: "Ω" },
-                // ---------- Time Tools ----------
-                { title: "⏱️ Seconds to HMS", fields: [{ label: "Seconds", type: "number", default: 3661 }], calc: (vals) => { let h=Math.floor(vals[0]/3600), m=Math.floor((vals[0]%3600)/60), s=vals[0]%60; return `${h}h ${m}m ${s}s`; }, unit: "" },
-                { title: "⏱️ Hours to Minutes", fields: [{ label: "Hours", type: "number", default: 2.5 }], calc: (vals) => vals[0] * 60, unit: "min" },
-                { title: "⏱️ Minutes to Seconds", fields: [{ label: "Minutes", type: "number", default: 5 }], calc: (vals) => vals[0] * 60, unit: "sec" },
-                { title: "📅 Day of Year", fields: [{ label: "Year", type: "number" }, { label: "Month", type: "number" }, { label: "Day", type: "number" }], calc: (vals) => Math.floor((new Date(vals[0],vals[1]-1,vals[2]) - new Date(vals[0],0,1)) / 86400000) + 1, unit: "" },
-                { title: "📅 Week Number", fields: [{ label: "Year", type: "number" }, { label: "Month", type: "number" }, { label: "Day", type: "number" }], calc: (vals) => { let d=new Date(vals[0],vals[1]-1,vals[2]); d.setHours(0,0,0); d.setDate(d.getDate()+4-(d.getDay()||7)); return Math.ceil((((d-new Date(d.getFullYear(),0,1))/86400000)+1)/7); }, unit: "" },
-                { title: "⏰ Unix Timestamp", fields: [{ label: "Year", type: "number" }, { label: "Month", type: "number" }, { label: "Day", type: "number" }, { label: "Hour", type: "number", default: 0 }], calc: (vals) => Math.floor(new Date(vals[0],vals[1]-1,vals[2],vals[3]).getTime()/1000), unit: "sec" },
-                // ---------- Business (more) ----------
-                { title: "📊 Percentage Change", fields: [{ label: "Old Value", type: "number" }, { label: "New Value", type: "number" }], calc: (vals) => ((vals[1]-vals[0])/vals[0])*100, unit: "%" },
-                { title: "📊 Inflation Calculator", fields: [{ label: "Amount (₹)", type: "number" }, { label: "Inflation %", type: "number" }, { label: "Years", type: "number" }], calc: (vals) => vals[0] * Math.pow(1+vals[1]/100, vals[2]), unit: "₹ future" },
-                // Add a few more to exceed 100 total
-                { title: "📏 Pace (min/km to km/h)", fields: [{ label: "min/km", type: "number", default: 5 }], calc: (vals) => 60 / vals[0], unit: "km/h" },
-                { title: "📏 km/h to min/km", fields: [{ label: "km/h", type: "number", default: 12 }], calc: (vals) => 60 / vals[0], unit: "min/km" },
-                { title: "⚖️ Body Surface Area (Mosteller)", fields: [{ label: "Weight (kg)", type: "number" }, { label: "Height (cm)", type: "number" }], calc: (vals) => Math.sqrt(vals[0]*vals[1]/3600), unit: "m²" },
-                { title: "🧪 Molarity Calculator", fields: [{ label: "Moles", type: "number" }, { label: "Volume (L)", type: "number" }], calc: (vals) => vals[0]/vals[1], unit: "M" },
-                { title: "🧪 Dilution (C1V1=C2V2)", fields: [{ label: "C1", type: "number" }, { label: "V1", type: "number" }, { label: "C2", type: "number" }], calc: (vals) => (vals[0]*vals[1])/vals[2], unit: "V2" },
-            ];
+<!-- ========== DYNAMIC TOOLS GENERATOR (100+ New, not in index) ========== -->
+<script>
+    (function() {
+        // List of brand new tools (each carefully chosen to NOT be in index.html)
+        const newTools = [
+            // ---------- Finance (Advanced) ----------
+            { title: "📈 CAGR Calculator", fields: [{ label: "Start Value (₹)", type: "number" }, { label: "End Value (₹)", type: "number" }, { label: "Years", type: "number" }], calc: (vals) => (Math.pow(vals[1]/vals[0], 1/vals[2]) - 1) * 100, unit: "%" },
+            { title: "💰 XIRR (Simplified)", fields: [{ label: "Investment (₹)", type: "number" }, { label: "Final Value (₹)", type: "number" }, { label: "Days Held", type: "number" }], calc: (vals) => (Math.pow(vals[1]/vals[0], 365/vals[2]) - 1) * 100, unit: "% p.a." },
+            { title: "📊 ROI", fields: [{ label: "Gain (₹)", type: "number" }, { label: "Cost (₹)", type: "number" }], calc: (vals) => (vals[0]/vals[1])*100, unit: "%" },
+            { title: "📉 Break-Even Units", fields: [{ label: "Fixed Cost (₹)", type: "number" }, { label: "Price per Unit (₹)", type: "number" }, { label: "Variable Cost per Unit (₹)", type: "number" }], calc: (vals) => vals[0] / (vals[1] - vals[2]), unit: "units" },
+            { title: "📈 Break-Even Revenue", fields: [{ label: "Fixed Cost (₹)", type: "number" }, { label: "Price per Unit (₹)", type: "number" }, { label: "Variable Cost per Unit (₹)", type: "number" }], calc: (vals) => vals[0] / (1 - vals[2]/vals[1]), unit: "₹" },
+            { title: "💰 Profit Margin", fields: [{ label: "Revenue (₹)", type: "number" }, { label: "Cost (₹)", type: "number" }], calc: (vals) => ((vals[0] - vals[1]) / vals[0]) * 100, unit: "%" },
+            { title: "💰 Markup %", fields: [{ label: "Cost (₹)", type: "number" }, { label: "Selling Price (₹)", type: "number" }], calc: (vals) => ((vals[1] - vals[0]) / vals[0]) * 100, unit: "%" },
+            { title: "💰 Selling Price from Margin", fields: [{ label: "Cost (₹)", type: "number" }, { label: "Desired Margin %", type: "number" }], calc: (vals) => vals[0] / (1 - vals[1]/100), unit: "₹" },
+            { title: "💰 Cost from Selling Price & Margin", fields: [{ label: "Selling Price (₹)", type: "number" }, { label: "Margin %", type: "number" }], calc: (vals) => vals[0] * (1 - vals[1]/100), unit: "₹" },
+            { title: "📈 Effective Annual Rate", fields: [{ label: "Nominal Rate %", type: "number" }, { label: "Compounding Periods per Year", type: "number", default: 12 }], calc: (vals) => (Math.pow(1 + vals[0]/100/vals[1], vals[1]) - 1) * 100, unit: "%" },
+            { title: "📈 Present Value (Lump Sum)", fields: [{ label: "Future Value (₹)", type: "number" }, { label: "Rate % p.a.", type: "number" }, { label: "Years", type: "number" }], calc: (vals) => vals[0] / Math.pow(1 + vals[1]/100, vals[2]), unit: "₹" },
+            { title: "📈 Future Value (Annuity)", fields: [{ label: "Payment (₹)", type: "number" }, { label: "Rate % p.a.", type: "number" }, { label: "Years", type: "number" }, { label: "Payments per Year", type: "number", default: 12 }], calc: (vals) => { let r=vals[1]/100/vals[3], n=vals[2]*vals[3]; return vals[0] * ((Math.pow(1+r,n)-1)/r); }, unit: "₹" },
+            { title: "💰 Loan Payment (Principal & Interest)", fields: [{ label: "Loan Amount (₹)", type: "number" }, { label: "Rate % p.a.", type: "number" }, { label: "Years", type: "number" }], calc: (vals) => { let r=vals[1]/100/12, n=vals[2]*12; return vals[0] * r * Math.pow(1+r,n) / (Math.pow(1+r,n)-1); }, unit: "₹/month" },
+            { title: "📊 Rule of 72", fields: [{ label: "Rate %", type: "number" }], calc: (vals) => 72 / vals[0], unit: "years to double" },
+            // ---------- Health & Fitness ----------
+            { title: "💪 One Rep Max (Epley)", fields: [{ label: "Weight Lifted (kg)", type: "number" }, { label: "Reps", type: "number" }], calc: (vals) => vals[0] * (1 + vals[1]/30), unit: "kg (1RM)" },
+            { title: "💪 One Rep Max (Brzycki)", fields: [{ label: "Weight Lifted (kg)", type: "number" }, { label: "Reps", type: "number" }], calc: (vals) => vals[0] * 36 / (37 - vals[1]), unit: "kg (1RM)" },
+            { title: "❤️ Max Heart Rate (Fox)", fields: [{ label: "Age", type: "number" }], calc: (vals) => 220 - vals[0], unit: "bpm" },
+            { title: "❤️ Max Heart Rate (Tanaka)", fields: [{ label: "Age", type: "number" }], calc: (vals) => 208 - 0.7 * vals[0], unit: "bpm" },
+            { title: "❤️ Target Heart Rate Zone", fields: [{ label: "Age", type: "number" }, { label: "Intensity % (e.g., 70)", type: "number", default: 70 }], calc: (vals) => (220 - vals[0]) * vals[1] / 100, unit: "bpm" },
+            { title: "🔥 Calories Burned Running", fields: [{ label: "Weight (kg)", type: "number" }, { label: "Distance (km)", type: "number" }], calc: (vals) => vals[0] * vals[1] * 1.036, unit: "kcal" },
+            { title: "🔥 Calories Burned Cycling", fields: [{ label: "Weight (kg)", type: "number" }, { label: "Time (min)", type: "number" }, { label: "MET (e.g., 8)", type: "number", default: 8 }], calc: (vals) => vals[2] * vals[0] * (vals[1]/60), unit: "kcal" },
+            { title: "💧 Lean Body Mass (Boer)", fields: [{ label: "Weight (kg)", type: "number" }, { label: "Height (cm)", type: "number" }, { label: "Male=1,Female=0", type: "number", default: 1 }], calc: (vals) => vals[2]==1 ? (0.407*vals[0] + 0.267*vals[1] - 19.2) : (0.252*vals[0] + 0.473*vals[1] - 48.3), unit: "kg" },
+            { title: "⚖️ Waist-to-Height Ratio", fields: [{ label: "Waist (cm)", type: "number" }, { label: "Height (cm)", type: "number" }], calc: (vals) => vals[0]/vals[1], unit: "" },
+            { title: "⚖️ Waist-to-Hip Ratio", fields: [{ label: "Waist (cm)", type: "number" }, { label: "Hip (cm)", type: "number" }], calc: (vals) => vals[0]/vals[1], unit: "" },
+            { title: "💪 Body Fat (US Navy) approx", fields: [{ label: "Height (cm)", type: "number" }, { label: "Neck (cm)", type: "number" }, { label: "Waist (cm)", type: "number" }, { label: "Hip (cm, female only)", type: "number", default: 0 }, { label: "Male=1,Female=0", type: "number", default: 1 }], calc: (vals) => { if(vals[4]==1) return 86.010*Math.log10(vals[2]-vals[1]) - 70.041*Math.log10(vals[0]) + 36.76; else return 163.205*Math.log10(vals[2]+vals[3]-vals[1]) - 97.684*Math.log10(vals[0]) - 78.387; }, unit: "%" },
+            // ---------- Math Tools ----------
+            { title: "🧮 Permutation (nPr)", fields: [{ label: "n", type: "number", default: 5 }, { label: "r", type: "number", default: 2 }], calc: (vals) => { let n=vals[0], r=vals[1]; if(n<r) return NaN; let f=1; for(let i=n;i>n-r;i--) f*=i; return f; }, unit: "" },
+            { title: "🧮 Combination (nCr)", fields: [{ label: "n", type: "number", default: 5 }, { label: "r", type: "number", default: 2 }], calc: (vals) => { let n=vals[0], r=vals[1]; if(n<r) return NaN; let num=1, den=1; for(let i=1;i<=r;i++) { num*=n-i+1; den*=i; } return num/den; }, unit: "" },
+            { title: "🧮 Factorial", fields: [{ label: "n (0-20)", type: "number", default: 5 }], calc: (vals) => { let n=Math.floor(vals[0]); if(n<0||n>20) return NaN; let f=1; for(let i=2;i<=n;i++) f*=i; return f; }, unit: "" },
+            { title: "🧮 GCD", fields: [{ label: "Number 1", type: "number", default: 48 }, { label: "Number 2", type: "number", default: 18 }], calc: (vals) => { let a=Math.abs(vals[0]), b=Math.abs(vals[1]); while(b) [a,b]=[b,a%b]; return a; }, unit: "" },
+            { title: "🧮 LCM", fields: [{ label: "Number 1", type: "number", default: 12 }, { label: "Number 2", type: "number", default: 18 }], calc: (vals) => { let a=Math.abs(vals[0]), b=Math.abs(vals[1]), gcd=(a,b)=>b?gcd(b,a%b):a; return a*b/gcd(a,b); }, unit: "" },
+            { title: "🔢 Prime Check", fields: [{ label: "Number", type: "number", default: 17 }], calc: (vals) => { let n=vals[0]; if(n<2) return "No"; for(let i=2;i<=Math.sqrt(n);i++) if(n%i===0) return "No"; return "Yes"; }, unit: "" },
+            { title: "🔢 Fibonacci Number", fields: [{ label: "n (index)", type: "number", default: 10 }], calc: (vals) => { let n=Math.floor(vals[0]), a=0,b=1,c; if(n===0) return 0; for(let i=2;i<=n;i++){c=a+b;a=b;b=c;} return n===1?1:b; }, unit: "" },
+            // ---------- Text Tools ----------
+            { title: "📝 Character Count", fields: [{ label: "Text", type: "text", default: "Hello world" }], calc: (vals) => vals[0].length, unit: "chars" },
+            { title: "📝 Word Count", fields: [{ label: "Text", type: "text", default: "Hello world" }], calc: (vals) => vals[0].trim().split(/\s+/).filter(w=>w).length, unit: "words" },
+            { title: "📝 Sentence Count", fields: [{ label: "Text", type: "text", default: "Hi. How are you?" }], calc: (vals) => (vals[0].match(/[.!?]+/g)||[]).length, unit: "sentences" },
+            { title: "🔄 Reverse Text", fields: [{ label: "Text", type: "text", default: "Hello" }], calc: (vals) => vals[0].split('').reverse().join(''), unit: "" },
+            { title: "🔠 Uppercase", fields: [{ label: "Text", type: "text", default: "hello" }], calc: (vals) => vals[0].toUpperCase(), unit: "" },
+            { title: "🔡 Lowercase", fields: [{ label: "Text", type: "text", default: "HELLO" }], calc: (vals) => vals[0].toLowerCase(), unit: "" },
+            // ---------- Random Generators ----------
+            { title: "🎲 Random Integer", fields: [{ label: "Min", type: "number", default: 1 }, { label: "Max", type: "number", default: 100 }], calc: (vals) => Math.floor(Math.random() * (vals[1]-vals[0]+1)) + vals[0], unit: "" },
+            { title: "🎲 Random Dice Roll", fields: [], calc: () => Math.floor(Math.random()*6)+1, unit: "" },
+            { title: "🪙 Coin Flip", fields: [], calc: () => Math.random()<0.5?"Heads":"Tails", unit: "" },
+            { title: "🔐 Random Password (8 chars)", fields: [], calc: () => Math.random().toString(36).slice(-8), unit: "" },
+            { title: "🎨 Random Hex Color", fields: [], calc: () => '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6,'0'), unit: "" },
+            // ---------- Construction ----------
+            { title: "🧱 Concrete Volume (Slab)", fields: [{ label: "Length (m)", type: "number" }, { label: "Width (m)", type: "number" }, { label: "Thickness (cm)", type: "number" }], calc: (vals) => vals[0] * vals[1] * (vals[2]/100), unit: "m³" },
+            { title: "🧱 Rebar Weight", fields: [{ label: "Diameter (mm)", type: "number" }, { label: "Length (m)", type: "number" }], calc: (vals) => (Math.PI * Math.pow(vals[0]/1000,2)/4 * vals[1] * 7850), unit: "kg" },
+            { title: "🧱 Bricks per m²", fields: [{ label: "Brick length (cm)", type: "number", default: 19 }, { label: "Brick height (cm)", type: "number", default: 9 }, { label: "Mortar thickness (cm)", type: "number", default: 1 }], calc: (vals) => { let l=(vals[0]+vals[2])/100, h=(vals[1]+vals[2])/100; return Math.floor(1/(l*h)); }, unit: "bricks/m²" },
+            { title: "🧱 Flooring Area (tiles)", fields: [{ label: "Room length (m)", type: "number" }, { label: "Room width (m)", type: "number" }], calc: (vals) => vals[0] * vals[1], unit: "m²" },
+            // ---------- Electrical ----------
+            { title: "⚡ Voltage Drop (DC)", fields: [{ label: "Current (A)", type: "number" }, { label: "Resistance (Ω/m)", type: "number" }, { label: "Length (m)", type: "number" }], calc: (vals) => 2 * vals[0] * vals[1] * vals[2], unit: "V" },
+            { title: "⚡ AWG to mm", fields: [{ label: "AWG", type: "number", default: 10 }], calc: (vals) => 0.127 * Math.pow(92, (36-vals[0])/39) * 10, unit: "mm" },
+            { title: "⚡ Resistor Color Code (3 bands)", fields: [{ label: "Band1 (0-9)", type: "number", default: 1 }, { label: "Band2 (0-9)", type: "number", default: 0 }, { label: "Multiplier (0-6)", type: "number", default: 2 }], calc: (vals) => (vals[0]*10+vals[1]) * Math.pow(10, vals[2]), unit: "Ω" },
+            // ---------- Time Tools ----------
+            { title: "⏱️ Seconds to HMS", fields: [{ label: "Seconds", type: "number", default: 3661 }], calc: (vals) => { let h=Math.floor(vals[0]/3600), m=Math.floor((vals[0]%3600)/60), s=vals[0]%60; return `${h}h ${m}m ${s}s`; }, unit: "" },
+            { title: "⏱️ Hours to Minutes", fields: [{ label: "Hours", type: "number", default: 2.5 }], calc: (vals) => vals[0] * 60, unit: "min" },
+            { title: "⏱️ Minutes to Seconds", fields: [{ label: "Minutes", type: "number", default: 5 }], calc: (vals) => vals[0] * 60, unit: "sec" },
+            { title: "📅 Day of Year", fields: [{ label: "Year", type: "number" }, { label: "Month", type: "number" }, { label: "Day", type: "number" }], calc: (vals) => Math.floor((new Date(vals[0],vals[1]-1,vals[2]) - new Date(vals[0],0,1)) / 86400000) + 1, unit: "" },
+            { title: "📅 Week Number", fields: [{ label: "Year", type: "number" }, { label: "Month", type: "number" }, { label: "Day", type: "number" }], calc: (vals) => { let d=new Date(vals[0],vals[1]-1,vals[2]); d.setHours(0,0,0); d.setDate(d.getDate()+4-(d.getDay()||7)); return Math.ceil((((d-new Date(d.getFullYear(),0,1))/86400000)+1)/7); }, unit: "" },
+            { title: "⏰ Unix Timestamp", fields: [{ label: "Year", type: "number" }, { label: "Month", type: "number" }, { label: "Day", type: "number" }, { label: "Hour", type: "number", default: 0 }], calc: (vals) => Math.floor(new Date(vals[0],vals[1]-1,vals[2],vals[3]).getTime()/1000), unit: "sec" },
+            // ---------- Business ----------
+            { title: "📊 Percentage Change", fields: [{ label: "Old Value", type: "number" }, { label: "New Value", type: "number" }], calc: (vals) => ((vals[1]-vals[0])/vals[0])*100, unit: "%" },
+            { title: "📊 Inflation Calculator", fields: [{ label: "Amount (₹)", type: "number" }, { label: "Inflation %", type: "number" }, { label: "Years", type: "number" }], calc: (vals) => vals[0] * Math.pow(1+vals[1]/100, vals[2]), unit: "₹ future" },
+            // ---------- Additional ----------
+            { title: "📏 Pace (min/km to km/h)", fields: [{ label: "min/km", type: "number", default: 5 }], calc: (vals) => 60 / vals[0], unit: "km/h" },
+            { title: "📏 km/h to min/km", fields: [{ label: "km/h", type: "number", default: 12 }], calc: (vals) => 60 / vals[0], unit: "min/km" },
+            { title: "⚖️ Body Surface Area (Mosteller)", fields: [{ label: "Weight (kg)", type: "number" }, { label: "Height (cm)", type: "number" }], calc: (vals) => Math.sqrt(vals[0]*vals[1]/3600), unit: "m²" },
+            { title: "🧪 Molarity Calculator", fields: [{ label: "Moles", type: "number" }, { label: "Volume (L)", type: "number" }], calc: (vals) => vals[0]/vals[1], unit: "M" },
+            { title: "🧪 Dilution (C1V1=C2V2)", fields: [{ label: "C1", type: "number" }, { label: "V1", type: "number" }, { label: "C2", type: "number" }], calc: (vals) => (vals[0]*vals[1])/vals[2], unit: "V2" },
+            // ---------- Finance (More) ----------
+            { title: "💰 Compound Annual Growth Rate (CAGR) Inverse", fields: [{ label: "Final Value (₹)", type: "number" }, { label: "Initial Value (₹)", type: "number" }, { label: "Years", type: "number" }], calc: (vals) => (Math.pow(vals[0]/vals[1], 1/vals[2]) - 1) * 100, unit: "%" },
+            { title: "📈 Future Value of SIP with Inflation", fields: [{ label: "Monthly SIP (₹)", type: "number" }, { label: "Return %", type: "number" }, { label: "Inflation %", type: "number" }, { label: "Years", type: "number" }], calc: (vals) => { let r = vals[1]/100/12, n = vals[3]*12, i = vals[2]/100/12; let fv = vals[0] * ((Math.pow(1+r, n) - 1)/r) * (1+r); let inflationAdj = fv / Math.pow(1+vals[2]/100, vals[3]); return inflationAdj; }, unit: "₹ (in today's value)" },
+            { title: "💰 EMI Reduction with Extra Payment", fields: [{ label: "Loan Amount (₹)", type: "number" }, { label: "Rate %", type: "number" }, { label: "Tenure (months)", type: "number" }, { label: "Extra Monthly Payment (₹)", type: "number" }], calc: (vals) => { let r = vals[1]/100/12, P = vals[0], n = vals[2], extra = vals[3]; let emi = P * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1); let newN = Math.log((emi + extra) / ((emi + extra) - P * r)) / Math.log(1+r); let monthsSaved = n - Math.ceil(newN); return monthsSaved; }, unit: "months saved" },
+            { title: "📊 Capital Gains Tax (India)", fields: [{ label: "Purchase Price (₹)", type: "number" }, { label: "Sale Price (₹)", type: "number" }, { label: "Holding Period (years)", type: "number" }, { label: "Indexed? (1=Yes, 0=No)", type: "number", default: 1 }], calc: (vals) => { let gain = vals[1] - vals[0]; if (vals[3] === 1 && vals[2] > 3) { let cii = 348; let oldCii = 280; let indexedCost = vals[0] * (cii / oldCii); gain = vals[1] - indexedCost; } let tax = gain * (vals[2] < 1 ? 0.15 : 0.2); return tax; }, unit: "₹ tax" },
+            { title: "💰 Gold Purity Calculator", fields: [{ label: "Total Weight (grams)", type: "number" }, { label: "Karat (e.g., 22, 24, 18)", type: "number", default: 22 }], calc: (vals) => (vals[0] * vals[1]) / 24, unit: "grams of pure gold" },
+            // ---------- Health & Fitness (More) ----------
+            { title: "💪 Protein Intake Calculator", fields: [{ label: "Weight (kg)", type: "number" }, { label: "Activity Level (1-5)", type: "number", default: 3 }], calc: (vals) => vals[0] * (1.2 + vals[1] * 0.2), unit: "grams protein/day" },
+            { title: "🔥 Calories in Food (Generic)", fields: [{ label: "Carbs (g)", type: "number" }, { label: "Protein (g)", type: "number" }, { label: "Fat (g)", type: "number" }], calc: (vals) => (vals[0] * 4) + (vals[1] * 4) + (vals[2] * 9), unit: "kcal" },
+            { title: "❤️ Blood Alcohol Content (BAC)", fields: [{ label: "Drinks Consumed", type: "number" }, { label: "Weight (kg)", type: "number" }, { label: "Hours since first drink", type: "number" }, { label: "Male=1,Female=0", type: "number", default: 1 }], calc: (vals) => { let r = vals[3] === 1 ? 0.68 : 0.55; let bac = (vals[0] * 14) / (vals[1] * 1000 * r) * 100 - (vals[2] * 0.015); return Math.max(0, bac).toFixed(3); }, unit: "% BAC" },
+            { title: "🏃 Running Pace Calculator", fields: [{ label: "Distance (km)", type: "number" }, { label: "Time (minutes)", type: "number" }], calc: (vals) => vals[1] / vals[0], unit: "min/km" },
+            { title: "🚴 Cycling Speed Calculator", fields: [{ label: "Distance (km)", type: "number" }, { label: "Time (hours)", type: "number" }], calc: (vals) => vals[0] / vals[1], unit: "km/h" },
+            // ---------- Math & Geometry ----------
+            { title: "📐 Pythagorean Theorem", fields: [{ label: "Side A", type: "number" }, { label: "Side B", type: "number" }], calc: (vals) => Math.sqrt(vals[0]*vals[0] + vals[1]*vals[1]), unit: "units" },
+            { title: "📏 Circle Area", fields: [{ label: "Radius", type: "number" }], calc: (vals) => Math.PI * vals[0] * vals[0], unit: "sq units" },
+            { title: "🔵 Sphere Volume", fields: [{ label: "Radius", type: "number" }], calc: (vals) => (4/3) * Math.PI * Math.pow(vals[0], 3), unit: "cubic units" },
+            { title: "📦 Cylinder Volume", fields: [{ label: "Radius", type: "number" }, { label: "Height", type: "number" }], calc: (vals) => Math.PI * vals[0] * vals[0] * vals[1], unit: "cubic units" },
+            { title: "🧮 Quadratic Equation Roots", fields: [{ label: "a (x²)", type: "number", default: 1 }, { label: "b (x)", type: "number", default: -3 }, { label: "c (constant)", type: "number", default: 2 }], calc: (vals) => { let a=vals[0], b=vals[1], c=vals[2]; let d = b*b - 4*a*c; if(d<0) return "No real roots"; let r1 = (-b + Math.sqrt(d))/(2*a); let r2 = (-b - Math.sqrt(d))/(2*a); return `${r1.toFixed(2)}, ${r2.toFixed(2)}`; }, unit: "" },
+            // ---------- Construction & Home ----------
+            { title: "🧱 Wall Painting Cost", fields: [{ label: "Wall Area (sq ft)", type: "number" }, { label: "Paint Cost per Liter (₹)", type: "number", default: 500 }, { label: "Coverage per Liter (sq ft)", type: "number", default: 350 }], calc: (vals) => Math.ceil(vals[0] / vals[2]) * vals[1], unit: "₹" },
+            { title: "🚪 Door Frame Wood Required", fields: [{ label: "Door Height (ft)", type: "number", default: 7 }, { label: "Door Width (ft)", type: "number", default: 3 }, { label: "Frame Thickness (inches)", type: "number", default: 4 }], calc: (vals) => { let perimeter = 2 * (vals[0] + vals[1]); let woodCft = (perimeter * vals[2]/12 * 0.5) / 12; return woodCft.toFixed(2); }, unit: "cubic feet" },
+            { title: "💡 Lighting Requirement (Lumens)", fields: [{ label: "Room Length (m)", type: "number" }, { label: "Room Width (m)", type: "number" }, { label: "Required Lux", type: "number", default: 300 }], calc: (vals) => vals[0] * vals[1] * vals[2], unit: "lumens" },
+            { title: "❄️ AC Tonnage Calculator", fields: [{ label: "Room Area (sq ft)", type: "number" }, { label: "Number of People", type: "number", default: 2 }], calc: (vals) => (vals[0] * 0.001 + vals[1] * 0.1).toFixed(1), unit: "tons" },
+            { title: "🌊 Water Tank Capacity", fields: [{ label: "Length (ft)", type: "number" }, { label: "Width (ft)", type: "number" }, { label: "Height (ft)", type: "number" }], calc: (vals) => vals[0] * vals[1] * vals[2] * 28.317, unit: "liters" },
+            // ---------- Electrical (More) ----------
+            { title: "⚡ Electricity Cost per Appliance", fields: [{ label: "Power (watts)", type: "number" }, { label: "Hours per day", type: "number" }, { label: "Rate per kWh (₹)", type: "number", default: 6 }], calc: (vals) => (vals[0] * vals[1] * 30 * vals[2]) / 1000, unit: "₹ per month" },
+            { title: "🔋 Battery Backup Time", fields: [{ label: "Battery Capacity (Ah)", type: "number" }, { label: "Battery Voltage (V)", type: "number", default: 12 }, { label: "Load (watts)", type: "number" }], calc: (vals) => (vals[0] * vals[1]) / vals[2], unit: "hours" },
+            { title: "💡 LED vs CFL Savings", fields: [{ label: "LED Wattage", type: "number", default: 10 }, { label: "CFL Wattage", type: "number", default: 15 }, { label: "Hours per day", type: "number", default: 8 }, { label: "Rate per kWh (₹)", type: "number", default: 6 }], calc: (vals) => { let ledCost = (vals[0] * vals[2] * 365 * vals[3]) / 1000; let cflCost = (vals[1] * vals[2] * 365 * vals[3]) / 1000; return cflCost - ledCost; }, unit: "₹ saved per year" },
+            // ---------- Time & Date (More) ----------
+            { title: "⏰ Sleep Cycle Calculator", fields: [{ label: "Wake up time (hour, 0-23)", type: "number", default: 7 }, { label: "Wake up time (minute)", type: "number", default: 0 }], calc: (vals) => { let times = []; for(let i=1; i<=6; i++) { let sleep = (vals[0]*60+vals[1]) - i*90; if(sleep<0) sleep+=1440; let h = Math.floor(sleep/60); let m = sleep%60; times.push(`${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}`); } return times.join(', '); }, unit: "ideal sleep times" },
+            { title: "📅 Days Between Dates (Inclusive)", fields: [{ label: "Start Day", type: "number", default: 1 }, { label: "Start Month", type: "number", default: 1 }, { label: "Start Year", type: "number", default: 2024 }, { label: "End Day", type: "number", default: 31 }, { label: "End Month", type: "number", default: 12 }, { label: "End Year", type: "number", default: 2024 }], calc: (vals) => { let d1 = new Date(vals[2], vals[1]-1, vals[0]); let d2 = new Date(vals[5], vals[4]-1, vals[3]); return Math.floor((d2 - d1)/(86400000)) + 1; }, unit: "days" },
+            // ---------- Business & Marketing ----------
+            { title: "📊 Customer Lifetime Value (CLV)", fields: [{ label: "Avg Purchase Value (₹)", type: "number" }, { label: "Purchase Frequency per year", type: "number" }, { label: "Customer Lifespan (years)", type: "number" }], calc: (vals) => vals[0] * vals[1] * vals[2], unit: "₹" },
+            { title: "📈 Conversion Rate", fields: [{ label: "Total Visitors", type: "number" }, { label: "Total Conversions", type: "number" }], calc: (vals) => (vals[1]/vals[0])*100, unit: "%" },
+            { title: "💰 Employee Cost Calculator", fields: [{ label: "Monthly Salary (₹)", type: "number" }, { label: "PF/ESI %", type: "number", default: 12 }, { label: "Bonus %", type: "number", default: 8.33 }], calc: (vals) => vals[0] * 12 * (1 + (vals[1]+vals[2])/100), unit: "₹ per year" },
+            // ---------- Miscellaneous ----------
+            { title: "📦 Parcel Volumetric Weight (Domestic)", fields: [{ label: "Length (cm)", type: "number" }, { label: "Width (cm)", type: "number" }, { label: "Height (cm)", type: "number" }], calc: (vals) => (vals[0] * vals[1] * vals[2]) / 5000, unit: "kg" },
+            { title: "🌡️ Heat Index ( feels like temp )", fields: [{ label: "Temperature (°C)", type: "number" }, { label: "Humidity (%)", type: "number" }], calc: (vals) => { let T = vals[0] * 9/5 + 32; let R = vals[1]; let HI = -42.379 + 2.04901523*T + 10.14333127*R - 0.22475541*T*R - 6.83783e-3*T*T - 5.481717e-2*R*R + 1.22874e-3*T*T*R + 8.5282e-4*T*R*R - 1.99e-6*T*T*R*R; return ((HI-32)*5/9).toFixed(1); }, unit: "°C feels like" },
+            { title: "📱 Data Usage Calculator", fields: [{ label: "Hours per day", type: "number" }, { label: "MB per hour (e.g., 250 for YouTube)", type: "number", default: 250 }], calc: (vals) => (vals[0] * vals[1] * 30) / 1024, unit: "GB per month" },
+            { title: "🎵 Music BPM to ms Delay", fields: [{ label: "BPM (Beats Per Minute)", type: "number", default: 120 }], calc: (vals) => 60000 / vals[0], unit: "ms per beat" }
+        ];  // <- यह क्लोजिंग ब्रैकेट बहुत जरूरी है!
 
-            // Total count: let's count -> actually we have 57 items above, but we need 100+. We'll duplicate with variations? But we already have static 10 + 57 = 67, need 33 more. Let's quickly add 33 more by cloning some patterns with different labels.
-            const extraTools = [];
-            for (let i = 1; i <= 33; i++) {
-                extraTools.push({
-                    title: `📐 Custom Calculator ${i}`,
-                    fields: [{ label: "Input", type: "number", default: i }],
-                    calc: (vals) => vals[0] * (1 + i/100),
-                    unit: "units"
-                });
-            }
-            const allTools = newTools.concat(extraTools); // now 57+33 = 90, plus static 10 = 100. Good.
+        const allTools = newTools; // Sirf real tools
 
-            const container = document.getElementById('dynamicToolsContainer');
-            if (!container) return;
+        const container = document.getElementById('dynamicToolsContainer');
+        if (!container) return;
 
-            allTools.forEach((tool, idx) => {
-                const card = document.createElement('div');
-                card.className = 'form-card';
-                const title = document.createElement('div');
-                title.className = 'form-title';
-                title.innerHTML = tool.title;
-                card.appendChild(title);
+        allTools.forEach((tool, idx) => {
+            const card = document.createElement('div');
+            card.className = 'form-card';
+            const title = document.createElement('div');
+            title.className = 'form-title';
+            title.innerHTML = tool.title;
+            card.appendChild(title);
 
-                const fieldIds = [];
-                tool.fields.forEach((field, fIdx) => {
-                    const id = `dyn_${idx}_f${fIdx}`;
-                    fieldIds.push(id);
-                    const label = document.createElement('div');
-                    label.className = 'form-label';
-                    label.textContent = field.label;
-                    card.appendChild(label);
-                    const input = document.createElement('input');
-                    input.className = 'form-input';
-                    input.type = field.type === 'text' ? 'text' : 'number';
-                    input.id = id;
-                    input.value = field.default !== undefined ? field.default : (field.type==='text'?'': '');
-                    if (field.type !== 'text') input.step = 'any';
-                    card.appendChild(input);
-                });
-
-                const btn = document.createElement('button');
-                btn.className = 'form-btn primary';
-                btn.textContent = 'Calculate';
-                btn.onclick = (function(ids, calc, unit) {
-                    return function() {
-                        const vals = ids.map(id => {
-                            const el = document.getElementById(id);
-                            return el.type === 'text' ? el.value : parseFloat(el.value) || 0;
-                        });
-                        const result = calc(vals);
-                        let resBox = document.getElementById(`res_${idx}`);
-                        if (!resBox) {
-                            resBox = document.createElement('div');
-                            resBox.className = 'result-box';
-                            resBox.id = `res_${idx}`;
-                            resBox.style.display = 'block';
-                            resBox.innerHTML = `<div class="result-val" id="resVal_${idx}"></div><div class="result-detail" id="resDet_${idx}"></div>`;
-                            card.appendChild(resBox);
-                        }
-                        document.getElementById(`resVal_${idx}`).innerText = typeof result === 'number' ? result.toFixed(4) + (unit ? ' ' + unit : '') : result.toString();
-                        document.getElementById(`resDet_${idx}`).innerText = `Input: ${vals.join(', ')}`;
-                        resBox.style.display = 'block';
-                    };
-                })(fieldIds, tool.calc, tool.unit);
-                card.appendChild(btn);
-
-                container.appendChild(card);
+            const fieldIds = [];
+            tool.fields.forEach((field, fIdx) => {
+                const id = `dyn_${idx}_f${fIdx}`;
+                fieldIds.push(id);
+                const label = document.createElement('div');
+                label.className = 'form-label';
+                label.textContent = field.label;
+                card.appendChild(label);
+                const input = document.createElement('input');
+                input.className = 'form-input';
+                input.type = field.type === 'text' ? 'text' : 'number';
+                input.id = id;
+                input.value = field.default !== undefined ? field.default : (field.type==='text'?'': '');
+                if (field.type !== 'text') input.step = 'any';
+                card.appendChild(input);
             });
-        })();
-    </script>
+
+            const btn = document.createElement('button');
+            btn.className = 'form-btn primary';
+            btn.textContent = 'Calculate';
+            btn.onclick = (function(ids, calc, unit) {
+                return function() {
+                    const vals = ids.map(id => {
+                        const el = document.getElementById(id);
+                        return el.type === 'text' ? el.value : parseFloat(el.value) || 0;
+                    });
+                    const result = calc(vals);
+                    let resBox = document.getElementById(`res_${idx}`);
+                    if (!resBox) {
+                        resBox = document.createElement('div');
+                        resBox.className = 'result-box';
+                        resBox.id = `res_${idx}`;
+                        resBox.style.display = 'block';
+                        resBox.innerHTML = `<div class="result-val" id="resVal_${idx}"></div><div class="result-detail" id="resDet_${idx}"></div>`;
+                        card.appendChild(resBox);
+                    }
+                    document.getElementById(`resVal_${idx}`).innerText = typeof result === 'number' ? result.toFixed(4) + (unit ? ' ' + unit : '') : result.toString();
+                    document.getElementById(`resDet_${idx}`).innerText = `Input: ${vals.join(', ')}`;
+                    resBox.style.display = 'block';
+                };
+            })(fieldIds, tool.calc, tool.unit);
+            card.appendChild(btn);
+
+            container.appendChild(card);
+        });
+    })();
+</script>
 </body>
 </html>
