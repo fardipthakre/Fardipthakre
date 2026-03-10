@@ -493,7 +493,7 @@
             </select>
         </div>
         <div class="menu-divider"></div>     
-       <button class="menu-item" id="installAppBtn" style="display: none;">📲 Install App</button>
+       <button class="menu-item" id="installAppBtn">📲 Install App</button>
         <button class="menu-item" id="contactBtn">📞 Contact Us</button>
         <button class="menu-item" id="rateBtn">⭐ Rate this App</button>
         <button class="menu-item" id="shareBtn">📤 Share App</button>
@@ -3441,23 +3441,27 @@ plywood_populateUnits();
 let deferredPrompt;
 const installButton = document.getElementById('installAppBtn');
 
+// पहले बटन को छुपा दें (बिना inline style के)
+installButton.style.display = 'none';
+
 // चेक करें कि ऐप पहले से इंस्टॉल है या नहीं (standalone mode)
 if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
-    // ऐप इंस्टॉल है, बटन छिपाएँ
-    if (installButton) installButton.style.display = 'none';
+    // ऐप इंस्टॉल है, बटन छिपा रहेगा (पहले से ही none है)
+    console.log('App already installed');
 } else {
     // beforeinstallprompt इवेंट सुनें
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
         // बटन दिखाएँ
-        if (installButton) installButton.style.display = 'block';
+        installButton.style.display = 'block';
+        console.log('beforeinstallprompt fired – install button shown');
     });
 
     // इंस्टॉलेशन के बाद बटन छिपाएँ
     window.addEventListener('appinstalled', () => {
         deferredPrompt = null;
-        if (installButton) installButton.style.display = 'none';
+        installButton.style.display = 'none';
         console.log('App installed successfully');
     });
 }
@@ -3465,14 +3469,42 @@ if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.
 // बटन पर क्लिक करने पर इंस्टॉल प्रॉम्प्ट दिखाएँ
 if (installButton) {
     installButton.addEventListener('click', async () => {
-        if (!deferredPrompt) return;
+        if (!deferredPrompt) {
+            alert('इंस्टॉलेशन उपलब्ध नहीं है। हो सकता है आप पहले से इंस्टॉल कर चुके हों या ब्राउज़र सपोर्ट न करता हो।');
+            return;
+        }
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
         console.log(`User response: ${outcome}`);
         deferredPrompt = null;
-        installButton.style.display = 'none'; // प्रॉम्प्ट के बाद भी छिपा दें
+        installButton.style.display = 'none';
     });
 }
+</script>
+<script>
+  // Register Service Worker for offline functionality
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js')
+        .then(registration => {
+          console.log('✅ Service Worker registered:', registration);
+        })
+        .catch(error => {
+          console.log('❌ Service Worker registration failed:', error);
+        });
+    });
+  }
+  
+  // Detect online/offline status
+  window.addEventListener('online', () => {
+    console.log('🌐 Back online');
+    document.body.style.borderTop = '3px solid #22c55e';
+  });
+  
+  window.addEventListener('offline', () => {
+    console.log('📴 Offline mode');
+    document.body.style.borderTop = '3px solid #ef4444';
+  });
 </script>
 </body>
 </html>
